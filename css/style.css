@@ -1,0 +1,157 @@
+/* 1. LOAD THE CUSTOM FONT */
+@font-face {
+    font-family: 'Urban Jungle';
+    src: url('../urban_jungle.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. BASE MENU STYLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding-top: 10vh;
+}
+
+.menu-container {
+    text-align: center;
+}
+
+/* 3. TITLE STYLE */
+.main-title {
+    font-family: 'Urban Jungle', sans-serif;
+    font-size: 4.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
+/* 4. BUTTONS */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.menu-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background: transparent;
+    border: 2px solid #ffffff;
+    padding: 0.8rem 2.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    min-width: 220px;
+}
+
+.menu-btn:hover {
+    color: #121212;
+    background-color: #00ffcc;
+    border-color: #00ffcc;
+}
+
+/* 5. INFO PAGE LEFT-ALIGNMENT STYLES */
+body.info-body {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.menu-container.left-align {
+    text-align: left;
+    max-width: 700px;
+    width: 100%;
+    padding-left: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info-content {
+    margin-bottom: 3rem;
+    color: #ffffff;
+}
+
+.info-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #00ffcc;
+    margin-bottom: 0.5rem;
+    margin-top: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.info-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+/* Helper class to match lowercase text style from the snapshot */
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.info-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.info-list li {
+    margin-bottom: 0.5rem;
+}
+/* 6. CREDITS PAGE CUSTOM FONT ELEMENTS */
+
+.credits-content {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.credits-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #00ffcc;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.credits-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem; /* Keeps name entries large and prominent */
+    color: #ffffff;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.info-list {
+    list-style-type: none; /* Removes the bullet points completely */
+    padding-left: 0;        /* Pulls the text fully to the left edge */
+}
+
+.info-list li {
+    margin-bottom: 0.5rem;
+}
