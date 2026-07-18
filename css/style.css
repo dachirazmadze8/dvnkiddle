@@ -155,3 +155,163 @@ body.info-body {
 .info-list li {
     margin-bottom: 0.5rem;
 }
+
+/* 7. WORDLE GAME SYSTEM STYLES (SHRUNK UI VERSION) */
+
+body.game-body {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.game-container {
+    width: 90%;
+    max-width: 850px; /* Reduced container max-width from 1000px */
+    margin-top: 4vh;   /* Brought top margin down slightly */
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.game-title {
+    font-family: 'Urban Jungle', sans-serif;
+    font-size: 2.8rem; /* Shrunk from 3.5rem */
+    color: #00ffcc;
+    margin-bottom: 1.5rem; /* Shrunk spacing */
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
+.guess-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.guess-controls input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem; /* Shrunk font size */
+    padding: 0.5rem 1.2rem; /* Reduced inner padding */
+    background-color: #222222;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 260px; /* Narrowed width from 300px */
+}
+
+.guess-controls input:focus {
+    outline: none;
+    border-color: #00ffcc;
+}
+
+.submit-btn {
+    min-width: 100px !important; /* Scaled down button footprint */
+    padding: 0.5rem 1.2rem !important;
+    font-size: 1rem !important;
+}
+
+.back-to-menu {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    min-width: 120px !important;
+    font-size: 0.9rem !important;
+    padding: 0.4rem 0.8rem !important;
+}
+
+.game-message {
+    font-size: 1.05rem; /* Slightly smaller text alerts */
+    height: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+/* Shrunk Matrix Grid Setup */
+.wordle-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    background-color: #000000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.wordle-table th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 0.95rem; /* Reduced label text size */
+    font-weight: 700;
+    padding: 0.75rem; /* Tighter heading blocks */
+    border: 2px solid #333333;
+    text-transform: uppercase;
+}
+
+.wordle-table td {
+    padding: 0.85rem; /* Tighter column rows inside the matrix */
+    font-size: 0.95rem; /* Reduced internal cell print text */
+    font-weight: 600;
+    text-align: center;
+    border: 2px solid #111111;
+    color: #ffffff;
+    transition: background-color 0.5s ease;
+}
+
+.cell-correct {
+    background-color: #1b663b !important; /* Green for exact matches */
+}
+
+.cell-incorrect {
+    background-color: #791a24 !important; /* Red for incorrect parameters */
+}
+
+/* 8. SEARCH COMPONENT DROPDOWN LAYER RULES */
+
+.search-container {
+    position: relative;
+    width: 260px; /* Aligns smoothly with the shrunk input setup */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 105%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    background-color: #222222;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #00ffcc;
+    color: #121212;
+    font-weight: 600;
+}
+
+/* Custom scrollbar interface inside the popup dropdown panel */
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: #555555;
+    border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #00ffcc;
+}

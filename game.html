@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play - DVNKIDDLE</title>
+    <!-- Google Fonts link for Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="game-body">
+
+    <div class="game-container">
+        <!-- Back navigation -->
+        <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
+
+        <h1 class="game-title">GUESS THE ENEMY</h1>
+
+        <!-- Guess input interface with dynamic dropdown container -->
+        <div class="guess-controls">
+            <div class="search-container">
+                <input type="text" id="enemyInput" placeholder="Type or select an enemy..." autocomplete="off">
+                <div id="dropdownMenu" class="dropdown-menu"></div>
+            </div>
+            <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
+        </div>
+
+        <!-- Result message display -->
+        <div id="gameMessage" class="game-message"></div>
+
+        <!-- The Wordle Guess Matrix Table -->
+        <table class="wordle-table" id="guessTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Health</th>
+                    <th>Total Waves</th>
+                    <th>First Encounter</th>
+                </tr>
+            </thead>
+            <tbody id="guessRows">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
