@@ -1,7 +1,7 @@
 /* 1. LOAD THE CUSTOM FONT */
 @font-face {
     font-family: 'Urban Jungle';
-    src: url('../urban_jungle.otf') format('opentype');
+    src: url('../Urban_Jungle.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
