@@ -315,3 +315,9 @@ body.game-body {
 .dropdown-menu::-webkit-scrollbar-thumb:hover {
     background: #00ffcc;
 }
+
+.cell-partial {
+    background-color: #e6b800; /* Distinct orange-yellow color */
+    color: #121212;            /* Dark text color for readability */
+    font-weight: bold;
+}
