@@ -14,10 +14,14 @@
 <body class="game-body">
 
     <div class="game-container">
-        <!-- Back navigation -->
-        <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
 
-        <h1 class="game-title">GUESS THE ENEMY</h1>
+        <!-- Top header row section containing back buttons and wave indicators -->
+        <div class="game-header-row">
+            <a href="index.html" class="menu-btn back-to-menu" style="margin: 0;">Main Menu</a>
+            <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
+        </div>
+
+        <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
 
         <!-- Guess input interface with dynamic dropdown container -->
         <div class="guess-controls">
@@ -26,6 +30,11 @@
                 <div id="dropdownMenu" class="dropdown-menu"></div>
             </div>
             <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
+        </div>
+
+        <!-- Dynamic Success Action Buttons Panel -->
+        <div class="action-panel">
+            <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
         </div>
 
         <!-- Result message display -->
@@ -43,11 +52,12 @@
                 </tr>
             </thead>
             <tbody id="guessRows">
-
+                <!-- Guesses will appear here dynamically via JS -->
             </tbody>
         </table>
     </div>
 
+    <!-- Link to the external JavaScript game module file -->
     <script src="game.js"></script>
 </body>
 </html>

@@ -36,7 +36,8 @@ body {
     letter-spacing: 2px;
     margin-bottom: 3rem;
     color: #00ffcc;
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    /* Softened shadow profile to preserve clean line detail */
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.15);
 }
 
 /* 4. BUTTONS */
@@ -176,7 +177,8 @@ body.game-body {
     font-size: 2.8rem; /* Shrunk from 3.5rem */
     color: #00ffcc;
     margin-bottom: 1.5rem; /* Shrunk spacing */
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    /* Softened shadow profile to reduce glowing mask layer footprint */
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.15);
 }
 
 .guess-controls {
@@ -320,4 +322,54 @@ body.game-body {
     background-color: #e6b800; /* Distinct orange-yellow color */
     color: #121212;            /* Dark text color for readability */
     font-weight: bold;
+}
+
+/* 9. ENDLESS WAVE SYSTEM UI ADDITIONS */
+
+.game-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.wave-counter-box {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffe600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(255, 230, 0, 0.1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 230, 0, 0.3);
+}
+
+.action-panel {
+    text-align: center;
+}
+
+.continue-btn {
+    background-color: #ffe600 !important;
+    color: #121212 !important;
+    font-weight: 800;
+    margin-top: 10px;
+    border: none;
+    /* Cleanly shrunk dimensions matching your submission block */
+    min-width: 160px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 1rem !important;
+    box-shadow: 0 4px 10px rgba(255, 230, 0, 0.3);
+}
+
+.continue-btn:hover {
+    background-color: #fff066 !important;
+    transform: translateY(-2px);
+}
+
+/* Tighter layout spacing adjustments */
+.game-message {
+    margin-top: 15px;
 }
