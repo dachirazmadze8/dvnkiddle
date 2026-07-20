@@ -25,7 +25,8 @@ const enemyDatabase = {
     "tank": { name: "Tank", type: "Mech", health: 3500, waves: 15, encounter: "Wave 7 siege" },
     "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 15, encounter: "Wave 7 siege" },
     "platform": { name: "Platform", type: "Mech", health: 7000, waves: 15, encounter: "Wave 7 siege" },
-    "emplacement": { name: "Emplacement", type: "Mech", health: 350, waves: 15, encounter: "Wave 7 siege" },
+    "platform-A": { name: "Platform-A", type: "Mech", health: 7500, waves: 15, encounter: "Wave 8 siege" },
+    "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 16, encounter: "Wave 7 siege" },
     "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 22, encounter: "Wave 1 siege" },
     "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 17, encounter: "Wave 5 siege" },
     "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 8, encounter: "Wave 8 siege" },
@@ -37,6 +38,8 @@ const enemyDatabase = {
     "bombardier": { name: "Bombardier", type: "Elite Advanced", health: 300, waves: 13, encounter: "Wave 7 siege" },
     "operant": { name: "Operant", type: "Elite Advanced", health: 300, waves: 3, encounter: "Wave 10 hell" },
     "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 300, waves: 7, encounter: "Wave 7 siege" },
+    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 6, encounter: "Wave 8 siege" },
+    "observant": { name: "Observant", type: "Elite Advanced", health: 350, waves: 6, encounter: "Wave 8 siege" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 15, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 15, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 15, encounter: "Wave 3 siege" },
@@ -73,7 +76,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "sandbox"
 ];
 
 const enemyKeys = Object.keys(enemyDatabase);
@@ -81,6 +84,9 @@ let secretEnemy;
 let gameOver = false;
 let guessCount = 0;
 const MAX_GUESSES = 6;
+
+// Track already guessed enemies so random guesses don't repeat
+let guessedEnemiesList = [];
 
 // Wave Progression State Tracking Variables
 let currentWave = 1;
@@ -95,6 +101,12 @@ document.addEventListener("DOMContentLoaded", () => {
     continueButton = document.getElementById("continueButton");
     submitButton = document.querySelector(".submit-btn");
 
+    if (submitButton) {
+        // Change button text and hook up the random guess handler
+        submitButton.innerText = "Random Guess";
+        submitButton.addEventListener("click", makeRandomGuess);
+    }
+
     if (inputElement) {
         inputElement.addEventListener("focus", showFilteredOptions);
         inputElement.addEventListener("input", showFilteredOptions);
@@ -105,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("click", (e) => {
         if (!e.target.closest(".search-container")) {
-            dropdownMenu.style.display = "none";
+            if (dropdownMenu) dropdownMenu.style.display = "none";
         }
     });
 
@@ -119,16 +131,14 @@ function initializeGameSession() {
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
-
-    console.log("Secret Target:", secretEnemy.name);
+    guessedEnemiesList = [];
 
     // Update UI panels
     if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
 
-    // FIX: Fully reset the button properties back to standard state every time a new wave starts
     if (continueButton) {
         continueButton.innerText = "Continue";
-        continueButton.setAttribute("onclick", "advanceNextWave()");
+        continueButton.onclick = advanceNextWave;
         continueButton.style.display = "none";
     }
 
@@ -156,8 +166,20 @@ function resetToWaveOne() {
     initializeGameSession();
 }
 
-function showFilteredOptions() {
+// Picks an un-guessed random enemy key and triggers the submit workflow
+function makeRandomGuess() {
     if (gameOver || isWaveClear) return;
+
+    const availableKeys = enemyKeys.filter(key => !guessedEnemiesList.includes(key));
+    if (availableKeys.length === 0) return;
+
+    const randomKey = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+    inputElement.value = enemyDatabase[randomKey].name;
+    submitGuess();
+}
+
+function showFilteredOptions() {
+    if (gameOver || isWaveClear || !dropdownMenu || !inputElement) return;
 
     const value = inputElement.value.toLowerCase();
     dropdownMenu.innerHTML = "";
@@ -172,7 +194,22 @@ function showFilteredOptions() {
     filtered.forEach(key => {
         const item = document.createElement("div");
         item.className = "dropdown-item";
-        item.innerText = enemyDatabase[key].name;
+
+        // Create the image icon element
+        const img = document.createElement("img");
+        img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
+        img.alt = enemyDatabase[key].name;
+        img.className = "dropdown-enemy-icon";
+
+        // Hide icon gracefully if the image file isn't found
+        img.onerror = function() { this.style.display = "none"; };
+
+        // Create text wrapper label
+        const textSpan = document.createElement("span");
+        textSpan.innerText = enemyDatabase[key].name;
+
+        item.appendChild(img);
+        item.appendChild(textSpan);
 
         item.addEventListener("click", () => {
             inputElement.value = enemyDatabase[key].name;
@@ -186,19 +223,22 @@ function showFilteredOptions() {
 }
 
 function submitGuess() {
-    if (gameOver || isWaveClear) return;
+    if (gameOver || isWaveClear || !inputElement) return;
 
     const guessName = inputElement.value.trim().toLowerCase();
     const messageElement = document.getElementById("gameMessage");
 
     if (!enemyDatabase[guessName]) {
-        messageElement.innerText = "Unknown enemy! Choose an option from the menu list.";
-        messageElement.style.color = "#ff3333";
+        if (messageElement) {
+            messageElement.innerText = "Unknown enemy! Choose an option from the menu list.";
+            messageElement.style.color = "#ff3333";
+        }
         return;
     }
 
-    messageElement.innerText = "";
+    if (messageElement) messageElement.innerText = "";
     guessCount++;
+    guessedEnemiesList.push(guessName);
 
     const guessedEnemy = enemyDatabase[guessName];
     const tbody = document.getElementById("guessRows");
@@ -269,22 +309,23 @@ function submitGuess() {
     row.appendChild(createNumericCell(guessedEnemy.waves, secretEnemy.waves, 6));       // Yellow if within 6 waves
     row.appendChild(createEncounterCell(guessedEnemy.encounter, secretEnemy.encounter, 2)); // Yellow if within 2 timeline slots
 
-    tbody.insertBefore(row, tbody.firstChild);
+    if (tbody) tbody.insertBefore(row, tbody.firstChild);
     inputElement.value = "";
-    dropdownMenu.style.display = "none";
+    if (dropdownMenu) dropdownMenu.style.display = "none";
 
     // Handle Victory Stage Condition
     if (guessedEnemy.name === secretEnemy.name) {
-        messageElement.innerText = `SUCCESS! The target was ${secretEnemy.name}! Wave ${currentWave} Complete!`;
-        messageElement.style.color = "#00ffcc";
+        if (messageElement) {
+            messageElement.innerText = `SUCCESS! The target was ${secretEnemy.name}! Wave ${currentWave} Complete!`;
+            messageElement.style.color = "#00ffcc";
+        }
         isWaveClear = true;
         inputElement.disabled = true;
         if (submitButton) submitButton.disabled = true;
 
-        // Show the continue flow option button
         if (continueButton) {
             continueButton.innerText = "Continue";
-            continueButton.setAttribute("onclick", "advanceNextWave()");
+            continueButton.onclick = advanceNextWave;
             continueButton.style.display = "inline-block";
         }
         return;
@@ -292,17 +333,18 @@ function submitGuess() {
 
     // Handle Defeat Stage Condition
     if (guessCount >= MAX_GUESSES) {
-        messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name} | You reached Wave ${currentWave} before failing.`;
-        messageElement.style.color = "#ff3333";
+        if (messageElement) {
+            messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;
+            messageElement.style.color = "#ff3333";
+        }
         gameOver = true;
         inputElement.disabled = true;
         if (submitButton) submitButton.disabled = true;
 
-        // Change the control panel flow action to restart back to wave 1
         if (continueButton) {
             continueButton.innerText = "Restart from Wave 1";
             continueButton.style.display = "inline-block";
-            continueButton.setAttribute("onclick", "resetToWaveOne()");
+            continueButton.onclick = resetToWaveOne;
         }
     }
 }
