@@ -165,9 +165,10 @@ body.game-body {
 }
 
 .game-container {
+    position: relative; /* Allows absolute positioning for child elements */
     width: 90%;
-    max-width: 850px; /* Reduced container max-width from 1000px */
-    margin-top: 4vh;   /* Brought top margin down slightly */
+    max-width: 850px;
+    margin-top: 4vh;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
 }
@@ -211,9 +212,10 @@ body.game-body {
 }
 
 .back-to-menu {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
     min-width: 120px !important;
     font-size: 0.9rem !important;
     padding: 0.4rem 0.8rem !important;
@@ -326,25 +328,28 @@ body.game-body {
 
 /* 9. ENDLESS WAVE SYSTEM UI ADDITIONS */
 
-.game-header-row {
+.guess-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center; /* Vertically centers counter, input, and submit button */
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
 }
 
 .wave-counter-box {
-    font-size: 1.5rem;
+    position: static;        /* Keep inline with the input bar */
+    font-size: 1rem;
     font-weight: 800;
     color: #ffe600;
     text-transform: uppercase;
     letter-spacing: 1px;
     background: rgba(255, 230, 0, 0.1);
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
     border: 1px solid rgba(255, 230, 0, 0.3);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
 }
 
 .action-panel {

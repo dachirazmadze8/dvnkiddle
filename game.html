@@ -13,24 +13,23 @@
 </head>
 <body class="game-body">
 
-    <div class="game-container">
+  <div class="game-container">
 
-        <!-- Top header row section containing back buttons and wave indicators -->
-        <div class="game-header-row">
-            <a href="index.html" class="menu-btn back-to-menu" style="margin: 0;">Main Menu</a>
-            <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
-        </div>
+  <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
 
-        <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
+  <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
 
-        <!-- Guess input interface with dynamic dropdown container -->
-        <div class="guess-controls">
-            <div class="search-container">
-                <input type="text" id="enemyInput" placeholder="Type or select an enemy..." autocomplete="off">
-                <div id="dropdownMenu" class="dropdown-menu"></div>
-            </div>
-            <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
-        </div>
+  <!-- Wave Counter sitting inline to the left of input -->
+  <div class="guess-controls">
+      <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
+      <div class="search-container">
+          <input type="text" id="enemyInput" placeholder="Type or select an enemy..." autocomplete="off">
+          <div id="dropdownMenu" class="dropdown-menu"></div>
+      </div>
+      <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
+  </div>
+
+  <!-- Rest of HTML stays unchanged -->
 
         <!-- Dynamic Success Action Buttons Panel -->
         <div class="action-panel">
