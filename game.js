@@ -396,4 +396,3 @@ function submitGuess() {
         }
     }
 }
-// test//
