@@ -391,12 +391,20 @@ body.game-body {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Table Name Cell Formatting */
+/* Ensure the cell itself fills the table grid cleanly */
 td.name-cell {
-    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 12px;
+}
+
+/* Tight inline-flex container to lock image + text together in the middle */
+.name-cell-wrapper {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    vertical-align: middle;
 }
 
 .table-enemy-icon {
@@ -405,4 +413,60 @@ td.name-cell {
     object-fit: contain;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+    display: block;
+}
+
+/* Info Section Categories */
+.info-category {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.category-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.category-btn:hover {
+    background-color: #3a3a3a;
+}
+
+/* Arrow indicator to show expanded/collapsed state */
+.category-btn::after {
+    content: "▼";
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.category-btn.active::after {
+    transform: rotate(180deg);
+}
+
+/* Smooth Accordion Roll-down Transition */
+.category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-out;
+    background-color: #1e1e1e;
+    border-radius: 0 0 6px 6px;
+}
+
+.category-inner {
+    padding: 14px 16px;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }

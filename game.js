@@ -121,6 +121,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Accordion handler for Info Section category buttons
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            button.classList.toggle("active");
+            const content = button.nextElementSibling;
+
+            if (content.style.maxHeight) {
+                // Roll up
+                content.style.maxHeight = null;
+            } else {
+                // Roll down matching internal content height
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+
     // Start the game setup for the first time
     initializeGameSession();
 });
@@ -244,33 +261,36 @@ function submitGuess() {
     const tbody = document.getElementById("guessRows");
     const row = document.createElement("tr");
 
-    // Special cell generator for the Name column with an embedded icon
     function createNameCell(guessedEnemy, targetEnemy) {
-        const td = document.createElement("td");
-        td.className = "name-cell";
+    const td = document.createElement("td");
+    td.className = "name-cell";
 
-        const img = document.createElement("img");
-        const key = guessedEnemy.name.toLowerCase();
-        img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
-        img.alt = guessedEnemy.name;
-        img.className = "table-enemy-icon";
+    const wrapper = document.createElement("div");
+    wrapper.className = "name-cell-wrapper";
 
-        // Hide gracefully if the image file fails to load
-        img.onerror = function() { this.style.display = "none"; };
+    const img = document.createElement("img");
+    const key = guessedEnemy.name.toLowerCase();
+    img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
+    img.alt = guessedEnemy.name;
+    img.className = "table-enemy-icon";
 
-        const textSpan = document.createElement("span");
-        textSpan.innerText = guessedEnemy.name;
+    // Hide gracefully if the image fails to load
+    img.onerror = function() { this.style.display = "none"; };
 
-        td.appendChild(img);
-        td.appendChild(textSpan);
+    const textSpan = document.createElement("span");
+    textSpan.innerText = guessedEnemy.name;
 
-        if (guessedEnemy.name === targetEnemy.name) {
-            td.classList.add("cell-correct");
-        } else {
-            td.classList.add("cell-incorrect");
-        }
-        return td;
+    wrapper.appendChild(img);
+    wrapper.appendChild(textSpan);
+    td.appendChild(wrapper);
+
+    if (guessedEnemy.name === targetEnemy.name) {
+        td.classList.add("cell-correct");
+    } else {
+        td.classList.add("cell-incorrect");
     }
+    return td;
+}
 
     // Text comparison cell generator (Type)
     function createCell(guessedValue, targetValue, displayString) {
