@@ -39,7 +39,7 @@ const enemyDatabase = {
     "operant": { name: "Operant", type: "Elite Advanced", health: 300, waves: 3, encounter: "Wave 10 hell" },
     "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 300, waves: 7, encounter: "Wave 7 siege" },
     "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 6, encounter: "Wave 8 siege" },
-    "observant": { name: "Observant", type: "Elite Advanced", health: 350, waves: 6, encounter: "Wave 8 siege" },
+    "observant": { name: "Observant", type: "Elite Advanced", health: 100, waves: 6, encounter: "Wave 8 siege" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 15, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 15, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 15, encounter: "Wave 3 siege" },
