@@ -428,10 +428,14 @@ td.name-cell {
     padding: 12px 16px;
     background-color: #2a2a2a;
     color: #ffffff;
+
+    /* Apply Montserrat font family explicitly */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+
     border: 1px solid #444;
     border-radius: 6px;
-    font-size: 1rem;
-    font-weight: bold;
     text-align: left;
     cursor: pointer;
     display: flex;

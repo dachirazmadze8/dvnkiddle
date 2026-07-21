@@ -25,7 +25,7 @@ const enemyDatabase = {
     "tank": { name: "Tank", type: "Mech", health: 3500, waves: 15, encounter: "Wave 7 siege" },
     "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 15, encounter: "Wave 7 siege" },
     "platform": { name: "Platform", type: "Mech", health: 7000, waves: 15, encounter: "Wave 7 siege" },
-    "platform-A": { name: "Platform-A", type: "Mech", health: 7500, waves: 15, encounter: "Wave 8 siege" },
+    "platform-a": { name: "Platform-A", type: "Mech", health: 7500, waves: 15, encounter: "Wave 8 siege" },
     "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 16, encounter: "Wave 7 siege" },
     "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 22, encounter: "Wave 1 siege" },
     "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 17, encounter: "Wave 5 siege" },
