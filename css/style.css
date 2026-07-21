@@ -390,3 +390,19 @@ body.game-body {
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.05);
 }
+
+/* Table Name Cell Formatting */
+td.name-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.table-enemy-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+}

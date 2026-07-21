@@ -244,7 +244,35 @@ function submitGuess() {
     const tbody = document.getElementById("guessRows");
     const row = document.createElement("tr");
 
-    // Text comparison cell generator (Name and Type)
+    // Special cell generator for the Name column with an embedded icon
+    function createNameCell(guessedEnemy, targetEnemy) {
+        const td = document.createElement("td");
+        td.className = "name-cell";
+
+        const img = document.createElement("img");
+        const key = guessedEnemy.name.toLowerCase();
+        img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
+        img.alt = guessedEnemy.name;
+        img.className = "table-enemy-icon";
+
+        // Hide gracefully if the image file fails to load
+        img.onerror = function() { this.style.display = "none"; };
+
+        const textSpan = document.createElement("span");
+        textSpan.innerText = guessedEnemy.name;
+
+        td.appendChild(img);
+        td.appendChild(textSpan);
+
+        if (guessedEnemy.name === targetEnemy.name) {
+            td.classList.add("cell-correct");
+        } else {
+            td.classList.add("cell-incorrect");
+        }
+        return td;
+    }
+
+    // Text comparison cell generator (Type)
     function createCell(guessedValue, targetValue, displayString) {
         const td = document.createElement("td");
         td.innerText = displayString;
@@ -303,7 +331,7 @@ function submitGuess() {
         return td;
     }
 
-    row.appendChild(createCell(guessedEnemy.name, secretEnemy.name, guessedEnemy.name));
+    row.appendChild(createNameCell(guessedEnemy, secretEnemy));
     row.appendChild(createCell(guessedEnemy.type, secretEnemy.type, guessedEnemy.type));
     row.appendChild(createNumericCell(guessedEnemy.health, secretEnemy.health, 50));     // Yellow if within 50 HP
     row.appendChild(createNumericCell(guessedEnemy.waves, secretEnemy.waves, 6));       // Yellow if within 6 waves
