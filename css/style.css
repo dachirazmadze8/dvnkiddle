@@ -343,19 +343,18 @@ body.game-body {
 }
 
 .wave-counter-box {
-    position: static;
     font-size: 1rem;
     font-weight: 800;
-    color: #ffe600;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background: rgba(255, 230, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
     padding: 0.5rem 0.8rem;
     border-radius: 5px;
-    border: 1px solid rgba(255, 230, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     white-space: nowrap;
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    width: auto;
 }
 
 .action-panel {
