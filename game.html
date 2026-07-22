@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play - DVNKIDDLE</title>
-    <!-- Google Fonts link for Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
 </head>
 <body class="game-body">
 
@@ -19,7 +19,6 @@
 
   <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
 
-  <!-- Wave Counter sitting inline to the left of input -->
   <div class="guess-controls">
       <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
       <div class="search-container">
@@ -29,17 +28,12 @@
       <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
   </div>
 
-  <!-- Rest of HTML stays unchanged -->
-
-        <!-- Dynamic Success Action Buttons Panel -->
         <div class="action-panel">
             <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
         </div>
 
-        <!-- Result message display -->
         <div id="gameMessage" class="game-message"></div>
 
-        <!-- The Wordle Guess Matrix Table -->
         <table class="wordle-table" id="guessTable">
             <thead>
                 <tr>
@@ -51,12 +45,10 @@
                 </tr>
             </thead>
             <tbody id="guessRows">
-                <!-- Guesses will appear here dynamically via JS -->
             </tbody>
         </table>
     </div>
 
-    <!-- Link to the external JavaScript game module file -->
     <script src="game.js"></script>
 </body>
 </html>

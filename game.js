@@ -1,4 +1,3 @@
-// Full enemy database engine
 const enemyDatabase = {
     "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 35, encounter: "Wave 1 siege" },
     "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 30, encounter: "Wave 1 siege" },
@@ -72,7 +71,6 @@ const enemyDatabase = {
     "zeus": { name: "Zeus", type: "???", health: 545, waves: 1, encounter: "Sandbox" },
 };
 
-// Chronological internal order of first encounters
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
@@ -85,10 +83,8 @@ let gameOver = false;
 let guessCount = 0;
 const MAX_GUESSES = 6;
 
-// Track already guessed enemies so random guesses don't repeat
 let guessedEnemiesList = [];
 
-// Wave Progression State Tracking Variables
 let currentWave = 1;
 let isWaveClear = false;
 
@@ -102,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton = document.querySelector(".submit-btn");
 
     if (submitButton) {
-        // Change button text and hook up the random guess handler
         submitButton.innerText = "Random Guess";
         submitButton.addEventListener("click", makeRandomGuess);
     }
@@ -121,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Accordion handler for Info Section category buttons
     const categoryButtons = document.querySelectorAll(".category-btn");
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -129,28 +123,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const content = button.nextElementSibling;
 
             if (content.style.maxHeight) {
-                // Roll up
                 content.style.maxHeight = null;
             } else {
-                // Roll down matching internal content height
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         });
     });
 
-    // Start the game setup for the first time
     initializeGameSession();
 });
 
 function initializeGameSession() {
-    // Pick a new random secret target enemy
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
     guessedEnemiesList = [];
 
-    // Update UI panels
     if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
 
     if (continueButton) {
@@ -183,7 +172,6 @@ function resetToWaveOne() {
     initializeGameSession();
 }
 
-// Picks an un-guessed random enemy key and triggers the submit workflow
 function makeRandomGuess() {
     if (gameOver || isWaveClear) return;
 
@@ -212,16 +200,13 @@ function showFilteredOptions() {
         const item = document.createElement("div");
         item.className = "dropdown-item";
 
-        // Create the image icon element
         const img = document.createElement("img");
         img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
         img.alt = enemyDatabase[key].name;
         img.className = "dropdown-enemy-icon";
 
-        // Hide icon gracefully if the image file isn't found
         img.onerror = function() { this.style.display = "none"; };
 
-        // Create text wrapper label
         const textSpan = document.createElement("span");
         textSpan.innerText = enemyDatabase[key].name;
 
@@ -274,7 +259,6 @@ function submitGuess() {
     img.alt = guessedEnemy.name;
     img.className = "table-enemy-icon";
 
-    // Hide gracefully if the image fails to load
     img.onerror = function() { this.style.display = "none"; };
 
     const textSpan = document.createElement("span");
@@ -292,7 +276,6 @@ function submitGuess() {
     return td;
 }
 
-    // Text comparison cell generator (Type)
     function createCell(guessedValue, targetValue, displayString) {
         const td = document.createElement("td");
         td.innerText = displayString;
@@ -305,7 +288,6 @@ function submitGuess() {
         return td;
     }
 
-    // Number comparison cell generator with vertical arrows & dynamic proximity thresholds
     function createNumericCell(guessedValue, targetValue, threshold) {
         const td = document.createElement("td");
 
@@ -326,7 +308,6 @@ function submitGuess() {
         return td;
     }
 
-    // Encounter timeline comparison cell generator with a timeline index proximity threshold of 2 steps
     function createEncounterCell(guessedEncounter, targetEncounter, threshold) {
         const td = document.createElement("td");
 
@@ -353,15 +334,14 @@ function submitGuess() {
 
     row.appendChild(createNameCell(guessedEnemy, secretEnemy));
     row.appendChild(createCell(guessedEnemy.type, secretEnemy.type, guessedEnemy.type));
-    row.appendChild(createNumericCell(guessedEnemy.health, secretEnemy.health, 50));     // Yellow if within 50 HP
-    row.appendChild(createNumericCell(guessedEnemy.waves, secretEnemy.waves, 6));       // Yellow if within 6 waves
-    row.appendChild(createEncounterCell(guessedEnemy.encounter, secretEnemy.encounter, 2)); // Yellow if within 2 timeline slots
+    row.appendChild(createNumericCell(guessedEnemy.health, secretEnemy.health, 50));
+    row.appendChild(createNumericCell(guessedEnemy.waves, secretEnemy.waves, 6));
+    row.appendChild(createEncounterCell(guessedEnemy.encounter, secretEnemy.encounter, 2));
 
     if (tbody) tbody.insertBefore(row, tbody.firstChild);
     inputElement.value = "";
     if (dropdownMenu) dropdownMenu.style.display = "none";
 
-    // Handle Victory Stage Condition
     if (guessedEnemy.name === secretEnemy.name) {
         if (messageElement) {
             messageElement.innerText = `SUCCESS! The target was ${secretEnemy.name}! Wave ${currentWave} Complete!`;
@@ -379,7 +359,6 @@ function submitGuess() {
         return;
     }
 
-    // Handle Defeat Stage Condition
     if (guessCount >= MAX_GUESSES) {
         if (messageElement) {
             messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;

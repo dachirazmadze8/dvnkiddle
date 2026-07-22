@@ -1,4 +1,6 @@
-/* 1. LOAD THE CUSTOM FONT */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+
 @font-face {
     font-family: 'Urban Jungle';
     src: url('Urban_Jungle.otf') format('opentype');
@@ -6,7 +8,6 @@
     font-style: normal;
 }
 
-/* 2. BASE MENU STYLES */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,6 +17,12 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #121212;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -25,22 +32,29 @@ body {
     padding-top: 10vh;
 }
 
+
+body.game-body {
+    background-image: url('../images/game.png');
+}
+
+body.info-body {
+    background-image: url('../images/info.png');
+}
+
+
 .menu-container {
     text-align: center;
 }
 
-/* 3. TITLE STYLE */
 .main-title {
     font-family: 'Urban Jungle', sans-serif;
     font-size: 4.5rem;
     letter-spacing: 2px;
     margin-bottom: 3rem;
     color: #00ffcc;
-    /* Softened shadow profile to preserve clean line detail */
     text-shadow: 0 0 5px rgba(0, 255, 204, 0.15);
 }
 
-/* 4. BUTTONS */
 .menu-options {
     display: flex;
     flex-direction: column;
@@ -50,6 +64,7 @@ body {
 
 .menu-btn {
     font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     font-size: 1.5rem;
     color: #ffffff;
     background: transparent;
@@ -67,7 +82,6 @@ body {
     border-color: #00ffcc;
 }
 
-/* 5. INFO PAGE LEFT-ALIGNMENT STYLES */
 body.info-body {
     align-items: flex-start;
     justify-content: flex-start;
@@ -107,7 +121,6 @@ body.info-body {
     font-weight: 400;
 }
 
-/* Helper class to match lowercase text style from the snapshot */
 .text-lowercase {
     text-transform: lowercase;
 }
@@ -120,7 +133,6 @@ body.info-body {
 .info-list li {
     margin-bottom: 0.5rem;
 }
-/* 6. CREDITS PAGE CUSTOM FONT ELEMENTS */
 
 .credits-content {
     margin-bottom: 3rem;
@@ -142,22 +154,21 @@ body.info-body {
 
 .credits-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.6rem; /* Keeps name entries large and prominent */
+    font-size: 1.6rem;
     color: #ffffff;
     font-weight: 400;
     margin-bottom: 1rem;
 }
 
 .info-list {
-    list-style-type: none; /* Removes the bullet points completely */
-    padding-left: 0;        /* Pulls the text fully to the left edge */
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .info-list li {
     margin-bottom: 0.5rem;
 }
 
-/* 7. WORDLE GAME SYSTEM STYLES (SHRUNK UI VERSION) */
 
 body.game-body {
     align-items: center;
@@ -165,7 +176,7 @@ body.game-body {
 }
 
 .game-container {
-    position: relative; /* Allows absolute positioning for child elements */
+    position: relative;
     width: 90%;
     max-width: 850px;
     margin-top: 4vh;
@@ -175,10 +186,9 @@ body.game-body {
 
 .game-title {
     font-family: 'Urban Jungle', sans-serif;
-    font-size: 2.8rem; /* Shrunk from 3.5rem */
+    font-size: 2.8rem;
     color: #00ffcc;
-    margin-bottom: 1.5rem; /* Shrunk spacing */
-    /* Softened shadow profile to reduce glowing mask layer footprint */
+    margin-bottom: 1.5rem;
     text-shadow: 0 0 5px rgba(0, 255, 204, 0.15);
 }
 
@@ -191,13 +201,13 @@ body.game-body {
 
 .guess-controls input {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem; /* Shrunk font size */
-    padding: 0.5rem 1.2rem; /* Reduced inner padding */
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
     background-color: #222222;
     border: 2px solid #ffffff;
     color: #ffffff;
     border-radius: 5px;
-    width: 260px; /* Narrowed width from 300px */
+    width: 260px;
 }
 
 .guess-controls input:focus {
@@ -206,7 +216,7 @@ body.game-body {
 }
 
 .submit-btn {
-    min-width: 100px !important; /* Scaled down button footprint */
+    min-width: 100px !important;
     padding: 0.5rem 1.2rem !important;
     font-size: 1rem !important;
 }
@@ -222,13 +232,12 @@ body.game-body {
 }
 
 .game-message {
-    font-size: 1.05rem; /* Slightly smaller text alerts */
+    font-size: 1.05rem;
     height: 1.8rem;
     margin-bottom: 0.8rem;
     font-weight: 600;
 }
 
-/* Shrunk Matrix Grid Setup */
 .wordle-table {
     width: 100%;
     border-collapse: collapse;
@@ -240,16 +249,16 @@ body.game-body {
 .wordle-table th {
     background-color: #1a1a1a;
     color: #ffffff;
-    font-size: 0.95rem; /* Reduced label text size */
+    font-size: 0.95rem;
     font-weight: 700;
-    padding: 0.75rem; /* Tighter heading blocks */
+    padding: 0.75rem;
     border: 2px solid #333333;
     text-transform: uppercase;
 }
 
 .wordle-table td {
-    padding: 0.85rem; /* Tighter column rows inside the matrix */
-    font-size: 0.95rem; /* Reduced internal cell print text */
+    padding: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 600;
     text-align: center;
     border: 2px solid #111111;
@@ -258,18 +267,17 @@ body.game-body {
 }
 
 .cell-correct {
-    background-color: #1b663b !important; /* Green for exact matches */
+    background-color: #1b663b !important;
 }
 
 .cell-incorrect {
-    background-color: #791a24 !important; /* Red for incorrect parameters */
+    background-color: #791a24 !important;
 }
 
-/* 8. SEARCH COMPONENT DROPDOWN LAYER RULES */
 
 .search-container {
     position: relative;
-    width: 260px; /* Aligns smoothly with the shrunk input setup */
+    width: 260px;
 }
 
 .dropdown-menu {
@@ -302,7 +310,6 @@ body.game-body {
     font-weight: 600;
 }
 
-/* Custom scrollbar interface inside the popup dropdown panel */
 .dropdown-menu::-webkit-scrollbar {
     width: 6px;
 }
@@ -321,23 +328,22 @@ body.game-body {
 }
 
 .cell-partial {
-    background-color: #e6b800; /* Distinct orange-yellow color */
-    color: #121212;            /* Dark text color for readability */
+    background-color: #e6b800;
+    color: #121212;
     font-weight: bold;
 }
 
-/* 9. ENDLESS WAVE SYSTEM UI ADDITIONS */
 
 .guess-controls {
     display: flex;
     justify-content: center;
-    align-items: center; /* Vertically centers counter, input, and submit button */
+    align-items: center;
     gap: 0.8rem;
     margin-bottom: 1.2rem;
 }
 
 .wave-counter-box {
-    position: static;        /* Keep inline with the input bar */
+    position: static;
     font-size: 1rem;
     font-weight: 800;
     color: #ffe600;
@@ -362,7 +368,6 @@ body.game-body {
     font-weight: 800;
     margin-top: 10px;
     border: none;
-    /* Cleanly shrunk dimensions matching your submission block */
     min-width: 160px !important;
     padding: 0.5rem 1.2rem !important;
     font-size: 1rem !important;
@@ -374,12 +379,10 @@ body.game-body {
     transform: translateY(-2px);
 }
 
-/* Tighter layout spacing adjustments */
 .game-message {
     margin-top: 15px;
 }
 
-/* Dropdown Item Image Formatting */
 .dropdown-item {
     display: flex;
     align-items: center;
@@ -396,14 +399,12 @@ body.game-body {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Ensure the cell itself fills the table grid cleanly */
 td.name-cell {
     text-align: center;
     vertical-align: middle;
     padding: 10px 12px;
 }
 
-/* Tight inline-flex container to lock image + text together in the middle */
 .name-cell-wrapper {
     display: inline-flex;
     align-items: center;
@@ -422,7 +423,6 @@ td.name-cell {
     display: block;
 }
 
-/* Info Section Categories */
 .info-category {
     margin-bottom: 10px;
     width: 100%;
@@ -434,7 +434,6 @@ td.name-cell {
     background-color: #2a2a2a;
     color: #ffffff;
 
-    /* Explicit Montserrat font stack */
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
@@ -453,7 +452,6 @@ td.name-cell {
     background-color: #3a3a3a;
 }
 
-/* Arrow indicator to show expanded/collapsed state */
 .category-btn::after {
     content: "▼";
     font-size: 0.8rem;
@@ -464,7 +462,6 @@ td.name-cell {
     transform: rotate(180deg);
 }
 
-/* Smooth Accordion Roll-down Transition */
 .category-content {
     max-height: 0;
     overflow: hidden;
