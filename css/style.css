@@ -474,3 +474,10 @@ td.name-cell {
     font-size: 0.95rem;
     line-height: 1.5;
 }
+
+.menu-btn.discord-btn:hover {
+    background-color: #5865F2;
+    border-color: #5865F2;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(88, 101, 242, 0.6);
+}
