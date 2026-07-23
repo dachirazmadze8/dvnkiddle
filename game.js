@@ -34,7 +34,7 @@ const enemyDatabase = {
     "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 13, encounter: "Wave 4 siege" },
     "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 6, encounter: "Wave 8 siege" },
     "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 5, encounter: "Wave 8 siege" },
-    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 13, encounter: "Wave 7 siege" },
+    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 13, encounter: "Wave 5 siege" },
     "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 3, encounter: "Wave 10 hell" },
     "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 7, encounter: "Wave 7 siege" },
     "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 4, encounter: "Wave 8 siege" },
