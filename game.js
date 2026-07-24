@@ -62,7 +62,7 @@ const enemyDatabase = {
     "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, encounter: "Wave 3 epilogue" },
     "london prime": { name: "London Prime", type: "Boss", health: 3000, waves: 0, encounter: "Sandbox" },
     "manglenether345": { name: "MangleNether345", type: "Boss", health: 250, waves: 0, encounter: "Sandbox" },
-    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 1, encounter: "Sandbox" },
+    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 0, encounter: "Sandbox" },
     "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, encounter: "Sandbox" },
     "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, encounter: "Sandbox" },
     "mega joe": { name: "Mega Joe", type: "Boss", health: 3000, waves: 0, encounter: "Sandbox" },
