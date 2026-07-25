@@ -69,8 +69,8 @@ const enemyDatabase = {
     "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, encounter: "Sandbox" },
     "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, encounter: "Sandbox" },
     "mega joe": { name: "Mega Joe", type: "Boss", health: 3000, waves: 0, encounter: "Sandbox" },
-    "baby": { name: "Baby", type: "???", health: 200, waves: 0, encounter: "Sandbox" },
-    "jetnuker": { name: "JetNuker", type: "???", health: 100, waves: 0, encounter: "Sandbox" },
+    "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
 };
 
 const encounterOrder = [
