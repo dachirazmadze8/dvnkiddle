@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initializeGameSession() {
-    MAX_GUESSES = 6;
     if (typeof Modifiers !== "undefined") {
         Modifiers.resetAll();
     }
@@ -170,9 +169,20 @@ function initializeGameSession() {
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
+    MAX_GUESSES = 6;
     guessedEnemiesList = [];
 
-    if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
+    if (waveIndicator) {
+        waveIndicator.classList.remove("wave-hell", "wave-ultima");
+
+        if (currentWave === 11) {
+            waveIndicator.innerText = "Wave: Ultima";
+            waveIndicator.classList.add("wave-ultima");
+        } else {
+            waveIndicator.innerText = `Wave: ${currentWave}`;
+            waveIndicator.classList.add("wave-hell");
+        }
+    }
 
     if (continueButton) {
         continueButton.innerText = "Continue";
@@ -194,7 +204,7 @@ function initializeGameSession() {
     if (tbody) tbody.innerHTML = "";
 
     if (typeof Modifiers !== "undefined") {
-        Modifiers.evaluateWave(currentWave, "classic");
+        Modifiers.evaluateWave(currentWave, "hell");
     }
 }
 
@@ -276,8 +286,9 @@ window.handleAssassinGuess = function(assassinEnemy) {
     if (gameOver || isWaveClear) return;
 
     const messageElement = document.getElementById("gameMessage");
+    const displayWave = currentWave === 11 ? "Ultima" : currentWave;
     if (messageElement) {
-        messageElement.innerText = `Assassinated by ${assassinEnemy.name}, Target was ${secretEnemy.name}, you reached wave ${currentWave} before failing.`;
+        messageElement.innerText = `Assassinated by ${assassinEnemy.name}, Target was ${secretEnemy.name}, you reached wave ${displayWave} before failing.`;
         messageElement.style.color = "#ff3333";
     }
 
@@ -458,39 +469,52 @@ function submitGuess() {
     }
 
     if (tbody) tbody.insertBefore(row, tbody.firstChild);
+    inputElement.value = "";
+    if (dropdownMenu) dropdownMenu.style.display = "none";
 
     if (typeof Modifiers !== "undefined") {
         Modifiers.afterGuess();
     }
 
-    inputElement.value = "";
-    if (dropdownMenu) dropdownMenu.style.display = "none";
-
     if (guessedEnemy.name === secretEnemy.name) {
-        if (messageElement) {
-            const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
-            messageElement.innerText = `SUCCESS! The target was ${secretEnemy.name}! Wave ${currentWave} Complete!`;
-            if (assassin) {
-                messageElement.innerText += ` The assassin was ${assassin.name}.`;
-            }
-            messageElement.style.color = "#00ffcc";
-        }
         isWaveClear = true;
         inputElement.disabled = true;
         if (submitButton) submitButton.disabled = true;
 
-        if (continueButton) {
-            continueButton.innerText = "Continue";
-            continueButton.onclick = advanceNextWave;
-            continueButton.style.display = "inline-block";
+        const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
+
+        if (currentWave === 11) {
+            if (messageElement) {
+                messageElement.innerText = assassin ? `GG!` : `GG!`;
+                messageElement.style.color = "#00ffcc";
+            }
+            if (continueButton) {
+                continueButton.innerText = "Play Again";
+                continueButton.onclick = resetToWaveOne;
+                continueButton.style.display = "inline-block";
+            }
+        } else {
+            if (messageElement) {
+                messageElement.innerText = `SUCCESS! The target was ${secretEnemy.name}! Wave ${currentWave} Complete!`;
+                if (assassin) {
+                    messageElement.innerText += ` The assassin was ${assassin.name}.`;
+                }
+                messageElement.style.color = "#00ffcc";
+            }
+            if (continueButton) {
+                continueButton.innerText = "Continue";
+                continueButton.onclick = advanceNextWave;
+                continueButton.style.display = "inline-block";
+            }
         }
         return;
     }
 
     if (guessCount >= MAX_GUESSES) {
+        const displayWave = currentWave === 11 ? "Ultima" : currentWave;
         if (messageElement) {
             const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
-            messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;
+            messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name}. You reached Wave ${displayWave} before failing.`;
             if (assassin) {
                 messageElement.innerText += ` The assassin was ${assassin.name}.`;
             }

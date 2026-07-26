@@ -11,44 +11,55 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/media.css">
 </head>
-<body class="game-body">
+<body class="game-body classic-mode">
 
   <div class="game-container">
 
-  <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
+    <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
 
-  <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
+    <h1 class="game-title" style="margin-top: 20px;">GUESS THE ENEMY</h1>
 
-  <div class="guess-controls">
-      <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
-      <div class="search-container">
-          <input type="text" id="enemyInput" placeholder="Type or select an enemy..." autocomplete="off">
-          <div id="dropdownMenu" class="dropdown-menu"></div>
-      </div>
-      <button class="menu-btn submit-btn" onclick="submitGuess()">Guess</button>
-  </div>
-
-        <div class="action-panel">
-            <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
+    <div class="guess-controls">
+        <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
+        <div class="search-container">
+            <input type="text" id="enemyInput" placeholder="Type or select an enemy..." autocomplete="off">
+            <div id="dropdownMenu" class="dropdown-menu"></div>
         </div>
-
-        <div id="gameMessage" class="game-message"></div>
-
-        <table class="wordle-table" id="guessTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Health</th>
-                    <th>Total Waves</th>
-                    <th>First Encounter</th>
-                </tr>
-            </thead>
-            <tbody id="guessRows">
-            </tbody>
-        </table>
+        <button class="menu-btn submit-btn">Guess</button>
     </div>
 
-    <script src="game.js"></script>
+    <div class="modifiers-container">
+        <span class="modifiers-label">MODIFIERS:</span>
+        <div id="modifiersList" class="modifiers-list">
+            <span class="modifier-tag modifier-tag-none">None</span>
+        </div>
+    </div>
+    <div id="modifierDescription" class="modifier-description" style="display: none;"></div>
+
+    <div class="action-panel">
+        <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
+    </div>
+
+    <div id="gameMessage" class="game-message"></div>
+
+    <table class="wordle-table" id="guessTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Health</th>
+                <th>Total Waves</th>
+                <th>First Encounter</th>
+            </tr>
+        </thead>
+        <tbody id="guessRows">
+        </tbody>
+    </table>
+  </div>
+
+  <script src="modifiers.js"></script>
+  <script src="modifiersclassic.js"></script>
+  <script src="game.js"></script>
+
 </body>
 </html>

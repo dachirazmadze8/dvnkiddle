@@ -481,3 +481,273 @@ td.name-cell {
     color: #ffffff;
     box-shadow: 0 0 12px rgba(88, 101, 242, 0.6);
 }
+
+.menu-btn.hell-btn:hover {
+  background-color: #ff0000;
+  border-color: #ff0000;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+.wave-counter-box.wave-hell {
+    color: #ff3333;
+    border-color: rgba(255, 51, 51, 0.6);
+    background: rgba(255, 0, 0, 0.12);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.wave-counter-box.wave-ultima {
+    color: #8b0000;
+    border-color: #5c0000;
+    background: rgba(40, 0, 0, 0.8);
+    box-shadow: 0 0 12px rgba(139, 0, 0, 0.7);
+    text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+}
+
+.game-title.hell-title {
+    color: #ff3333;
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+.modifiers-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 0.8rem auto 1.2rem auto;
+    padding: 0.5rem 1rem;
+    background: rgba(20, 0, 0, 0.6);
+    border: 1px solid rgba(255, 0, 55, 0.4);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 15px rgba(255, 0, 55, 0.15);
+}
+
+.modifiers-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ff4455;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 6px rgba(255, 0, 55, 0.4);
+}
+
+.modifiers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.modifier-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(255, 0, 55, 0.2);
+    border: 1px solid #ff0037;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    box-shadow: 0 0 8px rgba(255, 0, 55, 0.3);
+    animation: modifierGlow 2s infinite alternate;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modifier-tag.jammed-radar {
+  background-color: rgba(180, 20, 40, 0.3);
+  color: #ffcccc;
+  border: 1px solid #ff3355;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.cloaked {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.security-protocol {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+    animation: alertPulse 1s infinite alternate;
+}
+
+.modifier-tag.security-protocol.security-protocol-urgent {
+    animation: securityProtocolFlash 0.4s infinite alternate !important;
+    background-color: rgba(255, 0, 0, 0.6) !important;
+    border-color: #ff0000 !important;
+    color: #ffffff !important;
+}
+
+.modifier-tag.security-protocol.security-protocol-urgent-buffed {
+    animation: securityProtocolFlashBuffed 0.4s infinite alternate !important;
+    background-color: rgba(102, 0, 204, 0.6) !important;
+    border-color: #b266ff !important;
+    color: #ffffff !important;
+}
+
+@keyframes securityProtocolFlash {
+    from {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+    }
+    to {
+        opacity: 0.35;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+    }
+}
+
+@keyframes securityProtocolFlashBuffed {
+    from {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(178, 102, 255, 0.6);
+    }
+    to {
+        opacity: 0.35;
+        box-shadow: 0 0 20px rgba(178, 102, 255, 1);
+    }
+}
+
+.modifier-tag.fog {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.sabotage {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.weakened-signal {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.miscommunication {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.vitacharge {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.cell-vitacharged {
+    background-color: rgba(255, 215, 0, 0.2) !important;
+    color: #ffd700 !important;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5) inset;
+}
+
+tr.row-vitacharged td.cell-name {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4) inset;
+}
+
+.modifier-tag.assassin {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.cell-assassin-warning {
+    box-shadow: 0 0 0 2px #ff9900 inset;
+}
+
+.modifier-tag.vitarage {
+    background-color: rgba(102, 0, 204, 0.3);
+    color: #e0ccff;
+    border: 1px solid #b266ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(178, 102, 255, 0.4);
+}
+
+.modifier-tag.modifier-buffed {
+    background-color: rgba(102, 0, 204, 0.3);
+    color: #e0ccff;
+    border: 1px solid #b266ff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(178, 102, 255, 0.4);
+}
+
+.modifier-tag-active {
+    outline: 2px solid #ffffff;
+    outline-offset: 1px;
+}
+
+.modifier-description {
+    width: 100%;
+    max-width: 500px;
+    margin: -0.4rem auto 1.2rem auto;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 0, 0, 0.6);
+    border: 1px solid rgba(255, 0, 55, 0.4);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.classic-mode .modifiers-container {
+    border-color: rgba(150, 150, 150, 0.4);
+    box-shadow: 0 0 15px rgba(150, 150, 150, 0.1);
+}
+
+.classic-mode .modifiers-label {
+    color: #999999;
+    text-shadow: 0 0 6px rgba(150, 150, 150, 0.3);
+}
+
+.classic-mode .modifier-tag-none {
+    background: rgba(150, 150, 150, 0.15);
+    border: 1px solid #888888;
+    box-shadow: 0 0 8px rgba(150, 150, 150, 0.2);
+    animation: none;
+}
