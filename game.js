@@ -75,7 +75,7 @@ const enemyDatabase = {
     "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege" },
     "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
-    "old apu": { name: "Old APU", type: "mech", health: 2000, waves: 0, encounter: "Sandbox" },
+    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
     "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
 };
 
