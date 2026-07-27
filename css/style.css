@@ -504,6 +504,13 @@ td.name-cell {
     text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
 }
 
+.practice-mode .wave-counter-box {
+    color: #33ff88;
+    border-color: rgba(51, 255, 136, 0.6);
+    background: rgba(0, 255, 100, 0.12);
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.3);
+}
+
 .game-title.hell-title {
     color: #ff3333;
     text-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
@@ -692,6 +699,56 @@ tr.row-vitacharged td.cell-name {
     box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
 }
 
+.modifier-tag.mutilated-deaths {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.strengthened-signal {
+    background-color: rgba(0, 180, 80, 0.3);
+    color: #ccffdd;
+    border: 1px solid #33ff88;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
+}
+
+.modifier-tag.accurate-radar {
+    background-color: rgba(0, 180, 80, 0.3);
+    color: #ccffdd;
+    border: 1px solid #33ff88;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
+}
+
+.modifier-tag.extra-life {
+    background-color: rgba(0, 180, 80, 0.3);
+    color: #ccffdd;
+    border: 1px solid #33ff88;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
+}
+
+.modifier-tag.aim-assist {
+    background-color: rgba(0, 180, 80, 0.3);
+    color: #ccffdd;
+    border: 1px solid #33ff88;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
+}
+
 .cell-assassin-warning {
     box-shadow: 0 0 0 2px #ff9900 inset;
 }
@@ -750,4 +807,204 @@ tr.row-vitacharged td.cell-name {
     border: 1px solid #888888;
     box-shadow: 0 0 8px rgba(150, 150, 150, 0.2);
     animation: none;
+}
+
+.practice-mode .game-title {
+    color: #33ff88;
+    text-shadow: 0 0 8px rgba(51, 255, 136, 0.4);
+}
+
+.menu-btn.practice-btn:hover {
+    background-color: #00ffcc;
+    border-color: #00ffcc;
+    color: #121212;
+}
+
+.practice-mode .modifiers-container {
+    border-color: rgba(51, 255, 136, 0.4);
+    box-shadow: 0 0 15px rgba(51, 255, 136, 0.15);
+}
+
+.practice-mode .modifiers-label {
+    color: #33ff88;
+    text-shadow: 0 0 6px rgba(51, 255, 136, 0.4);
+}
+
+.practice-mode .modifier-tag-none {
+    background: rgba(51, 255, 136, 0.15);
+    border: 1px solid #33ff88;
+    box-shadow: 0 0 8px rgba(51, 255, 136, 0.3);
+    animation: none;
+}
+
+body.practice-menu-body {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 8vh;
+}
+
+.practice-title {
+    color: #00ffcc;
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.practice-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: #cccccc;
+    max-width: 500px;
+    margin: 0 auto 1.2rem auto;
+    line-height: 1.5;
+}
+
+.practice-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.menu-btn.practice-mini-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 1.2rem;
+    min-width: auto;
+}
+
+.practice-modifier-list {
+    width: 100%;
+    max-width: 520px;
+    max-height: 50vh;
+    overflow-y: auto;
+    margin: 0 auto;
+    padding: 0.5rem;
+    background: rgba(20, 0, 0, 0.5);
+    border: 1px solid rgba(255, 0, 55, 0.4);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255, 0, 55, 0.15);
+}
+
+.practice-modifier-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.practice-modifier-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.practice-modifier-list::-webkit-scrollbar-thumb {
+    background: #555555;
+    border-radius: 4px;
+}
+
+.practice-modifier-list::-webkit-scrollbar-thumb:hover {
+    background: #00ffcc;
+}
+
+.practice-modifier-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+.practice-modifier-row:last-child {
+    border-bottom: none;
+}
+
+.practice-modifier-name {
+    flex: 1;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+
+.practice-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: #ffcccc;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+}
+
+.practice-vitaraged-label {
+    color: #e0ccff;
+}
+
+.practice-checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #00ffcc;
+    cursor: pointer;
+}
+
+.practice-vitaraged-label input[type="checkbox"] {
+    accent-color: #b266ff;
+}
+
+.practice-checkbox-label input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.practice-section-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #00ffcc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 1.8rem 0 0.4rem 0;
+    text-align: center;
+}
+
+.practice-enemy-search {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto 0.8rem auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    background-color: #222222;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.practice-enemy-search:focus {
+    outline: none;
+    border-color: #00ffcc;
+}
+
+.practice-enemy-group-header {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #00ffcc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.6rem 0.9rem 0.3rem 0.9rem;
+}
+
+.practice-enemy-row {
+    padding: 0.5rem 0.9rem;
+}
+
+.practice-warning {
+    color: #ff3333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    max-width: 520px;
+    margin: 0.6rem auto 0 auto;
+    text-align: center;
 }

@@ -12,9 +12,12 @@ const enemyDatabase = {
     "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, encounter: "Wave 2 epilogue" },
     "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, encounter: "Wave 2 epilogue" },
     "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, encounter: "Wave 4 siege" },
-    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 teleporter": { name: "Level 1 teleporter", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 teleporter": { name: "Level 2 teleporter", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 teleporter": { name: "Level 3 teleporter", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
     "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege" },
     "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege" },
     "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege" },
@@ -59,7 +62,8 @@ const enemyDatabase = {
     "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege" },
     "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 siege" },
     "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 2, encounter: "Wave 10 siege" },
-    "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 2, encounter: "Wave 10 siege" },
+    "dreadnought armor (backpack)": { name: "Dreadnought Armor (Backpack)", type: "Boss", health: 2000, waves: 2, encounter: "Wave 10 siege" },
+    "dreadnought armor (head)": { name: "Dreadnought Armor (Head)", type: "Boss", health: 1500, waves: 2, encounter: "Wave 10 siege" },
     "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind" },
     "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, encounter: "Wave 10 mastermind" },
     "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, encounter: "Wave 3 epilogue" },
@@ -80,7 +84,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -90,7 +94,24 @@ window.getSecretEnemy = function() {
     return secretEnemy;
 };
 
-const enemyKeys = Object.keys(enemyDatabase);
+function loadEnemyRoster() {
+    try {
+        const stored = localStorage.getItem("practiceEnemyRoster");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) {
+                const filtered = parsed.filter(key => enemyDatabase[key]);
+                if (filtered.length > 0) return filtered;
+            }
+        }
+    } catch (e) {
+        // fall through to the full roster
+    }
+    return Object.keys(enemyDatabase);
+}
+
+let enemyKeys = loadEnemyRoster();
+window.enemyKeys = enemyKeys;
 let secretEnemy;
 let gameOver = false;
 let guessCount = 0;
@@ -190,7 +211,8 @@ function initializeGameSession() {
     if (tbody) tbody.innerHTML = "";
 
     if (typeof Modifiers !== "undefined") {
-        Modifiers.evaluateWave(currentWave, "classic");
+        Modifiers.currentWave = currentWave;
+        window.applyPracticeModifiers();
     }
 }
 
@@ -202,6 +224,9 @@ function advanceNextWave() {
 function resetToWaveOne() {
     currentWave = 1;
     waveGuessHistory = {};
+    if (typeof Modifiers !== "undefined") {
+        Modifiers.extraLifeCharges = undefined;
+    }
     initializeGameSession();
 }
 
@@ -244,12 +269,148 @@ function makeRandomWrongGuess() {
 
 window.makeRandomWrongGuess = makeRandomWrongGuess;
 
+function makeAccurateRadarGuess() {
+    if (gameOver || isWaveClear) return;
+
+    const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
+    const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
+
+    const baseFilter = key => {
+        if (guessedEnemiesList.includes(key)) return false;
+        const enemy = enemyDatabase[key];
+        if (enemy.name === secretEnemy.name) return false;
+        if (assassin && enemy.name === assassin.name) return false;
+        if (vitacharged && vitacharged.has(key)) return false;
+        return true;
+    };
+
+    // Prefer a wrong guess that shares at least one stat exactly with the
+    // target, so that stat is guaranteed to show green. Fall back to any
+    // wrong guess if the current roster has nothing that qualifies.
+    const accurateKeys = enemyKeys.filter(key => {
+        if (!baseFilter(key)) return false;
+        const enemy = enemyDatabase[key];
+        const healthMatch = enemy.health === secretEnemy.health;
+        const wavesMatch = enemy.waves === secretEnemy.waves;
+        const encounterMatch = enemy.encounter.toLowerCase() === secretEnemy.encounter.toLowerCase();
+        return healthMatch || wavesMatch || encounterMatch;
+    });
+
+    const pool = accurateKeys.length > 0 ? accurateKeys : enemyKeys.filter(baseFilter);
+    if (pool.length === 0) return;
+
+    const randomKey = pool[Math.floor(Math.random() * pool.length)];
+    inputElement.value = enemyDatabase[randomKey].name;
+    submitGuess();
+}
+
+window.makeAccurateRadarGuess = makeAccurateRadarGuess;
+
+function applyAimAssist(originalKey) {
+    if (typeof Modifiers === "undefined" || !Modifiers.active.has("aimAssist")) return originalKey;
+
+    const guessedEnemy = enemyDatabase[originalKey];
+    if (!guessedEnemy || guessedEnemy.name === secretEnemy.name) return originalKey;
+
+    const healthPartial = guessedEnemy.health !== secretEnemy.health &&
+        Math.abs(guessedEnemy.health - secretEnemy.health) <= 50;
+    const wavesPartial = guessedEnemy.waves !== secretEnemy.waves &&
+        Math.abs(guessedEnemy.waves - secretEnemy.waves) <= 6;
+
+    const lowerOrder = encounterOrder.map(item => item.toLowerCase());
+    const guessedIdx = lowerOrder.indexOf(guessedEnemy.encounter.toLowerCase());
+    const secretIdx = lowerOrder.indexOf(secretEnemy.encounter.toLowerCase());
+    const encounterPartial = guessedEnemy.encounter.toLowerCase() !== secretEnemy.encounter.toLowerCase() &&
+        guessedIdx !== -1 && secretIdx !== -1 && Math.abs(guessedIdx - secretIdx) <= 2;
+
+    if (!healthPartial && !wavesPartial && !encounterPartial) return originalKey;
+
+    if (Modifiers.isBuffed("aimAssist")) {
+        const secretKey = Object.keys(enemyDatabase).find(key => enemyDatabase[key].name === secretEnemy.name);
+        return secretKey || originalKey;
+    }
+
+    const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
+    const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
+
+    const candidates = enemyKeys.filter(key => {
+        if (guessedEnemiesList.includes(key)) return false;
+        const enemy = enemyDatabase[key];
+        if (enemy.name === guessedEnemy.name) return false;
+        if (assassin && enemy.name === assassin.name) return false;
+        if (vitacharged && vitacharged.has(key)) return false;
+
+        const healthMatch = healthPartial && enemy.health === secretEnemy.health;
+        const wavesMatch = wavesPartial && enemy.waves === secretEnemy.waves;
+        const encounterMatch = encounterPartial && enemy.encounter.toLowerCase() === secretEnemy.encounter.toLowerCase();
+        return healthMatch || wavesMatch || encounterMatch;
+    });
+
+    if (candidates.length === 0) return originalKey;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
 window.setMaxGuesses = function(n) {
     MAX_GUESSES = n;
 };
 
+window.applyPracticeModifiers = function() {
+    let config = { enabled: [], vitaraged: [], randomize: false };
+    try {
+        const stored = localStorage.getItem("practiceModifierConfig");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed.enabled)) config.enabled = parsed.enabled;
+            if (Array.isArray(parsed.vitaraged)) config.vitaraged = parsed.vitaraged;
+            if (typeof parsed.randomize === "boolean") config.randomize = parsed.randomize;
+        }
+    } catch (e) {
+        config = { enabled: [], vitaraged: [], randomize: false };
+    }
+
+    if (typeof Modifiers === "undefined") return;
+
+    if (config.randomize) {
+        // Only draw from the modifiers the user selected, but let the engine
+        // pick how many appear and which ones, using the same wave-based
+        // formula and vitarage-forcing rule Classic mode uses.
+        Modifiers.allowedKeys = config.enabled;
+        Modifiers.evaluateWave(currentWave);
+    } else {
+        Modifiers.allowedKeys = null;
+        Modifiers.applyFixedModifiers(config.enabled, new Set(config.vitaraged));
+    }
+};
+
+function tryUseExtraLife(reasonText) {
+    if (typeof Modifiers === "undefined") return false;
+    if (!Modifiers.active.has("extraLife")) return false;
+    if (!(Modifiers.extraLifeCharges > 0)) return false;
+
+    Modifiers.extraLifeCharges -= 1;
+
+    const messageElement = document.getElementById("gameMessage");
+    if (messageElement) {
+        messageElement.innerText = `EXTRA LIFE USED! ${reasonText} You move on to the next wave anyway. (${Modifiers.extraLifeCharges} left)`;
+        messageElement.style.color = "#33ff66";
+    }
+
+    isWaveClear = true;
+    if (inputElement) inputElement.disabled = true;
+    if (submitButton) submitButton.disabled = true;
+
+    if (continueButton) {
+        continueButton.innerText = "Continue";
+        continueButton.style.display = "inline-block";
+        continueButton.onclick = advanceNextWave;
+    }
+
+    return true;
+}
+
 window.handleTimerTimeout = function() {
     if (gameOver || isWaveClear) return;
+    if (tryUseExtraLife("Security Protocol ran out.")) return;
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
@@ -270,10 +431,33 @@ window.handleTimerTimeout = function() {
 
 window.handleAssassinGuess = function(assassinEnemy) {
     if (gameOver || isWaveClear) return;
+    if (tryUseExtraLife(`Assassinated by ${assassinEnemy.name}.`)) return;
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
         messageElement.innerText = `Assassinated by ${assassinEnemy.name}, Target was ${secretEnemy.name}, you reached wave ${currentWave} before failing.`;
+        messageElement.style.color = "#ff3333";
+    }
+
+    gameOver = true;
+    if (inputElement) inputElement.disabled = true;
+    if (submitButton) submitButton.disabled = true;
+
+    if (continueButton) {
+        continueButton.innerText = "Restart from Wave 1";
+        continueButton.style.display = "inline-block";
+        continueButton.onclick = resetToWaveOne;
+    }
+};
+
+window.handleMutilatedDeathsFail = function(buffed) {
+    if (gameOver || isWaveClear) return;
+
+    const messageElement = document.getElementById("gameMessage");
+    if (messageElement) {
+        messageElement.innerText = buffed
+            ? "No."
+            : `MUTILATED! That wrong guess was fatal. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;
         messageElement.style.color = "#ff3333";
     }
 
@@ -332,7 +516,7 @@ function showFilteredOptions() {
 function submitGuess() {
     if (gameOver || isWaveClear || !inputElement) return;
 
-    const guessName = inputElement.value.trim().toLowerCase();
+    let guessName = inputElement.value.trim().toLowerCase();
     const messageElement = document.getElementById("gameMessage");
 
     if (!enemyDatabase[guessName]) {
@@ -342,6 +526,8 @@ function submitGuess() {
         }
         return;
     }
+
+    guessName = applyAimAssist(guessName);
 
     if (messageElement) messageElement.innerText = "";
     guessCount++;
@@ -483,7 +669,9 @@ function submitGuess() {
         return;
     }
 
-    if (guessCount >= MAX_GUESSES) {
+    if (guessCount >= MAX_GUESSES && !gameOver) {
+        if (tryUseExtraLife("Out of guesses.")) return;
+
         if (messageElement) {
             const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
             messageElement.innerText = `Out of guesses. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Setup - DVNKIDDLE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+</head>
+<body class="practice-menu-body">
+
+    <a href="gamemodes.html" class="menu-btn back-to-menu">Back</a>
+
+    <div class="menu-container">
+        <h1 class="main-title practice-title">PRACTICE SETUP</h1>
+        <p class="practice-subtitle">Pick any modifiers you want active, including their Vitaraged versions. Pick nothing for a clean game.</p>
+
+        <div class="practice-actions">
+            <button class="menu-btn practice-mini-btn" id="selectAllBtn">Select All</button>
+            <button class="menu-btn practice-mini-btn" id="clearAllBtn">Clear All</button>
+        </div>
+
+        <div id="practiceModifierList" class="practice-modifier-list"></div>
+
+        <label class="practice-checkbox-label practice-randomize-label">
+            <input type="checkbox" id="randomizeModifiersCheckbox">
+            Randomize selected modifiers each wave using Classic mode's wave formula (instead of always applying all of them)
+        </label>
+
+        <h2 class="practice-section-heading">Enemy Roster</h2>
+        <p class="practice-subtitle">Choose which enemies can show up as the target and in guesses this session. Leave everything checked for the full roster.</p>
+
+        <div class="practice-actions">
+            <button class="menu-btn practice-mini-btn" id="selectAllEnemiesBtn">Select All</button>
+            <button class="menu-btn practice-mini-btn" id="clearAllEnemiesBtn">Clear All</button>
+        </div>
+
+        <input type="text" id="enemySearchInput" class="practice-enemy-search" placeholder="Search enemies..." autocomplete="off">
+
+        <div id="practiceEnemyList" class="practice-modifier-list practice-enemy-list"></div>
+
+        <div class="menu-options" style="margin-top: 1.5rem;">
+            <button class="menu-btn" id="startPracticeBtn">Start Practice</button>
+        </div>
+    </div>
+
+    <script src="practicemenu.js"></script>
+</body>
+</html>
