@@ -25,7 +25,7 @@ const enemyDatabase = {
     "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, encounter: "Wave 7 siege" },
     "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 3, encounter: "Wave 8 siege" },
     "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, encounter: "Wave 7 siege" },
-    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 350, waves: 3, encounter: "Wave 8 siege" },
+    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 3, encounter: "Wave 8 siege" },
     "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 3, encounter: "Wave 8 siege" },
     "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 21, encounter: "Wave 1 siege" },
     "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 16, encounter: "Wave 5 siege" },
