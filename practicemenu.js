@@ -72,7 +72,7 @@ const PRACTICE_ENEMIES = [
     { key: "chassis", name: "Chassis", type: "Boss" },
     { key: "daedalus", name: "Daedalus", type: "Boss" },
     { key: "dreadnought", name: "Dreadnought", type: "Boss" },
-    { key: "dreadnought armor (backpack)", name: "Dreadnought Armor (Backpack)", type: "Boss" },
+    { key: "dreadnought armor", name: "Dreadnought Armor", type: "Boss" },
     { key: "drone", name: "Drone", type: "Boss" },
     { key: "fuel tank (prometheus)", name: "Fuel Tank (Prometheus)", type: "Boss" },
     { key: "fusilier", name: "Fusilier", type: "Boss" },
