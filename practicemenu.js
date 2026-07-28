@@ -4,15 +4,17 @@ const PRACTICE_MODIFIERS = [
     { key: "securityProtocol", name: "Security Protocol" },
     { key: "fog", name: "Fog" },
     { key: "sabotage", name: "Sabotage" },
-    { key: "weakenedSignal", name: "Weakened Signal" },
+    { key: "weakenedSignal", name: "Sapped Communications" },
     { key: "miscommunication", name: "Miscommunication" },
     { key: "vitacharge", name: "Vitacharge" },
     { key: "assassin", name: "Assassin" },
     { key: "mutilatedDeaths", name: "Mutilated Deaths" },
     { key: "strengthenedSignal", name: "Strengthened Signal" },
     { key: "accurateRadar", name: "Accurate Radar" },
-    { key: "extraLife", name: "Extra Life" },
-    { key: "aimAssist", name: "Aim Assist" }
+    { key: "extraLife", name: "Resuscitator" },
+    { key: "aimAssist", name: "Aim Assist" },
+    { key: "colorblind", name: "Colorblind" },
+    { key: "chubbyTroops", name: "Chubby Troops" }
 ];
 
 const PRACTICE_ENEMIES = [

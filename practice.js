@@ -183,6 +183,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
+    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
@@ -351,6 +352,10 @@ function applyAimAssist(originalKey) {
 
 window.setMaxGuesses = function(n) {
     MAX_GUESSES = n;
+};
+
+window.addExtraGuessCount = function(n) {
+    guessCount += n;
 };
 
 window.applyPracticeModifiers = function() {

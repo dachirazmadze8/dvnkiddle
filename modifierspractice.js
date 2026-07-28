@@ -103,8 +103,6 @@ const practiceDefinitions = {
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
             const flipPairs = [["↑", "↓"], ["↓", "↑"], ["→", "←"], ["←", "→"]];
 
-            // Correctness is checked against the real data, not the cell's current
-            // DOM classes, so a genuinely correct stat can never be flipped here.
             const fieldChecks = [
                 { cls: "cell-health", isCorrect: guessedEnemy.health === secretEnemy.health },
                 { cls: "cell-waves", isCorrect: guessedEnemy.waves === secretEnemy.waves },
@@ -135,7 +133,7 @@ const practiceDefinitions = {
         }
     },
     weakenedSignal: {
-        name: "Weakened Signal",
+        name: "Sapped Communications",
         description: "You only have 5 guesses instead of 6. Vitaraged: only 4 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
@@ -153,8 +151,6 @@ const practiceDefinitions = {
         name: "Miscommunication",
         description: "A non-correct stat (Health, Total Waves, or First Encounter) may display the wrong value. Vitaraged: its color is also displayed wrong, independent of the real value.",
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
-            // Correctness is checked against the real data, not the cell's current
-            // DOM classes, so a genuinely correct stat can never be touched here.
             const fieldChecks = [
                 { cls: "cell-health", isCorrect: guessedEnemy.health === secretEnemy.health },
                 { cls: "cell-waves", isCorrect: guessedEnemy.waves === secretEnemy.waves },
@@ -207,8 +203,6 @@ const practiceDefinitions = {
                 const secret = typeof window.getSecretEnemy === "function" ? window.getSecretEnemy() : null;
                 const db = window.enemyDatabase || {};
 
-                // The current target can never be vitacharged, otherwise guessing
-                // it correctly would get blanked out instead of showing the win.
                 const pool = [...new Set(window.getPreviousWaveGuesses(waveSpan))]
                     .filter(enemyKey => !secret || !db[enemyKey] || db[enemyKey].name !== secret.name);
 
@@ -303,10 +297,6 @@ const practiceDefinitions = {
         onStart: (engine) => {
             engine.buffedModifiers = new Set();
             let candidates = [...engine.active].filter(key => key !== "vitarage");
-
-            // Vitaraged Weakened Signal (4 guesses) combined with Jammed Radar
-            // (which burns a guess immediately) is too punishing, so Weakened
-            // Signal can never be the buff target while Jammed Radar is active.
             if (engine.active.has("jammedRadar")) {
                 candidates = candidates.filter(key => key !== "weakenedSignal");
             }
@@ -385,7 +375,7 @@ const practiceDefinitions = {
         onReset: () => {}
     },
     extraLife: {
-        name: "Extra Life",
+        name: "Resuscitator",
         description: "If you'd fail (out of guesses, assassinated, or Security Protocol running out), it's canceled and you move on to the next wave anyway. Only 1 use total. Vitaraged: 2 uses total.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
@@ -396,10 +386,70 @@ const practiceDefinitions = {
         onReset: () => {}
     },
     aimAssist: {
-        name: "Aim Assist",
+        name: (buffed) => buffed ? "Aim Bot" : "Aim Assist",
         description: "If a guess would show a yellow stat, it's automatically swapped for a different guess that turns that stat green. Vitaraged: any yellow stat instead makes the guess fully correct.",
         onStart: () => {},
         onReset: () => {}
+    },
+    colorblind: {
+        name: (buffed) => buffed ? "Blindness" : "Colorblind",
+        description: "Practice mode exclusive. All color hints are disabled — you only have the arrows to go by. Vitaraged: stats are also heavily blurred.",
+        onStart: (engine, key) => {
+            const table = document.getElementById("guessTable");
+            if (!table) return;
+            table.classList.add("colorblind-active");
+            table.classList.toggle("colorblind-vitaraged", !!(engine && engine.isBuffed(key)));
+        },
+        onReset: () => {
+            const table = document.getElementById("guessTable");
+            if (table) table.classList.remove("colorblind-active", "colorblind-vitaraged");
+        }
+    },
+    chubbyTroops: {
+        name: "Chubby Troops",
+        description: "Practice mode exclusive. 1/3rd of the units in the pool take up 2 guesses instead of 1 when guessed. Vitaraged: 3 guesses instead of 1.",
+        onStart: (engine) => {
+            const pool = window.enemyKeys || [];
+            const shuffled = [...pool].sort(() => Math.random() - 0.5);
+            const count = Math.round(pool.length / 3);
+            engine.chubbyEnemies = new Set(shuffled.slice(0, count));
+        },
+        onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
+            if (!engine || !engine.chubbyEnemies) return;
+
+            const guessedKey = guessedEnemy.name.toLowerCase();
+            if (!engine.chubbyEnemies.has(guessedKey)) return;
+
+            const buffed = engine.isBuffed(key);
+            const totalCost = buffed ? 3 : 2;
+            const extraGuesses = totalCost - 1;
+
+            if (typeof window.addExtraGuessCount === "function") {
+                window.addExtraGuessCount(extraGuesses);
+            }
+
+            row.classList.add("row-chubby");
+            const wrapper = row.querySelector(".name-cell-wrapper");
+            if (wrapper) {
+                const badge = document.createElement("span");
+                badge.className = "chubby-cost-badge";
+                badge.innerText = `×${totalCost} guesses`;
+                wrapper.appendChild(badge);
+            }
+
+            const tbody = document.getElementById("guessRows");
+            if (tbody) {
+                for (let i = 0; i < extraGuesses; i++) {
+                    const clone = row.cloneNode(true);
+                    const cloneImg = clone.querySelector(".table-enemy-icon");
+                    if (cloneImg) cloneImg.onerror = function() { this.style.display = "none"; };
+                    tbody.insertBefore(clone, tbody.firstChild);
+                }
+            }
+        },
+        onReset: (engine) => {
+            if (engine) engine.chubbyEnemies = null;
+        }
     }
 };
 

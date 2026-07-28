@@ -8,7 +8,7 @@ class ModifierEngine {
         this.buffedModifiers = new Set();
         this.securityProtocolWrongGuesses = 0;
         this.expandedModifierKey = null;
-        this.allowedKeys = null; // when set, evaluateWave only picks from these keys
+        this.allowedKeys = null;
     }
 
     isBuffed(key) {
@@ -274,7 +274,7 @@ class ModifierEngine {
                 if (this.isBuffed(key)) {
                     tag.classList.add("modifier-buffed");
                 }
-                tag.innerText = def.name;
+                tag.innerText = typeof def.name === "function" ? def.name(this.isBuffed(key)) : def.name;
                 tag.dataset.modifierKey = key;
                 tag.addEventListener("click", () => this.toggleDescription(key));
                 listContainer.appendChild(tag);

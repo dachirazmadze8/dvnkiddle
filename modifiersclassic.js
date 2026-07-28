@@ -101,8 +101,6 @@ const classicDefinitions = {
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
             const flipPairs = [["↑", "↓"], ["↓", "↑"], ["→", "←"], ["←", "→"]];
 
-            // Correctness is checked against the real data, not the cell's current
-            // DOM classes, so a genuinely correct stat can never be flipped here.
             const fieldChecks = [
                 { cls: "cell-health", isCorrect: guessedEnemy.health === secretEnemy.health },
                 { cls: "cell-waves", isCorrect: guessedEnemy.waves === secretEnemy.waves },
@@ -133,7 +131,7 @@ const classicDefinitions = {
         }
     },
     weakenedSignal: {
-        name: "Weakened Signal",
+        name: "Sapped Communications",
         description: "You only have 5 guesses instead of 6. Vitaraged: only 4 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
@@ -205,8 +203,6 @@ const classicDefinitions = {
                 const secret = typeof window.getSecretEnemy === "function" ? window.getSecretEnemy() : null;
                 const db = window.enemyDatabase || {};
 
-                // The current target can never be vitacharged, otherwise guessing
-                // it correctly would get blanked out instead of showing the win.
                 const pool = [...new Set(window.getPreviousWaveGuesses(waveSpan))]
                     .filter(enemyKey => !secret || !db[enemyKey] || db[enemyKey].name !== secret.name);
 
@@ -301,9 +297,6 @@ const classicDefinitions = {
             engine.buffedModifiers = new Set();
             let candidates = [...engine.active].filter(key => key !== "vitarage");
 
-            // Vitaraged Weakened Signal (4 guesses) combined with Jammed Radar
-            // (which burns a guess immediately) is too punishing, so Weakened
-            // Signal can never be the buff target while Jammed Radar is active.
             if (engine.active.has("jammedRadar")) {
                 candidates = candidates.filter(key => key !== "weakenedSignal");
             }

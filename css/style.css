@@ -332,6 +332,21 @@ body.game-body {
     font-weight: bold;
 }
 
+.wordle-table.colorblind-active .cell-correct,
+.wordle-table.colorblind-active .cell-incorrect,
+.wordle-table.colorblind-active .cell-partial {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+.wordle-table.colorblind-vitaraged td.cell-type,
+.wordle-table.colorblind-vitaraged td.cell-health,
+.wordle-table.colorblind-vitaraged td.cell-waves,
+.wordle-table.colorblind-vitaraged td.cell-encounter {
+    filter: blur(6px);
+    transition: filter 0.2s ease;
+}
+
 
 .guess-controls {
     display: flex;
@@ -749,6 +764,34 @@ tr.row-vitacharged td.cell-name {
     box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
 }
 
+.modifier-tag.colorblind {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.chubby-troops {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.chubby-cost-badge {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffcc66;
+    margin-top: 0.15rem;
+}
+
 .cell-assassin-warning {
     box-shadow: 0 0 0 2px #ff9900 inset;
 }
@@ -937,6 +980,13 @@ body.practice-menu-body {
 
 .practice-vitaraged-label {
     color: #e0ccff;
+}
+
+.practice-randomize-label {
+    margin-top: 1.1rem;
+    white-space: normal;
+    text-align: left;
+    max-width: 520px;
 }
 
 .practice-checkbox-label input[type="checkbox"] {
