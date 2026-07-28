@@ -75,6 +75,7 @@ const enemyDatabase = {
     "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
     "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
     "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
+    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
 };
 
 const encounterOrder = [
