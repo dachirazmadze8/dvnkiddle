@@ -504,6 +504,13 @@ td.name-cell {
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
+.menu-btn.nightmare-btn:hover {
+  background-color: #9900ff;
+  border-color: #9900ff;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(153, 0, 255, 0.8);
+}
+
 .wave-counter-box.wave-hell {
     color: #ff3333;
     border-color: rgba(255, 51, 51, 0.6);
@@ -529,6 +536,18 @@ td.name-cell {
 .game-title.hell-title {
     color: #ff3333;
     text-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+.wave-counter-box.wave-nightmare {
+    color: #cc66ff;
+    border-color: rgba(153, 0, 255, 0.6);
+    background: rgba(90, 0, 160, 0.12);
+    box-shadow: 0 0 10px rgba(153, 0, 255, 0.3);
+}
+
+.game-title.nightmare-title {
+    color: #cc66ff;
+    text-shadow: 0 0 12px rgba(153, 0, 255, 0.6);
 }
 
 .modifiers-container {
@@ -877,6 +896,23 @@ tr.row-vitacharged td.cell-name {
     background: rgba(51, 255, 136, 0.15);
     border: 1px solid #33ff88;
     box-shadow: 0 0 8px rgba(51, 255, 136, 0.3);
+    animation: none;
+}
+
+.nightmare-mode .modifiers-container {
+    border-color: rgba(153, 0, 255, 0.4);
+    box-shadow: 0 0 15px rgba(153, 0, 255, 0.15);
+}
+
+.nightmare-mode .modifiers-label {
+    color: #cc66ff;
+    text-shadow: 0 0 6px rgba(153, 0, 255, 0.4);
+}
+
+.nightmare-mode .modifier-tag-none {
+    background: rgba(153, 0, 255, 0.15);
+    border: 1px solid #cc66ff;
+    box-shadow: 0 0 8px rgba(153, 0, 255, 0.3);
     animation: none;
 }
 

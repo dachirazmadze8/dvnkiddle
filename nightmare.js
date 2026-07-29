@@ -1,5 +1,6 @@
 const enemyDatabase = {
     "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, encounter: "Wave 1 siege" },
+    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, encounter: "Wave 1 siege" },
     "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, encounter: "Wave 1 siege" },
     "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, encounter: "Wave 2 siege" },
     "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, encounter: "Wave 2 siege" },
@@ -12,9 +13,12 @@ const enemyDatabase = {
     "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, encounter: "Wave 2 epilogue" },
     "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, encounter: "Wave 2 epilogue" },
     "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, encounter: "Wave 4 siege" },
-    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
     "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege" },
     "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege" },
     "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege" },
@@ -58,6 +62,7 @@ const enemyDatabase = {
     "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, encounter: "Wave 9 siege" },
     "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege" },
     "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 siege" },
+    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, encounter: "Wave 9 siege" },
     "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 2, encounter: "Wave 10 siege" },
     "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 2, encounter: "Wave 10 siege" },
     "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind" },
@@ -73,21 +78,11 @@ const enemyDatabase = {
     "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege" },
     "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
-    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
-    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
-    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
-    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, encounter: "Wave 1 siege" },
-    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
-    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
-    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, encounter: "Wave 9 siege" },
     "squad gunner": { name: "Squad Gunner", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad medic": { name: "Squad Medic", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad officer": { name: "Squad Officer", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad strider": { name: "Squad Strider", type: "Elite Mech", health: 1500, waves: 0, encounter: "Sandbox" },
+    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
     "old prometheus": { name: "Old Prometheus", type: "Boss", health: 700, waves: 0, encounter: "Sandbox" },
     "old sparta": { name: "Old Sparta", type: "Boss", health: 410, waves: 0, encounter: "Sandbox" },
     "old fusilier": { name: "Old Fusilier", type: "Boss", health: 400, waves: 0, encounter: "Sandbox" },
@@ -98,6 +93,8 @@ const enemyDatabase = {
     "gaia sensei": { name: "Gaia Sensei", type: "Boss", health: 150, waves: 0, encounter: "Sandbox" },
     "gaia pre": { name: "Gaia PRE", type: "Boss", health: 150, waves: 0, encounter: "Sandbox" },
     "daedalus pre": { name: "Daedalus PRE", type: "Boss", health: 500, waves: 0, encounter: "Sandbox" },
+    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
+    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
     "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 0, encounter: "Sandbox" },
     "prometheustest": { name: "PrometheusTest", type: "Boss", health: 750, waves: 0, encounter: "Sandbox" },
     "wall of jericho": { name: "Wall Of Jericho", type: "Boss", health: 200, waves: 0, encounter: "Sandbox" },
@@ -163,7 +160,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -173,23 +170,7 @@ window.getSecretEnemy = function() {
     return secretEnemy;
 };
 
-function loadEnemyRoster() {
-    try {
-        const stored = localStorage.getItem("practiceEnemyRoster");
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed)) {
-                const filtered = parsed.filter(key => enemyDatabase[key]);
-                if (filtered.length > 0) return filtered;
-            }
-        }
-    } catch (e) {
-        // fall through to the full roster
-    }
-    return Object.keys(enemyDatabase);
-}
-
-let enemyKeys = loadEnemyRoster();
+const enemyKeys = Object.keys(enemyDatabase);
 window.enemyKeys = enemyKeys;
 let secretEnemy;
 let gameOver = false;
@@ -291,8 +272,7 @@ function initializeGameSession() {
     if (tbody) tbody.innerHTML = "";
 
     if (typeof Modifiers !== "undefined") {
-        Modifiers.currentWave = currentWave;
-        window.applyPracticeModifiers();
+        Modifiers.evaluateWave(currentWave);
     }
 }
 
@@ -436,34 +416,6 @@ window.setMaxGuesses = function(n) {
 
 window.addExtraGuessCount = function(n) {
     guessCount += n;
-};
-
-window.applyPracticeModifiers = function() {
-    let config = { enabled: [], vitaraged: [], randomize: false };
-    try {
-        const stored = localStorage.getItem("practiceModifierConfig");
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed.enabled)) config.enabled = parsed.enabled;
-            if (Array.isArray(parsed.vitaraged)) config.vitaraged = parsed.vitaraged;
-            if (typeof parsed.randomize === "boolean") config.randomize = parsed.randomize;
-        }
-    } catch (e) {
-        config = { enabled: [], vitaraged: [], randomize: false };
-    }
-
-    if (typeof Modifiers === "undefined") return;
-
-    if (config.randomize) {
-        // Only draw from the modifiers the user selected, but let the engine
-        // pick how many appear and which ones, using the same wave-based
-        // formula and vitarage-forcing rule Classic mode uses.
-        Modifiers.allowedKeys = config.enabled;
-        Modifiers.evaluateWave(currentWave);
-    } else {
-        Modifiers.allowedKeys = null;
-        Modifiers.applyFixedModifiers(config.enabled, new Set(config.vitaraged));
-    }
 };
 
 function tryUseExtraLife(reasonText) {
@@ -646,8 +598,20 @@ function submitGuess() {
         wrapper.appendChild(textSpan);
         td.appendChild(wrapper);
 
+        const isDummyName = name => name.toLowerCase().startsWith("dummy ");
+        const isOldName = name => name.toLowerCase().startsWith("old ");
+
+        const pdcGroup = new Set(["pdc kit", "governor kit", "old pdc", "mads kit", "vehicle pdc", "adc", "sprayer kit", "turret kit"]);
+        const isPdcGroupName = name => pdcGroup.has(name.toLowerCase());
+
         if (guessedEnemy.name === targetEnemy.name) {
             td.classList.add("cell-correct");
+        } else if (isDummyName(guessedEnemy.name) && isDummyName(targetEnemy.name)) {
+            td.classList.add("cell-partial");
+        } else if (isOldName(guessedEnemy.name) && isOldName(targetEnemy.name)) {
+            td.classList.add("cell-partial");
+        } else if (isPdcGroupName(guessedEnemy.name) && isPdcGroupName(targetEnemy.name)) {
+            td.classList.add("cell-partial");
         } else {
             td.classList.add("cell-incorrect");
         }

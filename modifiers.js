@@ -178,7 +178,11 @@ class ModifierEngine {
     }
 
     onGuess(row, guessedEnemy, secretEnemy) {
-        this.active.forEach(key => {
+        const keys = [...this.active];
+        const normalKeys = keys.filter(key => !this.definitions[key]?.runLast);
+        const lateKeys = keys.filter(key => this.definitions[key]?.runLast);
+
+        [...normalKeys, ...lateKeys].forEach(key => {
             if (this.definitions[key]?.onGuess) {
                 this.definitions[key].onGuess(row, guessedEnemy, secretEnemy, this, key);
             }

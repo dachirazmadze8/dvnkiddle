@@ -10,7 +10,7 @@ window.getCurrentAssassin = function() {
     return currentAssassin;
 };
 
-const practiceDefinitions = {
+const nightmareDefinitions = {
     cloaked: {
         name: "Cloaked",
         description: "Hides the Type column. Vitaraged: also strips the arrow from one fixed stat category all wave.",
@@ -233,9 +233,8 @@ const practiceDefinitions = {
         onStart: (engine, key) => {
             currentAssassin = null;
             const db = window.enemyDatabase || {};
-            const rosterKeys = window.enemyKeys || Object.keys(db);
             const secret = typeof window.getSecretEnemy === "function" ? window.getSecretEnemy() : null;
-            const pool = rosterKeys.filter(dbKey => !secret || db[dbKey].name !== secret.name);
+            const pool = Object.keys(db).filter(dbKey => !secret || db[dbKey].name !== secret.name);
             if (pool.length > 0) {
                 const randomKey = pool[Math.floor(Math.random() * pool.length)];
                 currentAssassin = db[randomKey];
@@ -297,9 +296,6 @@ const practiceDefinitions = {
         onStart: (engine) => {
             engine.buffedModifiers = new Set();
             let candidates = [...engine.active].filter(key => key !== "vitarage");
-            if (engine.active.has("jammedRadar")) {
-                candidates = candidates.filter(key => key !== "weakenedSignal");
-            }
 
             if (candidates.length > 0) {
                 const wave = engine.currentWave || 1;
@@ -393,7 +389,7 @@ const practiceDefinitions = {
     },
     colorblind: {
         name: (buffed) => buffed ? "Blindness" : "Colorblind",
-        description: "Practice mode exclusive. All color hints are disabled — you only have the arrows to go by. Vitaraged: stats are also heavily blurred.",
+        description: "All color hints are disabled — you only have the arrows to go by. Vitaraged: stats are also heavily blurred.",
         onStart: (engine, key) => {
             const table = document.getElementById("guessTable");
             if (!table) return;
@@ -407,7 +403,7 @@ const practiceDefinitions = {
     },
     chubbyTroops: {
         name: "Chubby Troops",
-        description: "Practice mode exclusive. 1/3rd of the units in the pool take up 2 guesses instead of 1 when guessed. Vitaraged: 3 guesses instead of 1.",
+        description: "1/3rd of the units in the pool take up 2 guesses instead of 1 when guessed. Vitaraged: 3 guesses instead of 1.",
         runLast: true,
         onStart: (engine) => {
             const pool = window.enemyKeys || [];
@@ -454,7 +450,7 @@ const practiceDefinitions = {
     }
 };
 
-function practiceWaveCounts(waveNumber) {
+function nightmareWaveCounts(waveNumber) {
     if (waveNumber <= 5) return 0;
 
     const cap = Math.min(4, Math.floor(waveNumber / 5));
@@ -467,5 +463,5 @@ function practiceWaveCounts(waveNumber) {
     return minCount + Math.floor(Math.random() * (cap - minCount + 1));
 }
 
-window.Modifiers = new ModifierEngine("practice", practiceDefinitions, practiceWaveCounts);
+window.Modifiers = new ModifierEngine("nightmare", nightmareDefinitions, nightmareWaveCounts);
 window.Modifiers.forceVitarage = (wave) => wave > 40;
