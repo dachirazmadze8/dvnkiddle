@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play - DVNKIDDLE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+</head>
+<body class="game-body item-mode">
+
+  <div class="game-container">
+
+    <a href="gamemodes.html" class="menu-btn back-to-menu">Main Menu</a>
+
+    <h1 class="game-title" style="margin-top: 20px;">GUESS THE ITEM</h1>
+
+    <div class="guess-controls">
+        <div id="waveIndicator" class="wave-counter-box">Wave: 1</div>
+        <div class="search-container">
+            <input type="text" id="itemInput" placeholder="Type or select an item..." autocomplete="off">
+            <div id="dropdownMenu" class="dropdown-menu"></div>
+        </div>
+        <button class="menu-btn submit-btn">Guess</button>
+    </div>
+
+    <div class="action-panel">
+        <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
+    </div>
+
+    <div id="gameMessage" class="game-message"></div>
+
+    <table class="wordle-table" id="guessTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Damage</th>
+                <th>Firerate</th>
+                <th>Special Ability?</th>
+            </tr>
+        </thead>
+        <tbody id="guessRows">
+        </tbody>
+    </table>
+  </div>
+
+  <script src="item.js"></script>
+
+</body>
+</html>

@@ -332,6 +332,10 @@ body.game-body {
     font-weight: bold;
 }
 
+.wordle-table td.split-cell {
+    position: relative;
+}
+
 .wordle-table.colorblind-active .cell-correct,
 .wordle-table.colorblind-active .cell-incorrect,
 .wordle-table.colorblind-active .cell-partial {
@@ -794,6 +798,16 @@ tr.row-vitacharged td.cell-name {
 }
 
 .modifier-tag.chubby-troops {
+    background-color: rgba(180, 20, 40, 0.3);
+    color: #ffcccc;
+    border: 1px solid #ff3355;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 55, 0.3);
+}
+
+.modifier-tag.double-trouble {
     background-color: rgba(180, 20, 40, 0.3);
     color: #ffcccc;
     border: 1px solid #ff3355;

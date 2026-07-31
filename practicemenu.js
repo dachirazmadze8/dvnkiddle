@@ -14,7 +14,9 @@ const PRACTICE_MODIFIERS = [
     { key: "extraLife", name: "Resuscitator" },
     { key: "aimAssist", name: "Aim Assist" },
     { key: "colorblind", name: "Colorblind" },
-    { key: "chubbyTroops", name: "Chubby Troops" }
+    { key: "chubbyTroops", name: "Chubby Troops" },
+    { key: "doubleTrouble", name: "Double Trouble" },
+    { key: "experienced", name: "Experienced" }
 ];
 
 const PRACTICE_ENEMIES = [
@@ -96,6 +98,8 @@ const PRACTICE_ENEMIES = [
     { key: "operator", name: "Operator", type: "Advanced" },
     { key: "apc", name: "APC", type: "Mech" },
     { key: "grenade", name: "Grenade", type: "Nightmare" },
+    { key: "sapper", name: "Sapper", type: "Nightmare" },
+    { key: "ranger2", name: "Ranger2", type: "Nightmare" },
     { key: "level 1 sentry", name: "Level 1 Sentry", type: "Nightmare" },
     { key: "level 2 sentry", name: "Level 2 Sentry", type: "Nightmare" },
     { key: "level 3 sentry", name: "Level 3 Sentry", type: "Nightmare" },
@@ -117,6 +121,7 @@ const PRACTICE_ENEMIES = [
     { key: "gaia sensei", name: "Gaia Sensei", type: "Nightmare" },
     { key: "gaia pre", name: "Gaia PRE", type: "Nightmare" },
     { key: "daedalus pre", name: "Daedalus PRE", type: "Nightmare" },
+    { key: "lelantos decoy", name: "Lelantos Decoy", type: "Nightmare" },
     { key: "achilles (ht)", name: "Achilles (Ht)", type: "Nightmare" },
     { key: "prometheustest", name: "PrometheusTest", type: "Nightmare" },
     { key: "wall of jericho", name: "Wall Of Jericho", type: "Nightmare" },
@@ -134,6 +139,7 @@ const PRACTICE_ENEMIES = [
     { key: "brace", name: "BRACE", type: "Nightmare" },
     { key: "hallucinator kit", name: "Hallucinator Kit", type: "Nightmare" },
     { key: "stonehedge kit", name: "Stonehedge Kit", type: "Nightmare" },
+    { key: "lifeline", name: "Lifeline", type: "Nightmare" },
     { key: "fast", name: "FAST", type: "Nightmare" },
     { key: "tripwire trip", name: "Tripwire trip", type: "Nightmare" },
     { key: "supplier", name: "Supplier", type: "Nightmare" },
