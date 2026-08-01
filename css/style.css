@@ -788,6 +788,16 @@ tr.row-vitacharged td.cell-name {
     box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
 }
 
+.modifier-tag.experienced {
+    background-color: rgba(0, 180, 80, 0.3);
+    color: #ccffdd;
+    border: 1px solid #33ff88;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(51, 255, 136, 0.4);
+}
+
 .modifier-tag.colorblind {
     background-color: rgba(180, 20, 40, 0.3);
     color: #ffcccc;
