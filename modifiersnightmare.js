@@ -136,13 +136,13 @@ const nightmareDefinitions = {
         description: "You only have 5 guesses instead of 6. Vitaraged: only 4 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 4 : 5);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? -2 : -1);
             }
         },
-        onReset: () => {
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+        onReset: (engine, key) => {
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("weakenedSignal");
             }
         }
     },
@@ -332,7 +332,14 @@ const nightmareDefinitions = {
             }
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
-            if (guessedEnemy.name === secretEnemy.name) return;
+            const doubleTroubleActive = typeof Modifiers !== "undefined" &&
+                Modifiers.active.has("doubleTrouble");
+            const secretEnemy2 = typeof window.getSecondSecretEnemy === "function" ? window.getSecondSecretEnemy() : null;
+            const secretEnemy3 = typeof window.getThirdSecretEnemy === "function" ? window.getThirdSecretEnemy() : null;
+            const validTargets = doubleTroubleActive && secretEnemy2
+                ? [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])]
+                : [secretEnemy];
+            if (validTargets.some(t => t.name === guessedEnemy.name)) return;
             if (window.__autoGuessInProgress) return;
 
             if (typeof window.handleMutilatedDeathsFail === "function") {
@@ -346,13 +353,13 @@ const nightmareDefinitions = {
         description: "You get 7 guesses instead of 6. Vitaraged: 8 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 8 : 7);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? 2 : 1);
             }
         },
         onReset: () => {
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("strengthenedSignal");
             }
         }
     },
@@ -463,8 +470,8 @@ const nightmareDefinitions = {
         onStart: (engine, key) => {
             engine.doubleTroubleFound = null;
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 9 : 7);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? 3 : 1);
             }
             if (typeof window.pickSecondTarget === "function") {
                 window.pickSecondTarget();
@@ -477,8 +484,8 @@ const nightmareDefinitions = {
             if (engine) {
                 engine.doubleTroubleFound = null;
             }
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("doubleTrouble");
             }
             if (typeof window.clearSecondTarget === "function") {
                 window.clearSecondTarget();
@@ -490,9 +497,8 @@ const nightmareDefinitions = {
     },
     experienced: {
         name: (buffed) => buffed ? "Seasoned Veteran" : "Experienced",
-        description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: XP on Kill replaces the Total Waves column entirely instead of appearing alongside it.",
+        description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: the XP threshold for partial credit is tighter.",
         onStart: (engine, key) => {
-            const buffed = engine && engine.isBuffed(key);
             const thead = document.querySelector(".wordle-table thead tr");
             if (!thead || thead.querySelector(".th-xp")) return;
             const wavesHeaders = thead.querySelectorAll("th");
@@ -500,12 +506,6 @@ const nightmareDefinitions = {
             wavesHeaders.forEach((th, i) => {
                 if (th.textContent.trim().toUpperCase() === "TOTAL WAVES") wavesThIndex = i;
             });
-
-            if (buffed && wavesThIndex !== -1) {
-                wavesHeaders[wavesThIndex].dataset.xpHidden = "true";
-                wavesHeaders[wavesThIndex].style.display = "none";
-            }
-
             const th = document.createElement("th");
             th.textContent = "XP ON KILL";
             th.className = "th-xp";
@@ -516,19 +516,13 @@ const nightmareDefinitions = {
             }
         },
         onReset: () => {
-            const wavesHeader = document.querySelector('.wordle-table thead tr th[data-xp-hidden="true"]');
-            if (wavesHeader) {
-                wavesHeader.style.display = "";
-                delete wavesHeader.dataset.xpHidden;
-            }
             const th = document.querySelector(".wordle-table thead tr .th-xp");
             if (th) th.remove();
             document.querySelectorAll("#guessRows .cell-xp").forEach(td => td.remove());
-            document.querySelectorAll("#guessRows .cell-waves").forEach(td => { td.style.display = ""; });
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            const threshold = 10;
+            const threshold = buffed ? 5 : 10;
             const guessedXp = guessedEnemy.xpOnKill;
             const targetXp = secretEnemy.xpOnKill;
 
@@ -566,7 +560,6 @@ const nightmareDefinitions = {
 
             const wavesCell = row.querySelector(".cell-waves");
             if (wavesCell) {
-                if (buffed) wavesCell.style.display = "none";
                 wavesCell.after(td);
             } else {
                 row.appendChild(td);

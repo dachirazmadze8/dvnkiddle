@@ -1,167 +1,166 @@
 const enemyDatabase = {
-    "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, xpOnKill: 0, encounter: "Wave 1 siege" },
-    "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, xpOnKill: 0, encounter: "Wave 1 siege" },
-    "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, xpOnKill: 0, encounter: "Wave 2 siege" },
-    "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, xpOnKill: 0, encounter: "Wave 2 siege" },
-    "sapper": { name: "Sapper", type: "Fodder", health: 0, waves: 32, xpOnKill: 0, encounter: "Wave 2 siege" },
-    "landmine": { name: "Landmine", type: "Fodder", health: 20, waves: 32, xpOnKill: 0, encounter: "Wave 2 siege" },
-    "administrator": { name: "Administrator", type: "Fodder", health: 100, waves: 1, xpOnKill: 0, encounter: "Wave 2 epilogue" },
-    "grenadier": { name: "Grenadier", type: "Advanced", health: 180, waves: 16, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "jetpacker": { name: "Jetpacker", type: "Advanced", health: 100, waves: 14, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "gunner": { name: "Gunner", type: "Advanced", health: 350, waves: 22, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "sniper": { name: "Sniper", type: "Advanced", health: 100, waves: 23, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, xpOnKill: 0, encounter: "Wave 2 epilogue" },
-    "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, xpOnKill: 0, encounter: "Wave 2 epilogue" },
-    "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "apu": { name: "APU", type: "Mech", health: 900, waves: 22, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 14, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "apu-r operator": { name: "APU-R Operator", type: "Advanced", health: 450, waves: 14, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "tank": { name: "Tank", type: "Mech", health: 3500, waves: 14, xpOnKill: 0, encounter: "Wave 7 siege" },
-    "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 14, xpOnKill: 0, encounter: "Wave 7 siege" },
-    "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, xpOnKill: 0, encounter: "Wave 7 siege" },
-    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, xpOnKill: 0, encounter: "Wave 7 siege" },
-    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 21, xpOnKill: 0, encounter: "Wave 1 siege" },
-    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 16, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 7, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 16, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 16, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 12, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 5, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 5, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 12, xpOnKill: 0, encounter: "Wave 5 siege" },
-    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 2, xpOnKill: 0, encounter: "Wave 10 hell" },
-    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 6, xpOnKill: 0, encounter: "Wave 7 siege" },
-    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 3, xpOnKill: 0, encounter: "Wave 8 siege" },
-    "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "lelantos": { name: "Lelantos", type: "Boss", health: 380, waves: 5, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "lelantos decoy": { name: "Lelantos Decoy", type: "Boss", health: 0, waves: 5, xpOnKill: 0, encounter: "Wave 3 siege" },
-    "gaia": { name: "Gaia", type: "Boss", health: 775, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "escort shielder": { name: "Escort Shielder", type: "Elite Fodder", health: 250, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "shield": { name: "Shield", type: "Elite Fodder", health: 250, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "escort gunner": { name: "Escort Gunner", type: "Elite Advanced", health: 500, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "prometheus": { name: "Prometheus", type: "Boss", health: 750, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "fuel tank (prometheus)": { name: "Fuel Tank (Prometheus)", type: "Boss", health: 200, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "hermes": { name: "Hermes", type: "Boss", health: 525, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "hermes pods": { name: "Hermes Pods", type: "Boss", health: 60, waves: 12, xpOnKill: 0, encounter: "Wave 6 siege" },
-    "sparta": { name: "Sparta", type: "Boss", health: 440, waves: 9, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "trident": { name: "Trident", type: "Boss", health: 675, waves: 9, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 2, xpOnKill: 0, encounter: "Wave 10 siege" },
-    "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 2, xpOnKill: 0, encounter: "Wave 10 siege" },
-    "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, xpOnKill: 0, encounter: "Wave 10 mastermind" },
-    "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, xpOnKill: 0, encounter: "Wave 10 mastermind" },
-    "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, xpOnKill: 0, encounter: "Wave 3 epilogue" },
-    "london prime": { name: "London Prime", type: "Boss", health: 3000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "manglenether345": { name: "MangleNether345", type: "Boss", health: 250, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "mega joe": { name: "Mega Joe", type: "Boss", health: 2000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, xpOnKill: 0, encounter: "Wave 1 siege" },
-    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, xpOnKill: 0, encounter: "Wave 4 siege" },
-    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, xpOnKill: 0, encounter: "Wave 9 siege" },
-    "squad gunner": { name: "Squad Gunner", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "squad medic": { name: "Squad Medic", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "squad officer": { name: "Squad Officer", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "squad strider": { name: "Squad Strider", type: "Elite Mech", health: 1500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old prometheus": { name: "Old Prometheus", type: "Boss", health: 700, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old sparta": { name: "Old Sparta", type: "Boss", health: 410, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old fusilier": { name: "Old Fusilier", type: "Boss", health: 400, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old trident": { name: "Old Trident", type: "Boss", health: 900, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "orb": { name: "Orb", type: "Boss", health: 30, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old medic": { name: "Old Medic", type: "Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old gaia": { name: "Old Gaia", type: "Boss", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "gaia sensei": { name: "Gaia Sensei", type: "Boss", health: 150, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "gaia pre": { name: "Gaia PRE", type: "Boss", health: 150, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "daedalus pre": { name: "Daedalus PRE", type: "Boss", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "prometheustest": { name: "PrometheusTest", type: "Boss", health: 750, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "wall of jericho": { name: "Wall Of Jericho", type: "Boss", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "icarus": { name: "Icarus", type: "Boss", health: 300, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "icarus helicopter": { name: "Icarus Helicopter", type: "Mech", health: 15000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "vehicle pdc": { name: "Vehicle PDC", type: "Mech", health: 4000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "pdc kit": { name: "PDC Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "governor kit": { name: "Governor Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "mads kit": { name: "MADS Kit", type: "Item", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "old pdc": { name: "Old PDC", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "adc": { name: "ADC", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "sprayer kit": { name: "Sprayer Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "turret kit": { name: "Turret Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "barrier kit": { name: "Barrier Kit", type: "Item", health: 1500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "brace": { name: "BRACE", type: "Item", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "hallucinator kit": { name: "Hallucinator Kit", type: "Item", health: 400, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "stonehedge kit": { name: "Stonehedge Kit", type: "Item", health: 1500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "fast": { name: "FAST", type: "Item", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "lifeline": { name: "Lifeline", type: "Item", health: 1000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "tripwire trip": { name: "Tripwire trip", type: "Item", health: 0, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "supplier": { name: "Supplier", type: "Advanced", health: 300, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "artillery": { name: "Artillery", type: "Mech", health: 1000000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy infantry": { name: "Dummy Infantry", type: "Fodder", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy cloaker": { name: "Dummy Cloaker", type: "Fodder", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy shielder": { name: "Dummy Shielder", type: "Fodder", health: 110, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy saboteur": { name: "Dummy Saboteur", type: "Fodder", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy grenadier": { name: "Dummy Grenadier", type: "Advanced", health: 180, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy jetpacker": { name: "Dummy Jetpacker", type: "Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy gunner": { name: "Dummy Gunner", type: "Advanced", health: 350, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy sniper": { name: "Dummy Sniper", type: "Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy tranquilizer": { name: "Dummy Tranquilizer", type: "Advanced", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy medic": { name: "Dummy Medic", type: "Advanced", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy apu": { name: "Dummy APU", type: "Mech", health: 900, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy tank": { name: "Dummy Tank", type: "Mech", health: 3500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "fuel tank (dummy tank)": { name: "Fuel Tank (Dummy Tank)", type: "Mech", health: 3500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy platform": { name: "Dummy Platform", type: "Mech", health: 7500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy combatant": { name: "Dummy Combatant", type: "Elite Fodder", health: 100, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy informant": { name: "Dummy Informant", type: "Elite Fodder", health: 150, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy confidant": { name: "Dummy Confidant", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy agitator": { name: "Dummy Agitator", type: "Elite Fodder", health: 300, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy jagant": { name: "Dummy Jagant", type: "Elite Fodder", health: 150, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy bombardier": { name: "Dummy Bombardier", type: "Elite Fodder", health: 350, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy operant": { name: "Dummy Operant", type: "Elite Fodder", health: 300, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy fusilier": { name: "Dummy Fusilier", type: "Boss", health: 400, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy daedalus": { name: "Dummy Daedalus", type: "Boss", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy tempest": { name: "Dummy Tempest", type: "Boss", health: 600, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy lelantos": { name: "Dummy Lelantos", type: "Boss", health: 380, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy prometheus": { name: "Dummy Prometheus", type: "Boss", health: 750, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "fuel tank (dummy prometheus)": { name: "Fuel Tank (Dummy Prometheus)", type: "Boss", health: 200, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy hermes": { name: "Dummy Hermes", type: "Boss", health: 525, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy hermes pods": { name: "Dummy Hermes Pods", type: "Boss", health: 60, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy sparta": { name: "Dummy Sparta", type: "Boss", health: 440, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "dummy trident": { name: "Dummy Trident", type: "Boss", health: 675, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "refugee": { name: "Refugee", type: "Fodder", health: 50, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "refugee2": { name: "Refugee2", type: "Fodder", health: 50, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "ranger2": { name: "Ranger2", type: "Mech", health: 150, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "apu backup": { name: "APU Backup", type: "Mech", health: 500, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "apu (unoptimized)": { name: "APU (unoptimized)", type: "Mech", health: 900, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "punching bag": { name: "Punching Bag", type: "Boss", health: 1000000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "punching bag resistant": { name: "Punching Bag Resistant", type: "Boss", health: 1000000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "punching bag boss": { name: "Punching Bag Boss", type: "Boss", health: 1000000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
-    "punching bag armored": { name: "Punching Bag Armored", type: "Boss", health: 1000000, waves: 0, xpOnKill: 0, encounter: "Sandbox" },
+    "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, xpOnKill: 80, encounter: "Wave 1 siege" },
+    "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, xpOnKill: 70, encounter: "Wave 1 siege" },
+    "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, xpOnKill: 70, encounter: "Wave 2 siege" },
+    "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, xpOnKill: 75, encounter: "Wave 2 siege" },
+    "sapper": { name: "Sapper", type: "Fodder", health: 0, waves: 32, xpOnKill: 75, encounter: "Wave 2 siege" },
+    "landmine": { name: "Landmine", type: "Fodder", health: 20, waves: 32, xpOnKill: 65, encounter: "Wave 2 siege" },
+    "administrator": { name: "Administrator", type: "Fodder", health: 100, waves: 1, xpOnKill: 10, encounter: "Wave 2 epilogue" },
+    "grenadier": { name: "Grenadier", type: "Advanced", health: 180, waves: 16, xpOnKill: 50, encounter: "Wave 4 siege" },
+    "jetpacker": { name: "Jetpacker", type: "Advanced", health: 100, waves: 14, xpOnKill: 40, encounter: "Wave 5 siege" },
+    "gunner": { name: "Gunner", type: "Advanced", health: 350, waves: 22, xpOnKill: 80, encounter: "Wave 5 siege" },
+    "sniper": { name: "Sniper", type: "Advanced", health: 100, waves: 23, xpOnKill: 55, encounter: "Wave 5 siege" },
+    "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, xpOnKill: 25, encounter: "Wave 2 epilogue" },
+    "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, xpOnKill: 40, encounter: "Wave 2 epilogue" },
+    "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, xpOnKill: 45, encounter: "Wave 4 siege" },
+    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, xpOnKill: 60, encounter: "Wave 4 siege" },
+    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, xpOnKill: 75, encounter: "Wave 4 siege" },
+    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, xpOnKill: 90, encounter: "Wave 4 siege" },
+    "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, xpOnKill: 45, encounter: "Wave 3 siege" },
+    "apu": { name: "APU", type: "Mech", health: 900, waves: 22, xpOnKill: 135, encounter: "Wave 4 siege" },
+    "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, xpOnKill: 80, encounter: "Wave 4 siege" },
+    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 14, xpOnKill: 120, encounter: "Wave 5 siege" },
+    "apu-r operator": { name: "APU-R Operator", type: "Advanced", health: 450, waves: 14, xpOnKill: 75, encounter: "Wave 5 siege" },
+    "tank": { name: "Tank", type: "Mech", health: 3500, waves: 14, xpOnKill: 380, encounter: "Wave 7 siege" },
+    "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 14, xpOnKill: 65, encounter: "Wave 7 siege" },
+    "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, xpOnKill: 730, encounter: "Wave 7 siege" },
+    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 3, xpOnKill: 755, encounter: "Wave 8 siege" },
+    "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, xpOnKill: 60, encounter: "Wave 7 siege" },
+    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 3, xpOnKill: 155, encounter: "Wave 8 siege" },
+    "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 3, xpOnKill: 505, encounter: "Wave 8 siege" },
+    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 21, xpOnKill: 50, encounter: "Wave 1 siege" },
+    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 16, xpOnKill: 45, encounter: "Wave 5 siege" },
+    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 7, xpOnKill: 35, encounter: "Wave 8 siege" },
+    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 16, xpOnKill: 60, encounter: "Wave 5 siege" },
+    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 16, xpOnKill: 50, encounter: "Wave 5 siege" },
+    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 12, xpOnKill: 40, encounter: "Wave 4 siege" },
+    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 5, xpOnKill: 25, encounter: "Wave 8 siege" },
+    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 5, xpOnKill: 210, encounter: "Wave 8 siege" },
+    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 12, xpOnKill: 60, encounter: "Wave 5 siege" },
+    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 2, xpOnKill: 35, encounter: "Wave 10 hell" },
+    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 6, xpOnKill: 60, encounter: "Wave 7 siege" },
+    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 3, xpOnKill: 40, encounter: "Wave 8 siege" },
+    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 3, xpOnKill: 15, encounter: "Wave 8 siege" },
+    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 3, xpOnKill: 30, encounter: "Wave 8 siege" },
+    "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, xpOnKill: 70, encounter: "Wave 3 siege" },
+    "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, xpOnKill: 80, encounter: "Wave 3 siege" },
+    "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, xpOnKill: 90, encounter: "Wave 3 siege" },
+    "lelantos": { name: "Lelantos", type: "Boss", health: 380, waves: 5, xpOnKill: 50, encounter: "Wave 3 siege" },
+    "lelantos decoy": { name: "Lelantos Decoy", type: "Boss", health: 0, waves: 5, xpOnKill: 50, encounter: "Wave 3 siege" },
+    "gaia": { name: "Gaia", type: "Boss", health: 775, waves: 12, xpOnKill: 100, encounter: "Wave 6 siege" },
+    "escort shielder": { name: "Escort Shielder", type: "Elite Fodder", health: 250, waves: 12, xpOnKill: 50, encounter: "Wave 6 siege" },
+    "shield": { name: "Shield", type: "Elite Fodder", health: 250, waves: 12, xpOnKill: 50, encounter: "Wave 6 siege" },
+    "escort gunner": { name: "Escort Gunner", type: "Elite Advanced", health: 500, waves: 12, xpOnKill: 75, encounter: "Wave 6 siege" },
+    "prometheus": { name: "Prometheus", type: "Boss", health: 750, waves: 12, xpOnKill: 100, encounter: "Wave 6 siege" },
+    "fuel tank (prometheus)": { name: "Fuel Tank (Prometheus)", type: "Boss", health: 200, waves: 12, xpOnKill: 45, encounter: "Wave 6 siege" },
+    "hermes": { name: "Hermes", type: "Boss", health: 525, waves: 12, xpOnKill: 75, encounter: "Wave 6 siege" },
+    "hermes pods": { name: "Hermes Pods", type: "Boss", health: 60, waves: 12, xpOnKill: 30, encounter: "Wave 6 siege" },
+    "sparta": { name: "Sparta", type: "Boss", health: 440, waves: 9, xpOnKill: 60, encounter: "Wave 9 siege" },
+    "trident": { name: "Trident", type: "Boss", health: 675, waves: 9, xpOnKill: 85, encounter: "Wave 9 siege" },
+    "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, xpOnKill: 45, encounter: "Wave 9 siege" },
+    "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, xpOnKill: 25, encounter: "Wave 9 siege" },
+    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, xpOnKill: 60, encounter: "Wave 9 siege" },
+    "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 2, xpOnKill: 1605, encounter: "Wave 10 siege" },
+    "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 2, xpOnKill: 205, encounter: "Wave 10 siege" },
+    "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, xpOnKill: 130, encounter: "Wave 10 mastermind" },
+    "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, xpOnKill: 15, encounter: "Wave 10 mastermind" },
+    "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, xpOnKill: 105, encounter: "Wave 3 epilogue" },
+    "london prime": { name: "London Prime", type: "Boss", health: 3000, waves: 0, xpOnKill: 300, encounter: "Sandbox" },
+    "manglenether345": { name: "MangleNether345", type: "Boss", health: 250, waves: 0, xpOnKill: 25, encounter: "Sandbox" },
+    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 0, xpOnKill: 80, encounter: "Sandbox" },
+    "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, xpOnKill: 155, encounter: "Sandbox" },
+    "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, xpOnKill: 45, encounter: "Sandbox" },
+    "mega joe": { name: "Mega Joe", type: "Boss", health: 2000, waves: 0, xpOnKill: 200, encounter: "Sandbox" },
+    "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, xpOnKill: 380, encounter: "Wave 4 siege" },
+    "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, xpOnKill: 200, encounter: "Sandbox" },
+    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, xpOnKill: 250, encounter: "Sandbox" },
+    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, xpOnKill: 70, encounter: "Wave 1 siege" },
+    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, xpOnKill: 60, encounter: "Wave 4 siege" },
+    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, xpOnKill: 75, encounter: "Wave 4 siege" },
+    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, xpOnKill: 90, encounter: "Wave 4 siege" },
+    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, xpOnKill: 60, encounter: "Wave 4 siege" },
+    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, xpOnKill: 75, encounter: "Wave 4 siege" },
+    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, xpOnKill: 90, encounter: "Wave 4 siege" },
+    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, xpOnKill: 5, encounter: "Wave 9 siege" },
+    "squad gunner": { name: "Squad Gunner", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "squad medic": { name: "Squad Medic", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "squad officer": { name: "Squad Officer", type: "Elite Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "squad strider": { name: "Squad Strider", type: "Elite Mech", health: 1500, waves: 0, xpOnKill: 150, encounter: "Sandbox" },
+    "old prometheus": { name: "Old Prometheus", type: "Boss", health: 700, waves: 0, xpOnKill: 70, encounter: "Sandbox" },
+    "old sparta": { name: "Old Sparta", type: "Boss", health: 410, waves: 0, xpOnKill: 40, encounter: "Sandbox" },
+    "old fusilier": { name: "Old Fusilier", type: "Boss", health: 400, waves: 0, xpOnKill: 40, encounter: "Sandbox" },
+    "old trident": { name: "Old Trident", type: "Boss", health: 900, waves: 0, xpOnKill: 90, encounter: "Sandbox" },
+    "orb": { name: "Orb", type: "Boss", health: 30, waves: 0, xpOnKill: 5, encounter: "Sandbox" },
+    "old medic": { name: "Old Medic", type: "Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "old gaia": { name: "Old Gaia", type: "Boss", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "gaia sensei": { name: "Gaia Sensei", type: "Boss", health: 150, waves: 0, xpOnKill: 15, encounter: "Sandbox" },
+    "gaia pre": { name: "Gaia PRE", type: "Boss", health: 150, waves: 0, xpOnKill: 15, encounter: "Sandbox" },
+    "daedalus pre": { name: "Daedalus PRE", type: "Boss", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 0, xpOnKill: 30, encounter: "Sandbox" },
+    "prometheustest": { name: "PrometheusTest", type: "Boss", health: 750, waves: 0, xpOnKill: 75, encounter: "Sandbox" },
+    "wall of jericho": { name: "Wall Of Jericho", type: "Boss", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "icarus": { name: "Icarus", type: "Boss", health: 300, waves: 0, xpOnKill: 30, encounter: "Sandbox" },
+    "icarus helicopter": { name: "Icarus Helicopter", type: "Mech", health: 15000, waves: 0, xpOnKill: 1500, encounter: "Sandbox" },
+    "vehicle pdc": { name: "Vehicle PDC", type: "Mech", health: 4000, waves: 0, xpOnKill: 400, encounter: "Sandbox" },
+    "pdc kit": { name: "PDC Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "governor kit": { name: "Governor Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "mads kit": { name: "MADS Kit", type: "Item", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "old pdc": { name: "Old PDC", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "adc": { name: "ADC", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "sprayer kit": { name: "Sprayer Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "turret kit": { name: "Turret Kit", type: "Item", health: 1000, waves: 0, xpOnKill: 100, encounter: "Sandbox" },
+    "barrier kit": { name: "Barrier Kit", type: "Item", health: 1500, waves: 0, xpOnKill: 150, encounter: "Sandbox" },
+    "brace": { name: "BRACE", type: "Item", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "hallucinator kit": { name: "Hallucinator Kit", type: "Item", health: 400, waves: 0, xpOnKill: 40, encounter: "Sandbox" },
+    "stonehedge kit": { name: "Stonehedge Kit", type: "Item", health: 1500, waves: 0, xpOnKill: 150, encounter: "Sandbox" },
+    "fast": { name: "FAST", type: "Item", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "tripwire trip": { name: "Tripwire trip", type: "Item", health: 0, waves: 0, xpOnKill: 5, encounter: "Sandbox" },
+    "supplier": { name: "Supplier", type: "Advanced", health: 300, waves: 0, xpOnKill: 30, encounter: "Sandbox" },
+    "artillery": { name: "Artillery", type: "Mech", health: 1000000, waves: 0, xpOnKill: 100000, encounter: "Sandbox" },
+    "dummy infantry": { name: "Dummy Infantry", type: "Fodder", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy cloaker": { name: "Dummy Cloaker", type: "Fodder", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy shielder": { name: "Dummy Shielder", type: "Fodder", health: 110, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy saboteur": { name: "Dummy Saboteur", type: "Fodder", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy grenadier": { name: "Dummy Grenadier", type: "Advanced", health: 180, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "dummy jetpacker": { name: "Dummy Jetpacker", type: "Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy gunner": { name: "Dummy Gunner", type: "Advanced", health: 350, waves: 0, xpOnKill: 35, encounter: "Sandbox" },
+    "dummy sniper": { name: "Dummy Sniper", type: "Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy tranquilizer": { name: "Dummy Tranquilizer", type: "Advanced", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy medic": { name: "Dummy Medic", type: "Advanced", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "dummy apu": { name: "Dummy APU", type: "Mech", health: 900, waves: 0, xpOnKill: 90, encounter: "Sandbox" },
+    "dummy tank": { name: "Dummy Tank", type: "Mech", health: 3500, waves: 0, xpOnKill: 350, encounter: "Sandbox" },
+    "fuel tank (dummy tank)": { name: "Fuel Tank (Dummy Tank)", type: "Mech", health: 3500, waves: 0, xpOnKill: 350, encounter: "Sandbox" },
+    "dummy platform": { name: "Dummy Platform", type: "Mech", health: 7500, waves: 0, xpOnKill: 750, encounter: "Sandbox" },
+    "dummy combatant": { name: "Dummy Combatant", type: "Elite Fodder", health: 100, waves: 0, xpOnKill: 10, encounter: "Sandbox" },
+    "dummy informant": { name: "Dummy Informant", type: "Elite Fodder", health: 150, waves: 0, xpOnKill: 15, encounter: "Sandbox" },
+    "dummy confidant": { name: "Dummy Confidant", type: "Elite Fodder", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "dummy agitator": { name: "Dummy Agitator", type: "Elite Fodder", health: 300, waves: 0, xpOnKill: 30, encounter: "Sandbox" },
+    "dummy jagant": { name: "Dummy Jagant", type: "Elite Fodder", health: 150, waves: 0, xpOnKill: 15, encounter: "Sandbox" },
+    "dummy bombardier": { name: "Dummy Bombardier", type: "Elite Fodder", health: 350, waves: 0, xpOnKill: 35, encounter: "Sandbox" },
+    "dummy operant": { name: "Dummy Operant", type: "Elite Fodder", health: 300, waves: 0, xpOnKill: 30, encounter: "Sandbox" },
+    "dummy fusilier": { name: "Dummy Fusilier", type: "Boss", health: 400, waves: 0, xpOnKill: 40, encounter: "Sandbox" },
+    "dummy daedalus": { name: "Dummy Daedalus", type: "Boss", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "dummy tempest": { name: "Dummy Tempest", type: "Boss", health: 600, waves: 0, xpOnKill: 60, encounter: "Sandbox" },
+    "dummy lelantos": { name: "Dummy Lelantos", type: "Boss", health: 380, waves: 0, xpOnKill: 40, encounter: "Sandbox" },
+    "dummy prometheus": { name: "Dummy Prometheus", type: "Boss", health: 750, waves: 0, xpOnKill: 75, encounter: "Sandbox" },
+    "fuel tank (dummy prometheus)": { name: "Fuel Tank (Dummy Prometheus)", type: "Boss", health: 200, waves: 0, xpOnKill: 20, encounter: "Sandbox" },
+    "dummy hermes": { name: "Dummy Hermes", type: "Boss", health: 525, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "dummy hermes pods": { name: "Dummy Hermes Pods", type: "Boss", health: 60, waves: 0, xpOnKill: 5, encounter: "Sandbox" },
+    "dummy sparta": { name: "Dummy Sparta", type: "Boss", health: 440, waves: 0, xpOnKill: 45, encounter: "Sandbox" },
+    "dummy trident": { name: "Dummy Trident", type: "Boss", health: 675, waves: 0, xpOnKill: 65, encounter: "Sandbox" },
+    "refugee": { name: "Refugee", type: "Fodder", health: 50, waves: 0, xpOnKill: 5, encounter: "Sandbox" },
+    "refugee2": { name: "Refugee2", type: "Fodder", health: 50, waves: 0, xpOnKill: 5, encounter: "Sandbox" },
+    "ranger2": { name: "Ranger2", type: "Mech", health: 150, waves: 0, xpOnKill: 45, encounter: "Sandbox" },
+    "apu backup": { name: "APU Backup", type: "Mech", health: 500, waves: 0, xpOnKill: 50, encounter: "Sandbox" },
+    "apu (unoptimized)": { name: "APU (unoptimized)", type: "Mech", health: 900, waves: 0, xpOnKill: 90, encounter: "Sandbox" },
+    "punching bag": { name: "Punching Bag", type: "Boss", health: 1000000, waves: 0, xpOnKill: 100000, encounter: "Sandbox" },
+    "punching bag resistant": { name: "Punching Bag Resistant", type: "Boss", health: 1000000, waves: 0, xpOnKill: 100000, encounter: "Sandbox" },
+    "punching bag boss": { name: "Punching Bag Boss", type: "Boss", health: 1000000, waves: 0, xpOnKill: 100000, encounter: "Sandbox" },
+    "punching bag armored": { name: "Punching Bag Armored", type: "Boss", health: 1000000, waves: 0, xpOnKill: 100000, encounter: "Sandbox" },
 };
 
 const encounterOrder = [
@@ -198,6 +197,18 @@ window.enemyKeys = enemyKeys;
 let secretEnemy;
 let secretEnemy2 = null;
 let secretEnemy3 = null;
+
+function getTargetNamesList() {
+    const doubleTroubleActive = typeof Modifiers !== "undefined" &&
+        Modifiers.active.has("doubleTrouble") &&
+        secretEnemy2;
+    if (!doubleTroubleActive) return secretEnemy.name;
+
+    const targetNames = [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])].map(t => t.name);
+    return targetNames.length === 2
+        ? `${targetNames[0]} and ${targetNames[1]}`
+        : `${targetNames.slice(0, -1).join(", ")}, and ${targetNames[targetNames.length - 1]}`;
+}
 window.getSecondSecretEnemy = function() {
     return secretEnemy2;
 };
@@ -496,6 +507,23 @@ window.setMaxGuesses = function(n) {
     MAX_GUESSES = n;
 };
 
+// Guess-count modifiers (Sapped Communications, Strengthened Signal, Double/Triple
+// Trouble) apply relative to the base of 6 instead of setting an absolute value,
+// so they stack instead of clobbering each other when active together.
+window.guessDeltas = {};
+window.applyGuessDelta = function(key, delta) {
+    window.guessDeltas[key] = delta;
+    window.recalcMaxGuesses();
+};
+window.clearGuessDelta = function(key) {
+    delete window.guessDeltas[key];
+    window.recalcMaxGuesses();
+};
+window.recalcMaxGuesses = function() {
+    const total = Object.values(window.guessDeltas).reduce((sum, d) => sum + d, 6);
+    MAX_GUESSES = Math.max(1, total);
+};
+
 const SPLIT_COLORS = { correct: "#1b663b", partial: "#e6b800", incorrect: "#791a24" };
 
 // Category-cell helpers shared with modifiers.js definitions so they can
@@ -670,7 +698,7 @@ window.handleTimerTimeout = function() {
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
-        messageElement.innerText = `DETECTED BY SECURITY PROTOCOL! Out of time. Target was: ${secretEnemy.name}.`;
+        messageElement.innerText = `DETECTED BY SECURITY PROTOCOL! Out of time. Target was: ${getTargetNamesList()}.`;
         messageElement.style.color = "#ff3333";
     }
 
@@ -691,7 +719,7 @@ window.handleAssassinGuess = function(assassinEnemy) {
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
-        messageElement.innerText = `Assassinated by ${assassinEnemy.name}, Target was ${secretEnemy.name}, you reached wave ${currentWave} before failing.`;
+        messageElement.innerText = `Assassinated by ${assassinEnemy.name}, Target was ${getTargetNamesList()}, you reached wave ${currentWave} before failing.`;
         messageElement.style.color = "#ff3333";
     }
 
@@ -713,7 +741,7 @@ window.handleMutilatedDeathsFail = function(buffed) {
     if (messageElement) {
         messageElement.innerText = buffed
             ? "No."
-            : `MUTILATED! That wrong guess was fatal. Target was: ${secretEnemy.name}. You reached Wave ${currentWave} before failing.`;
+            : `MUTILATED! That wrong guess was fatal. Target was: ${getTargetNamesList()}. You reached Wave ${currentWave} before failing.`;
         messageElement.style.color = "#ff3333";
     }
 
@@ -998,6 +1026,8 @@ function submitGuess() {
     if (dropdownMenu) dropdownMenu.style.display = "none";
 
     if (doubleTroubleActive) {
+        if (gameOver || isWaveClear) return;
+
         if (!Array.isArray(Modifiers.doubleTroubleFound) || Modifiers.doubleTroubleFound.length !== doubleTroubleTargets.length) {
             Modifiers.doubleTroubleFound = new Array(doubleTroubleTargets.length).fill(false);
         }
@@ -1011,6 +1041,7 @@ function submitGuess() {
             : `${targetNames.slice(0, -1).join(", ")}, and ${targetNames[targetNames.length - 1]}`;
 
         if (Modifiers.doubleTroubleFound.every(Boolean)) {
+            Modifiers.clearTimer();
             if (messageElement) {
                 const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
                 messageElement.innerText = `SUCCESS! All targets found: ${namesList}! Wave ${currentWave} Complete!`;

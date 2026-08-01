@@ -136,13 +136,13 @@ const practiceDefinitions = {
         description: "You only have 5 guesses instead of 6. Vitaraged: only 4 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 4 : 5);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? -2 : -1);
             }
         },
         onReset: () => {
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("weakenedSignal");
             }
         }
     },
@@ -336,7 +336,14 @@ const practiceDefinitions = {
             }
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
-            if (guessedEnemy.name === secretEnemy.name) return;
+            const doubleTroubleActive = typeof Modifiers !== "undefined" &&
+                Modifiers.active.has("doubleTrouble");
+            const secretEnemy2 = typeof window.getSecondSecretEnemy === "function" ? window.getSecondSecretEnemy() : null;
+            const secretEnemy3 = typeof window.getThirdSecretEnemy === "function" ? window.getThirdSecretEnemy() : null;
+            const validTargets = doubleTroubleActive && secretEnemy2
+                ? [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])]
+                : [secretEnemy];
+            if (validTargets.some(t => t.name === guessedEnemy.name)) return;
             if (window.__autoGuessInProgress) return;
 
             if (typeof window.handleMutilatedDeathsFail === "function") {
@@ -350,13 +357,13 @@ const practiceDefinitions = {
         description: "You get 7 guesses instead of 6. Vitaraged: 8 guesses instead of 6.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 8 : 7);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? 2 : 1);
             }
         },
         onReset: () => {
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("strengthenedSignal");
             }
         }
     },
@@ -467,8 +474,8 @@ const practiceDefinitions = {
         onStart: (engine, key) => {
             engine.doubleTroubleFound = null;
             const buffed = engine && engine.isBuffed(key);
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(buffed ? 9 : 7);
+            if (typeof window.applyGuessDelta === "function") {
+                window.applyGuessDelta(key, buffed ? 3 : 1);
             }
             if (typeof window.pickSecondTarget === "function") {
                 window.pickSecondTarget();
@@ -481,8 +488,8 @@ const practiceDefinitions = {
             if (engine) {
                 engine.doubleTroubleFound = null;
             }
-            if (typeof window.setMaxGuesses === "function") {
-                window.setMaxGuesses(6);
+            if (typeof window.clearGuessDelta === "function") {
+                window.clearGuessDelta("doubleTrouble");
             }
             if (typeof window.clearSecondTarget === "function") {
                 window.clearSecondTarget();

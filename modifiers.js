@@ -188,7 +188,7 @@ class ModifierEngine {
             }
         });
 
-        if (guessedEnemy.name === secretEnemy.name) {
+        if (guessedEnemy.name === secretEnemy.name && !this.active.has("doubleTrouble")) {
             this.clearTimer();
         }
     }
