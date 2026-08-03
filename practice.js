@@ -43,7 +43,7 @@ const enemyDatabase = {
     "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 8 siege" },
     "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 9, encounter: "Wave 8 siege" },
     "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 8 hell" },
-    "fake lifeline": { name: "Fake Lifeline", type: "Elite Advanced", health: 200, waves: 4, encounter: "Wave 8 hell" },
+    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 8 hell" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, xpOnKill: 350, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, xpOnKill: 450, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, xpOnKill: 400, encounter: "Wave 3 siege" },
@@ -168,7 +168,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 5 hell", "Wave 7 hell", "Wave 8 hell", "Wave 10 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 5 hell", "Wave 7 hell", "Wave 8 hell", "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
