@@ -42,6 +42,7 @@ const enemyDatabase = {
     "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 8 siege" },
     "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 9, encounter: "Wave 8 siege" },
     "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 8 hell" },
+    "fake lifeline": { name: "Fake Lifeline", type: "Elite Advanced", health: 200, waves: 4, encounter: "Wave 8 hell" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, encounter: "Wave 3 siege" },
