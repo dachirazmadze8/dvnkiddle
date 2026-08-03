@@ -82,7 +82,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 8 hell", "Wave 10 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 5 hell", "Wave 7 hell", "Wave 10 hell", "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
