@@ -22,11 +22,11 @@ const itemDatabase = {
     "rocket stormer": { name: "Rocket Stormer", type: "Weapon", damage: 980, firerate: 150, hasSpecialAbility: true },
     "shockwave device": { name: "Shockwave Device", type: "Weapon", damage: 2250, firerate: 30, hasSpecialAbility: false },
     "grenade launcher": { name: "Grenade Launcher", type: "Weapon", damage: 200, firerate: 20, hasSpecialAbility: false },
-    "intraplanar device": { name: "Intraplanar Device", type: "Weapon", damage: 80, firerate: 400, hasSpecialAbility: false },
+    "intraplanar device": { name: "Intraplanar Device", type: "Weapon", damage: 80, firerate: 500, hasSpecialAbility: false },
     "parabolic hydra": { name: "Parabolic Hydra", type: "Weapon", damage: 100, firerate: 60, hasSpecialAbility: true },
-    "medical bow": { name: "Medical Bow", type: "Weapon", damage: 80, firerate: 60, hasSpecialAbility: false },
+    "medical bow": { name: "Medical Bow", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
     "recurve": { name: "Recurve", type: "Weapon", damage: 120, firerate: 150, hasSpecialAbility: false },
-    "vitabow": { name: "Vitabow", type: "Weapon", damage: 80, firerate: 60, hasSpecialAbility: false },
+    "vitabow": { name: "Vitabow", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
     "pdc kit": { name: "PDC kit", type: "Weapon", damage: 5, firerate: 375, hasSpecialAbility: false },
     "governor kit": { name: "Governor kit", type: "Weapon", damage: 10, firerate: 750, hasSpecialAbility: false },
     "mads kit": { name: "MADS kit", type: "Weapon", damage: 4, firerate: 500, hasSpecialAbility: false },
@@ -48,8 +48,9 @@ const itemDatabase = {
     "fast": { name: "FAST", type: "Utility", damage: 200, firerate: 0, hasSpecialAbility: false },
     "tablet": { name: "Tablet", type: "Utility", damage: 0, firerate: 60, hasSpecialAbility: false },
     "motion hider": { name: "Motion Hider", type: "Utility", damage: 0, firerate: 10000000, hasSpecialAbility: false },
-    "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 100000000, firerate: 0, hasSpecialAbility: false },
+    "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
 };
+
 
 function isWeaponItem(item) {
     return item.type !== "Utility";

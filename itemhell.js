@@ -48,8 +48,9 @@ const itemDatabase = {
     "fast": { name: "FAST", type: "Utility", damage: 200, firerate: 0, hasSpecialAbility: false },
     "tablet": { name: "Tablet", type: "Utility", damage: 0, firerate: 60, hasSpecialAbility: false },
     "motion hider": { name: "Motion Hider", type: "Utility", damage: 0, firerate: 10000000, hasSpecialAbility: false },
-    "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 100000000, firerate: 0, hasSpecialAbility: false },
+    "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
 };
+
 
 window.itemDatabase = itemDatabase;
 window.getSecretItem = function() {
