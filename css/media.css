@@ -1,10 +1,12 @@
 @media screen and (max-width: 850px) {
 
+
     body {
         padding-top: 15px !important;
         padding-left: 8px;
         padding-right: 8px;
     }
+
 
     .back-to-menu {
         position: relative !important;
@@ -17,6 +19,23 @@
         min-width: auto !important;
     }
 
+
+    .main-title {
+        font-size: 3rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .menu-options {
+        gap: 1rem !important;
+    }
+
+    .menu-btn {
+        font-size: 1.2rem !important;
+        padding: 0.7rem 1.8rem !important;
+        min-width: 180px !important;
+    }
+
+
     .game-container {
         width: 100% !important;
         max-width: 100% !important;
@@ -25,10 +44,11 @@
     }
 
     .game-title {
-        font-size: 2.2rem !important;
+        font-size: 2rem !important;
         margin-top: 10px !important;
         margin-bottom: 1rem !important;
     }
+
 
     .guess-controls {
         flex-wrap: wrap;
@@ -56,53 +76,210 @@
     }
 
     .submit-btn {
-        width: auto;
         font-size: 0.9rem !important;
         padding: 0.4rem 1rem !important;
+        width: auto;
     }
 
-    .wordle-table {
-        margin-top: 0.5rem;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-        width: 100%;
+
+    .modifiers-container {
+        max-width: 100% !important;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem 0.7rem;
     }
+
+    .modifier-description {
+        max-width: 100% !important;
+        font-size: 0.82rem;
+    }
+
 
     .wordle-table th {
-        font-size: 0.75rem !important;
-        padding: 0.5rem 0.3rem !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.4rem !important;
     }
 
     .wordle-table td {
-        font-size: 0.75rem !important;
-        padding: 0.5rem 0.3rem !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.4rem !important;
     }
 
-    .table-enemy-icon {
+    .table-enemy-icon,
+    .table-item-icon {
         width: 22px;
         height: 22px;
     }
+
+    .dropdown-enemy-icon,
+    .dropdown-item-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+
+    .continue-btn {
+        font-size: 0.95rem !important;
+        padding: 0.45rem 1rem !important;
+        min-width: 130px !important;
+    }
+
+
+    .menu-container.left-align {
+        padding-left: 5vw !important;
+        padding-right: 5vw !important;
+        max-width: 100% !important;
+    }
+
+    .info-text {
+        font-size: 0.95rem !important;
+    }
+
+    .category-btn {
+        font-size: 0.95rem !important;
+        padding: 10px 12px !important;
+    }
+
+
+    .credits-text {
+        font-size: 1.2rem !important;
+    }
+
+
+    body.practice-menu-body {
+        padding-top: 15px !important;
+    }
+
+    .practice-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+
+    .practice-subtitle {
+        font-size: 0.9rem !important;
+    }
+
+    .practice-modifier-list {
+        max-width: 100% !important;
+        max-height: 40vh;
+    }
+
+    .practice-enemy-search {
+        max-width: 100% !important;
+        font-size: 0.9rem !important;
+    }
+
+    .practice-randomize-label {
+        max-width: 100% !important;
+        font-size: 0.82rem !important;
+    }
+
+    .practice-section-heading {
+        font-size: 1.1rem !important;
+    }
+
+    .practice-modifier-name {
+        font-size: 0.88rem !important;
+    }
+
+    .practice-checkbox-label {
+        font-size: 0.8rem !important;
+    }
+
+    .menu-btn.practice-mini-btn {
+        font-size: 0.82rem !important;
+        padding: 0.35rem 0.9rem !important;
+    }
 }
+
 
 @media screen and (max-width: 480px) {
 
-    .game-title {
-        font-size: 1.7rem !important;
+
+    .main-title {
+        font-size: 2.4rem !important;
     }
+
+
+    .game-title {
+        font-size: 1.6rem !important;
+    }
+
 
     .guess-controls {
         flex-direction: column;
+        align-items: stretch;
     }
 
-    .search-container, .submit-btn {
+    .search-container {
         max-width: 100%;
         width: 100%;
     }
 
+    .submit-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    .wordle-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .wordle-table th,
     .wordle-table td {
-        font-size: 0.68rem !important;
+        font-size: 0.65rem !important;
         padding: 0.4rem 0.2rem !important;
+    }
+
+
+    .modifiers-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    .modifiers-list {
+        gap: 0.3rem;
+    }
+
+    .modifier-tag {
+        font-size: 0.72rem !important;
+        padding: 0.2rem 0.45rem !important;
+    }
+
+
+    .practice-title {
+        font-size: 1.8rem !important;
+    }
+
+
+    .practice-modifier-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .practice-modifier-name {
+        width: 100%;
+        flex: unset;
+    }
+
+
+    .wave-counter-box {
+        font-size: 0.78rem !important;
+    }
+
+
+    .info-text {
+        font-size: 0.85rem !important;
+    }
+
+
+    .credits-text {
+        font-size: 1rem !important;
     }
 }

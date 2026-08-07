@@ -344,7 +344,7 @@ const nightmareDefinitions = {
 
             if (typeof window.handleMutilatedDeathsFail === "function") {
                 const buffed = !!(engine && engine.isBuffed(key));
-                window.handleMutilatedDeathsFail(buffed);
+                window.handleMutilatedDeathsFail(buffed, guessedEnemy.name);
             }
         }
     },

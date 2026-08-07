@@ -15,7 +15,7 @@
 
   <div class="game-container">
 
-    <a href="gamemodes.html" class="menu-btn back-to-menu">Main Menu</a>
+    <a href="index.html" class="menu-btn back-to-menu">Main Menu</a>
 
     <h1 class="game-title" style="margin-top: 20px;">GUESS THE ITEM</h1>
 
@@ -28,6 +28,14 @@
         <button class="menu-btn submit-btn">Guess</button>
     </div>
 
+    <div class="modifiers-container">
+        <span class="modifiers-label">MODIFIERS:</span>
+        <div id="modifiersList" class="modifiers-list">
+            <span class="modifier-tag modifier-tag-none">None</span>
+        </div>
+    </div>
+    <div id="modifierDescription" class="modifier-description" style="display: none;"></div>
+
     <div class="action-panel">
         <button id="continueButton" class="menu-btn continue-btn" style="display: none;" onclick="advanceNextWave()">Continue</button>
     </div>
@@ -39,8 +47,8 @@
             <tr>
                 <th>Name</th>
                 <th>Type</th>
-                <th>Damage</th>
-                <th>Firerate</th>
+                <th>Damage / Health</th>
+                <th>Firerate / Cooldown</th>
                 <th>Special Ability?</th>
             </tr>
         </thead>
@@ -49,6 +57,8 @@
     </table>
   </div>
 
+  <script src="modifiers.js"></script>
+  <script src="modifiersitem.js"></script>
   <script src="item.js"></script>
 
 </body>
