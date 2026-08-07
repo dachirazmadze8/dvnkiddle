@@ -118,7 +118,7 @@ window.pickSecondTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretItem2 = itemDatabase[randomKey];
-    console.log(`Wave ${currentWave} second answer: ${secretItem2.name}`);
+    // console.log(`Wave ${currentWave} second answer: ${secretItem2.name}`);
 };
 
 window.pickThirdTarget = function() {
@@ -138,7 +138,7 @@ window.pickThirdTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretItem3 = itemDatabase[randomKey];
-    console.log(`Wave ${currentWave} third answer: ${secretItem3.name}`);
+    // console.log(`Wave ${currentWave} third answer: ${secretItem3.name}`);
 };
 
 window.clearSecondTarget = function() {
@@ -220,7 +220,7 @@ function initializeGameSession() {
     }
 
     secretItem = itemDatabase[itemKeys[Math.floor(Math.random() * itemKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${secretItem.name}`);
+    // console.log(`Wave ${currentWave} answer: ${secretItem.name}`);
     secretItem2 = null;
     secretItem3 = null;
     gameOver = false;

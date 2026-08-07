@@ -1,5 +1,6 @@
 const enemyDatabase = {
     "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, encounter: "Wave 1 siege" },
+    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, encounter: "Wave 1 siege" },
     "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, encounter: "Wave 1 siege" },
     "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, encounter: "Wave 2 siege" },
     "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, encounter: "Wave 2 siege" },
@@ -12,9 +13,12 @@ const enemyDatabase = {
     "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, encounter: "Wave 2 epilogue" },
     "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, encounter: "Wave 2 epilogue" },
     "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, encounter: "Wave 4 siege" },
-    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
     "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege" },
     "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege" },
     "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege" },
@@ -36,11 +40,14 @@ const enemyDatabase = {
     "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 5, encounter: "Wave 8 siege" },
     "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 5, encounter: "Wave 8 siege" },
     "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 12, encounter: "Wave 5 siege" },
-    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 2, encounter: "Wave 10 hell" },
+    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 5, encounter: "Wave 7 hell" },
     "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 6, encounter: "Wave 7 siege" },
     "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 3, encounter: "Wave 8 siege" },
     "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 3, encounter: "Wave 8 siege" },
     "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 3, encounter: "Wave 8 siege" },
+    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 1, encounter: "Wave 1 hell" },
+    "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 9 siege" },
+    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 9 siege" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, encounter: "Wave 3 siege" },
@@ -58,6 +65,7 @@ const enemyDatabase = {
     "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, encounter: "Wave 9 siege" },
     "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege" },
     "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 siege" },
+    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, encounter: "Wave 9 siege" },
     "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 2, encounter: "Wave 10 siege" },
     "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 2, encounter: "Wave 10 siege" },
     "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind" },
@@ -73,21 +81,11 @@ const enemyDatabase = {
     "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege" },
     "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
-    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
-    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
-    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
-    "grenade": { name: "Grenade", type: "Fodder", health: 0, waves: 34, encounter: "Wave 1 siege" },
-    "level 1 sentry": { name: "Level 1 Sentry", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 sentry": { name: "Level 2 Sentry", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 sentry": { name: "Level 3 Sentry", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
-    "level 1 teleporter": { name: "Level 1 Teleporter", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
-    "level 2 teleporter": { name: "Level 2 Teleporter", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
-    "level 3 teleporter": { name: "Level 3 Teleporter", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
-    "lightning grenade": { name: "Lightning Grenade", type: "Boss", health: 0, waves: 2, encounter: "Wave 9 siege" },
     "squad gunner": { name: "Squad Gunner", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad medic": { name: "Squad Medic", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad officer": { name: "Squad Officer", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "squad strider": { name: "Squad Strider", type: "Elite Mech", health: 1500, waves: 0, encounter: "Sandbox" },
+    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
     "old prometheus": { name: "Old Prometheus", type: "Boss", health: 700, waves: 0, encounter: "Sandbox" },
     "old sparta": { name: "Old Sparta", type: "Boss", health: 410, waves: 0, encounter: "Sandbox" },
     "old fusilier": { name: "Old Fusilier", type: "Boss", health: 400, waves: 0, encounter: "Sandbox" },
@@ -98,8 +96,10 @@ const enemyDatabase = {
     "gaia sensei": { name: "Gaia Sensei", type: "Boss", health: 150, waves: 0, encounter: "Sandbox" },
     "gaia pre": { name: "Gaia PRE", type: "Boss", health: 150, waves: 0, encounter: "Sandbox" },
     "daedalus pre": { name: "Daedalus PRE", type: "Boss", health: 500, waves: 0, encounter: "Sandbox" },
-    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 0, encounter: "Sandbox" },
-    "prometheustest": { name: "PrometheusTest", type: "Boss", health: 750, waves: 0, encounter: "Sandbox" },
+    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
+    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
+    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 2, encounter: "Wave 8 hell" },
+    "prometheustest": { name: "PrometheusTest", type: "Boss", health: 750, waves: 2, encounter: "Wave 5 hell" },
     "wall of jericho": { name: "Wall Of Jericho", type: "Boss", health: 200, waves: 0, encounter: "Sandbox" },
     "icarus": { name: "Icarus", type: "Boss", health: 300, waves: 0, encounter: "Sandbox" },
     "icarus helicopter": { name: "Icarus Helicopter", type: "Mech", health: 15000, waves: 0, encounter: "Sandbox" },
@@ -163,7 +163,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 10 hell", "sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 1 hell", "Wave 5 hell", "Wave 7 hell" "Wave 8 hell", "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -215,7 +215,7 @@ window.pickSecondTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy2 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
+    // console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
 };
 
 window.pickThirdTarget = function() {
@@ -233,7 +233,7 @@ window.pickThirdTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy3 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
+    // console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
 };
 
 window.clearSecondTarget = function() {
@@ -315,7 +315,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
+    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     secretEnemy2 = null;
     secretEnemy3 = null;
     gameOver = false;

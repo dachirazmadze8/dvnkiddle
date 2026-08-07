@@ -153,7 +153,7 @@ function initializeGameSession() {
     }
 
     secretItem = itemDatabase[itemKeys[Math.floor(Math.random() * itemKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${getTargetNamesList()}`);
+    // console.log(`Wave ${currentWave} answer: ${getTargetNamesList()}`);
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;

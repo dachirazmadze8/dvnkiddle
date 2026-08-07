@@ -33,7 +33,7 @@ const enemyDatabase = {
     "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 16, encounter: "Wave 5 siege" },
     "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 16, encounter: "Wave 5 siege" },
     "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 4 siege" },
-    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 1, encounter: "Wave 1 hell" },
     "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 8 siege" },
     "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 8, encounter: "Wave 8 siege" },
     "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 14, encounter: "Wave 5 siege" },
@@ -83,7 +83,7 @@ const enemyDatabase = {
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 5 hell", "Wave 7 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 1 hell", "Wave 5 hell", "Wave 7 hell", "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -165,7 +165,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
+    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
