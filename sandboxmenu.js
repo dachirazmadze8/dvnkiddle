@@ -78,7 +78,70 @@ const SANDBOX_ITEMS = [
     { key: "tripwire kit", name: "Tripwire Kit", type: "Utility" }
 ];
 
-const ITEM_TYPE_ORDER = ["Weapon", "Melee", "Utility"];
+const NIGHTMARE_EXCLUSIVE_ITEMS = [
+    { key: "anti-flesh rifle", name: "Anti-Flesh Rifle" },
+    { key: "rifle (old model)", name: "Rifle (Old Model)" },
+    { key: "hallsweeper (old)", name: "Hallsweeper (Old)" },
+    { key: "doctors guilt", name: "Doctors Guilt" },
+    { key: "shielder kit", name: "Shielder Kit" },
+    { key: "handyman", name: "Handyman" },
+    { key: "grenadiers choice", name: "Grenadiers Choice" },
+    { key: "armor peeler (old)", name: "Armor Peeler (Old)" },
+    { key: "mini smgs", name: "Mini Smgs" },
+    { key: "bloodshot", name: "Bloodshot" },
+    { key: "mini smgs (old)", name: "Mini Smgs (Old)" },
+    { key: "surveillance creed", name: "Surveillance Creed" },
+    { key: "stonewall (old)", name: "Stonewall (Old)" },
+    { key: "trolldier", name: "TrollDier" },
+    { key: "heads of hydra", name: "Heads Of Hydra" },
+    { key: "rpg-nuke", name: "RPG-Nuke" },
+    { key: "rpg (old method)", name: "RPG (Old Method)" },
+    { key: "rocket stormer (old method)", name: "Rocket Stormer (Old Method)" },
+    { key: "shockwave device (old method)", name: "Shockwave Device (Old Method)" },
+    { key: "shockwave device (old)", name: "Shockwave Device (Old)" },
+    { key: "parabola", name: "Parabola" },
+    { key: "grenade launcher (old method)", name: "Grenade Launcher (Old Method)" },
+    { key: "parabolic hydra (old method)", name: "Parabolic Hydra (Old Method)" },
+    { key: "adhe launcher", name: "Adhe Launcher" },
+    { key: "adhe launcher (old method)", name: "Adhe Launcher (Old Method)" },
+    { key: "adhe infinite", name: "Adhe Infinite" },
+    { key: "adc kit", name: "ADC kit" },
+    { key: "turret kit", name: "Turret kit" },
+    { key: "sprayer kit", name: "Sprayer kit" },
+    { key: "lmg", name: "LMG" },
+    { key: "a-10 machine gun", name: "A-10 Machine Gun" },
+    { key: "mgl", name: "MGL" },
+    { key: "fire tossing thing", name: "Fire Tossing Thing" },
+    { key: "k's raven", name: "K's Raven" },
+    { key: "engineer pistol", name: "Engineer Pistol" },
+    { key: "shovel (old method)", name: "Shovel (Old Method)" },
+    { key: "overcharger (old)", name: "Overcharger (Old)" },
+    { key: "ronin", name: "Ronin" },
+    { key: "stunstick", name: "StunStick" },
+    { key: "wrench", name: "Wrench" },
+    { key: "stick grenade", name: "Stick Grenade" },
+    { key: "ammo box (ammo)", name: "Ammo Box (Ammo)" },
+    { key: "combat toolkit (ammo)", name: "Combat Toolkit (Ammo)" },
+    { key: "proxy (ammo)", name: "PROXY (Ammo)" },
+    { key: "ammo box (old)", name: "Ammo Box (Old)" },
+    { key: "terminal velocity (old)", name: "Terminal Velocity (Old)" },
+    { key: "exoskeleton", name: "Exoskeleton" },
+    { key: "shurarig", name: "Shurarig" },
+    { key: "runners heat", name: "Runners Heat" },
+    { key: "fractionate", name: "Fractionate" },
+    { key: "aidkit (charges)", name: "Aidkit (Charges)" },
+    { key: "mercy kill (old)", name: "Mercy Kill (Old)" },
+    { key: "artillery tablet", name: "Artillery Tablet" },
+    { key: "grenade shell", name: "Grenade Shell" },
+    { key: "explosive bag", name: "Explosive Bag" },
+    { key: "keycard", name: "Keycard" },
+    { key: "bomb", name: "Bomb" },
+    { key: "fuel can", name: "Fuel Can" },
+    { key: "artillery placement", name: "Artillery Placement" },
+    { key: "engineer wrench", name: "Engineer Wrench" }
+].map(item => ({ ...item, type: "Nightmare Exclusive" }));
+
+const ITEM_TYPE_ORDER = ["Weapon", "Melee", "Utility", "Nightmare Exclusive"];
 
 document.addEventListener("DOMContentLoaded", () => {
     const listContainer = document.getElementById("practiceModifierList");
@@ -146,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---- Item roster ----
     const grouped = {};
-    SANDBOX_ITEMS.forEach(item => {
+    [...SANDBOX_ITEMS, ...NIGHTMARE_EXCLUSIVE_ITEMS].forEach(item => {
         if (!grouped[item.type]) grouped[item.type] = [];
         grouped[item.type].push(item);
     });
@@ -178,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
             checkbox.type = "checkbox";
             checkbox.className = "practice-enemy-checkbox";
             checkbox.dataset.key = item.key;
-            checkbox.checked = true;
+            checkbox.checked = item.type !== "Nightmare Exclusive";
             label.appendChild(checkbox);
             label.appendChild(document.createTextNode(" Include"));
 

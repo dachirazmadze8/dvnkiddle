@@ -124,6 +124,12 @@ const enemyDatabase = {
     "dummy shielder": { name: "Dummy Shielder", type: "Fodder", health: 110, waves: 0, encounter: "Sandbox" },
     "dummy saboteur": { name: "Dummy Saboteur", type: "Fodder", health: 100, waves: 0, encounter: "Sandbox" },
     "dummy grenadier": { name: "Dummy Grenadier", type: "Advanced", health: 180, waves: 0, encounter: "Sandbox" },
+    "level 1 dummy sentry": { name: "Level 1 Dummy Sentry", type: "Mech", health: 300, waves: 0, encounter: "Sandbox" },
+    "level 2 dummy sentry": { name: "Level 2 Dummy Sentry", type: "Mech", health: 450, waves: 0, encounter: "Sandbox" },
+    "level 3 dummy sentry": { name: "Level 3 Dummy Sentry", type: "Mech", health: 600, waves: 0, encounter: "Sandbox" },
+    "level 1 dummy teleporter": { name: "Level 1 Dummy Teleporter", type: "Mech", health: 300, waves: 0, encounter: "Sandbox" },
+    "level 2 dummy teleporter": { name: "Level 2 Dummy Teleporter", type: "Mech", health: 450, waves: 0, encounter: "Sandbox" },
+    "level 3 dummy teleporter": { name: "Level 3 Dummy Teleporter", type: "Mech", health: 600, waves: 0, encounter: "Sandbox" },
     "dummy jetpacker": { name: "Dummy Jetpacker", type: "Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "dummy gunner": { name: "Dummy Gunner", type: "Advanced", health: 350, waves: 0, encounter: "Sandbox" },
     "dummy sniper": { name: "Dummy Sniper", type: "Advanced", health: 100, waves: 0, encounter: "Sandbox" },
@@ -199,7 +205,7 @@ window.pickSecondTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy2 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
+    // console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
 };
 
 window.pickThirdTarget = function() {
@@ -217,7 +223,7 @@ window.pickThirdTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy3 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
+    // console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
 };
 
 window.clearSecondTarget = function() {
@@ -299,7 +305,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
+    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     secretEnemy2 = null;
     secretEnemy3 = null;
     gameOver = false;
@@ -743,46 +749,56 @@ function submitGuess() {
     const row = document.createElement("tr");
 
     function createNameCell(guessedEnemy, targetEnemy) {
-        const td = document.createElement("td");
-        td.className = "name-cell cell-name";
+            const td = document.createElement("td");
+            td.className = "name-cell cell-name";
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "name-cell-wrapper";
+            const wrapper = document.createElement("div");
+            wrapper.className = "name-cell-wrapper";
 
-        const img = document.createElement("img");
-        const key = guessedEnemy.name.toLowerCase();
-        img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
-        img.alt = guessedEnemy.name;
-        img.className = "table-enemy-icon";
+            const img = document.createElement("img");
+            const key = guessedEnemy.name.toLowerCase();
+            img.src = `images/enemies/${key.replace(/\s+/g, '-')}.png`;
+            img.alt = guessedEnemy.name;
+            img.className = "table-enemy-icon";
 
-        img.onerror = function() { this.style.display = "none"; };
+            img.onerror = function() { this.style.display = "none"; };
 
-        const textSpan = document.createElement("span");
-        textSpan.innerText = guessedEnemy.name;
+            const textSpan = document.createElement("span");
+            textSpan.innerText = guessedEnemy.name;
 
-        wrapper.appendChild(img);
-        wrapper.appendChild(textSpan);
-        td.appendChild(wrapper);
+            wrapper.appendChild(img);
+            wrapper.appendChild(textSpan);
+            td.appendChild(wrapper);
 
-        const isDummyName = name => name.toLowerCase().startsWith("dummy ");
-        const isOldName = name => name.toLowerCase().startsWith("old ");
+            const isDummyName = name => /(^|\s)dummy(\s|$)/i.test(name);
+            const isOldName = name => name.toLowerCase().startsWith("old ");
 
-        const pdcGroup = new Set(["pdc kit", "governor kit", "old pdc", "mads kit", "vehicle pdc", "adc", "sprayer kit", "turret kit"]);
-        const isPdcGroupName = name => pdcGroup.has(name.toLowerCase());
+            const sentryGroup = new Set(["level 1 sentry", "level 2 sentry", "level 3 sentry", "level 1 dummy sentry", "level 2 dummy sentry", "level 3 dummy sentry"]);
+            const isSentryGroupName = name => sentryGroup.has(name.toLowerCase());
 
-        if (guessedEnemy.name === targetEnemy.name) {
-            td.classList.add("cell-correct");
-        } else if (isDummyName(guessedEnemy.name) && isDummyName(targetEnemy.name)) {
-            td.classList.add("cell-partial");
-        } else if (isOldName(guessedEnemy.name) && isOldName(targetEnemy.name)) {
-            td.classList.add("cell-partial");
-        } else if (isPdcGroupName(guessedEnemy.name) && isPdcGroupName(targetEnemy.name)) {
-            td.classList.add("cell-partial");
-        } else {
-            td.classList.add("cell-incorrect");
+            const teleporterGroup = new Set(["level 1 teleporter", "level 2 teleporter", "level 3 teleporter", "level 1 dummy teleporter", "level 2 dummy teleporter", "level 3 dummy teleporter"]);
+            const isTeleporterGroupName = name => teleporterGroup.has(name.toLowerCase());
+
+            const pdcGroup = new Set(["pdc kit", "governor kit", "old pdc", "mads kit", "vehicle pdc", "adc", "sprayer kit", "turret kit"]);
+            const isPdcGroupName = name => pdcGroup.has(name.toLowerCase());
+
+            if (guessedEnemy.name === targetEnemy.name) {
+                td.classList.add("cell-correct");
+            } else if (isDummyName(guessedEnemy.name) && isDummyName(targetEnemy.name)) {
+                td.classList.add("cell-partial");
+            } else if (isOldName(guessedEnemy.name) && isOldName(targetEnemy.name)) {
+                td.classList.add("cell-partial");
+            } else if (isPdcGroupName(guessedEnemy.name) && isPdcGroupName(targetEnemy.name)) {
+                td.classList.add("cell-partial");
+            } else if (isSentryGroupName(guessedEnemy.name) && isSentryGroupName(targetEnemy.name)) {
+                td.classList.add("cell-partial");
+            } else if (isTeleporterGroupName(guessedEnemy.name) && isTeleporterGroupName(targetEnemy.name)) {
+                td.classList.add("cell-partial");
+            } else {
+                td.classList.add("cell-incorrect");
+            }
+            return td;
         }
-        return td;
-    }
 
     function createCell(guessedValue, targetValue, displayString, extraClass = "") {
         const td = document.createElement("td");
@@ -836,17 +852,23 @@ function submitGuess() {
     }
 
     function nameMatchStatus(guessedEnemy, target) {
-        const isDummyName = name => name.toLowerCase().startsWith("dummy ");
-        const isOldName = name => name.toLowerCase().startsWith("old ");
-        const pdcGroup = new Set(["pdc kit", "governor kit", "old pdc", "mads kit", "vehicle pdc", "adc", "sprayer kit", "turret kit"]);
-        const isPdcGroupName = name => pdcGroup.has(name.toLowerCase());
+            const isDummyName = name => /(^|\s)dummy(\s|$)/i.test(name);
+            const isOldName = name => name.toLowerCase().startsWith("old ");
+            const pdcGroup = new Set(["pdc kit", "governor kit", "old pdc", "mads kit", "vehicle pdc", "adc", "sprayer kit", "turret kit"]);
+            const isPdcGroupName = name => pdcGroup.has(name.toLowerCase());
+            const sentryGroup = new Set(["level 1 sentry", "level 2 sentry", "level 3 sentry", "level 1 dummy sentry", "level 2 dummy sentry", "level 3 dummy sentry"]);
+            const isSentryGroupName = name => sentryGroup.has(name.toLowerCase());
+            const teleporterGroup = new Set(["level 1 teleporter", "level 2 teleporter", "level 3 teleporter", "level 1 dummy teleporter", "level 2 dummy teleporter", "level 3 dummy teleporter"]);
+            const isTeleporterGroupName = name => teleporterGroup.has(name.toLowerCase());
 
-        if (guessedEnemy.name === target.name) return "correct";
-        if (isDummyName(guessedEnemy.name) && isDummyName(target.name)) return "partial";
-        if (isOldName(guessedEnemy.name) && isOldName(target.name)) return "partial";
-        if (isPdcGroupName(guessedEnemy.name) && isPdcGroupName(target.name)) return "partial";
-        return "incorrect";
-    }
+            if (guessedEnemy.name === target.name) return "correct";
+            if (isDummyName(guessedEnemy.name) && isDummyName(target.name)) return "partial";
+            if (isOldName(guessedEnemy.name) && isOldName(target.name)) return "partial";
+            if (isPdcGroupName(guessedEnemy.name) && isPdcGroupName(target.name)) return "partial";
+            if (isSentryGroupName(guessedEnemy.name) && isSentryGroupName(target.name)) return "partial";
+            if (isTeleporterGroupName(guessedEnemy.name) && isTeleporterGroupName(target.name)) return "partial";
+            return "incorrect";
+        }
 
     function createSplitNameCell(guessedEnemy, targets) {
         const td = document.createElement("td");

@@ -124,6 +124,12 @@ const enemyDatabase = {
     "dummy shielder": { name: "Dummy Shielder", type: "Fodder", health: 110, waves: 0, encounter: "Sandbox" },
     "dummy saboteur": { name: "Dummy Saboteur", type: "Fodder", health: 100, waves: 0, encounter: "Sandbox" },
     "dummy grenadier": { name: "Dummy Grenadier", type: "Advanced", health: 180, waves: 0, encounter: "Sandbox" },
+    "level 1 dummy sentry": { name: "Level 1 Dummy Sentry", type: "Mech", health: 300, waves: 0, encounter: "Sandbox" },
+    "level 2 dummy sentry": { name: "Level 2 Dummy Sentry", type: "Mech", health: 450, waves: 0, encounter: "Sandbox" },
+    "level 3 dummy sentry": { name: "Level 3 Dummy Sentry", type: "Mech", health: 600, waves: 0, encounter: "Sandbox" },
+    "level 1 dummy teleporter": { name: "Level 1 Dummy Teleporter", type: "Mech", health: 300, waves: 0, encounter: "Sandbox" },
+    "level 2 dummy teleporter": { name: "Level 2 Dummy Teleporter", type: "Mech", health: 450, waves: 0, encounter: "Sandbox" },
+    "level 3 dummy teleporter": { name: "Level 3 Dummy Teleporter", type: "Mech", health: 600, waves: 0, encounter: "Sandbox" },
     "dummy jetpacker": { name: "Dummy Jetpacker", type: "Advanced", health: 100, waves: 0, encounter: "Sandbox" },
     "dummy gunner": { name: "Dummy Gunner", type: "Advanced", health: 350, waves: 0, encounter: "Sandbox" },
     "dummy sniper": { name: "Dummy Sniper", type: "Advanced", health: 100, waves: 0, encounter: "Sandbox" },
@@ -215,7 +221,7 @@ window.pickSecondTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy2 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
+    // console.log(`Wave ${currentWave} second answer: ${secretEnemy2.name}`);
 };
 
 window.pickThirdTarget = function() {
@@ -233,7 +239,7 @@ window.pickThirdTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretEnemy3 = enemyDatabase[randomKey];
-    console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
+    // console.log(`Wave ${currentWave} third answer: ${secretEnemy3.name}`);
 };
 
 window.clearSecondTarget = function() {
@@ -315,7 +321,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
-    console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
+    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     secretEnemy2 = null;
     secretEnemy3 = null;
     gameOver = false;
