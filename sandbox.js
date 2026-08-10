@@ -2,7 +2,7 @@ const itemDatabase = {
     "rifle": { name: "Rifle", type: "Weapon", damage: 20, firerate: 500, hasSpecialAbility: false },
     "harpoon gun": { name: "Harpoon Gun", type: "Weapon", damage: 25, firerate: 550, hasSpecialAbility: true },
     "bolter": { name: "Bolter", type: "Weapon", damage: 20, firerate: 550, hasSpecialAbility: true },
-    "mastermind's rifle": { name: "Mastermind's Rifle", type: "Weapon", damage: 22, firerate: 500, hasSpecialAbility: false },
+    "mastermind's rifle": { name: "Mastermind's Rifle", type: "Weapon", damage: 22, firerate: 600, hasSpecialAbility: false },
     "shotgun": { name: "Shotgun", type: "Weapon", damage: 150, firerate: 65, hasSpecialAbility: false },
     "sprinters streak": { name: "Sprinters Streak", type: "Weapon", damage: 140, firerate: 100, hasSpecialAbility: true },
     "hallsweeper": { name: "Hallsweeper", type: "Weapon", damage: 135, firerate: 100, hasSpecialAbility: true },
