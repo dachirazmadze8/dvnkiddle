@@ -2,6 +2,7 @@ const itemDatabase = {
     "rifle": { name: "Rifle", type: "Weapon", damage: 20, firerate: 500, hasSpecialAbility: false },
     "harpoon gun": { name: "Harpoon Gun", type: "Weapon", damage: 25, firerate: 550, hasSpecialAbility: true },
     "bolter": { name: "Bolter", type: "Weapon", damage: 20, firerate: 550, hasSpecialAbility: true },
+    "mastermind's rifle": { name: "Mastermind's Rifle", type: "Weapon", damage: 22, firerate: 500, hasSpecialAbility: false },
     "shotgun": { name: "Shotgun", type: "Weapon", damage: 150, firerate: 65, hasSpecialAbility: false },
     "sprinters streak": { name: "Sprinters Streak", type: "Weapon", damage: 140, firerate: 100, hasSpecialAbility: true },
     "hallsweeper": { name: "Hallsweeper", type: "Weapon", damage: 135, firerate: 100, hasSpecialAbility: true },
@@ -30,6 +31,7 @@ const itemDatabase = {
     "pdc kit": { name: "PDC kit", type: "Weapon", damage: 5, firerate: 375, hasSpecialAbility: false },
     "governor kit": { name: "Governor kit", type: "Weapon", damage: 10, firerate: 750, hasSpecialAbility: false },
     "mads kit": { name: "MADS kit", type: "Weapon", damage: 4, firerate: 500, hasSpecialAbility: false },
+    "striker": { name: "Striker", type: "Weapon", damage: 100, firerate: 4.5, hasSpecialAbility: false },
     "shovel": { name: "Shovel", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: false },
     "overcharger": { name: "Overcharger", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: true },
     "rallying cry": { name: "Rallying Cry", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: true },
@@ -55,6 +57,8 @@ const itemDatabase = {
     "tablet": { name: "Tablet", type: "Utility", damage: 0, firerate: 60, hasSpecialAbility: false },
     "motion hider": { name: "Motion Hider", type: "Utility", damage: 0, firerate: 10000000, hasSpecialAbility: false },
     "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
+    "grenade shell": { name: "Grenade Shell", type: "Utility", damage: 300, firerate: 0.5, hasSpecialAbility: false },
+    "epilogue items": { name: "Epilogue Items", type: "Utility", damage: 0, firerate: 1, hasSpecialAbility: false },
 };
 
 window.itemDatabase = itemDatabase;

@@ -1,0 +1,338 @@
+let vitachargedEnemies = new Set();
+
+window.getVitachargedEnemies = function() {
+    return vitachargedEnemies;
+};
+
+let currentAssassin = null;
+
+window.getCurrentAssassin = function() {
+    return currentAssassin;
+};
+
+const attritionDefinitions = {
+    cloaked: {
+        name: "Cloaked",
+        description: "Hides the Type column. Vitaraged: also strips the arrow from one fixed stat category all wave.",
+        onStart: (engine, key) => {
+            const typeHeader = document.querySelector("#guessTable th:nth-child(2)");
+            if (typeHeader) typeHeader.style.display = "none";
+            if (engine) {
+                if (engine.isBuffed(key)) {
+                    const categories = ["cell-health", "cell-waves", "cell-encounter"];
+                    engine.cloakedTargetCategory = categories[Math.floor(Math.random() * categories.length)];
+                } else {
+                    engine.cloakedTargetCategory = null;
+                }
+            }
+        },
+        onGuess: (row, guessedEnemy, secretEnemy, engine) => {
+            const typeCell = row.querySelector(".cell-type") || row.children[1];
+            if (typeCell) typeCell.remove();
+            if (engine && engine.cloakedTargetCategory) {
+                const targetCell = row.querySelector(`.${engine.cloakedTargetCategory}`);
+                if (targetCell && typeof window.blankCellArrow === "function") {
+                    if (targetCell.classList.contains("split-cell")) {
+                        const count = parseInt(targetCell.dataset.targetCount || "0", 10);
+                        const sides = [];
+                        for (let i = 0; i < count; i++) {
+                            if (targetCell.dataset[`arrow${i}`]) sides.push(i);
+                        }
+                        if (sides.length > 0) window.blankCellArrow(targetCell, sides[Math.floor(Math.random() * sides.length)]);
+                    } else {
+                        window.blankCellArrow(targetCell, null);
+                    }
+                }
+            }
+        },
+        onReset: (engine) => {
+            const typeHeader = document.querySelector("#guessTable th:nth-child(2)");
+            if (typeHeader) typeHeader.style.display = "";
+            if (engine) engine.cloakedTargetCategory = null;
+        }
+    },
+    jammedRadar: {
+        name: "Jammed Radar",
+        description: "Automatically submits a random guess on wave start. Vitaraged: submits 2 random guesses that are guaranteed wrong.",
+        onStart: (engine, key) => {
+            setTimeout(() => {
+                window.__autoGuessInProgress = true;
+                if (engine && engine.isBuffed(key)) {
+                    if (typeof window.makeRandomWrongGuess === "function") {
+                        window.makeRandomWrongGuess();
+                        window.makeRandomWrongGuess();
+                    }
+                } else if (typeof window.makeRandomGuess === "function") {
+                    window.makeRandomGuess();
+                }
+                window.__autoGuessInProgress = false;
+            }, 0);
+        },
+        onReset: () => {}
+    },
+    securityProtocol: {
+        name: "Security Protocol (01:00)",
+        description: "Guess the enemy within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess speeds the timer up by 0.5x, permanently for the wave.",
+        onStart: (engine, key) => {
+            engine.startTimer(engine.isBuffed(key) ? 120 : 60);
+        },
+        onGuess: (row, guessedEnemy, secretEnemy, engine) => {
+            if (engine && guessedEnemy.name !== secretEnemy.name) {
+                engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
+                engine.refreshTimerSpeed();
+            }
+        },
+        onReset: (engine) => { engine.clearTimer(); }
+    },
+    fog: {
+        name: "Fog",
+        description: "Only your 2 most recent guesses are visible. Vitaraged: only your most recent guess is visible.",
+        afterGuess: (engine, key) => {
+            const tbody = document.getElementById("guessRows");
+            if (!tbody) return;
+            const visibleCount = engine && engine.isBuffed(key) ? 1 : 2;
+            Array.from(tbody.children).forEach((row, index) => {
+                row.style.display = index < visibleCount ? "" : "none";
+            });
+        },
+        onReset: () => {
+            const tbody = document.getElementById("guessRows");
+            if (!tbody) return;
+            Array.from(tbody.children).forEach(row => { row.style.display = ""; });
+        }
+    },
+    sabotage: {
+        name: "Sabotage",
+        description: "One non-correct category always has an arrow flipped to point the wrong way. Vitaraged: 2 independent picks are flipped.",
+        onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
+            const slots = typeof window.getEligibleCategorySlots === "function"
+                ? window.getEligibleCategorySlots(row, guessedEnemy, secretEnemy) : [];
+            const flipOnce = () => {
+                if (slots.length === 0) return;
+                const slot = slots[Math.floor(Math.random() * slots.length)];
+                if (typeof window.flipCellArrow === "function") window.flipCellArrow(slot.cell, slot.side);
+            };
+            flipOnce();
+            if (engine && engine.isBuffed(key)) flipOnce();
+        }
+    },
+    weakenedSignal: {
+        name: "Sapped Communications",
+        description: "You only have 5 guesses instead of 6. Vitaraged: only 4 guesses instead of 6.",
+        onStart: (engine, key) => {
+            if (typeof window.applyGuessDelta === "function") window.applyGuessDelta(key, engine.isBuffed(key) ? -2 : -1);
+        },
+        onReset: () => {
+            if (typeof window.clearGuessDelta === "function") window.clearGuessDelta("weakenedSignal");
+        }
+    },
+    miscommunication: {
+        name: "Miscommunication",
+        description: "A non-correct category may display the wrong value. Vitaraged: its color is also displayed wrong.",
+        onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
+            const slots = typeof window.getEligibleCategorySlots === "function"
+                ? window.getEligibleCategorySlots(row, guessedEnemy, secretEnemy) : [];
+            if (slots.length === 0) return;
+            const slot = slots[Math.floor(Math.random() * slots.length)];
+            const sign = Math.random() < 0.5 ? 1 : -1;
+            if (slot.cls === "cell-health") slot.cell.dataset.value = guessedEnemy.health + sign * 50;
+            else if (slot.cls === "cell-waves") slot.cell.dataset.value = guessedEnemy.waves + sign * 2;
+            else if (slot.cls === "cell-encounter") {
+                const order = window.encounterOrder || [];
+                const lowerOrder = order.map(i => i.toLowerCase());
+                const idx = lowerOrder.indexOf(guessedEnemy.encounter.toLowerCase());
+                if (idx !== -1) slot.cell.dataset.value = order[Math.min(Math.max(idx + sign, 0), order.length - 1)];
+            }
+            if (typeof window.redrawCategoryCell === "function") window.redrawCategoryCell(slot.cell);
+            if (engine && engine.isBuffed(key) && typeof window.setCellFakeStatus === "function") {
+                const fakeStatuses = ["correct", "incorrect", "partial"];
+                window.setCellFakeStatus(slot.cell, fakeStatuses[Math.floor(Math.random() * fakeStatuses.length)], slot.side);
+            }
+        }
+    },
+    vitacharge: {
+        name: "Vitacharge",
+        description: "3 enemies you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 enemies from the previous 4 waves instead.",
+        onStart: (engine, key) => {
+            vitachargedEnemies = new Set();
+            const buffed = engine && engine.isBuffed(key);
+            const waveSpan = buffed ? 4 : 2;
+            const targetCount = buffed ? 6 : 3;
+            if (typeof window.getPreviousWaveGuesses === "function") {
+                const secret = typeof window.getSecretEnemy === "function" ? window.getSecretEnemy() : null;
+                const db = window.enemyDatabase || {};
+                const pool = [...new Set(window.getPreviousWaveGuesses(waveSpan))]
+                    .filter(k => !secret || !db[k] || db[k].name !== secret.name);
+                while (vitachargedEnemies.size < targetCount && pool.length > 0) {
+                    vitachargedEnemies.add(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+                }
+            }
+        },
+        onGuess: (row, guessedEnemy) => {
+            if (!vitachargedEnemies.has(guessedEnemy.name.toLowerCase())) return;
+            row.classList.add("row-vitacharged");
+            Array.from(row.children).forEach(cell => {
+                if (cell.classList.contains("cell-name")) return;
+                cell.classList.remove("cell-correct", "cell-incorrect", "cell-partial");
+                cell.textContent = "";
+                cell.classList.add("cell-vitacharged");
+            });
+        },
+        onReset: () => { vitachargedEnemies = new Set(); }
+    },
+    aimAssist: {
+        name: (buffed) => buffed ? "Aim Bot" : "Aim Assist",
+        description: "If a guess would show a yellow stat, it's automatically swapped for a guess that turns that stat green. Vitaraged: any yellow stat makes the guess fully correct.",
+        onStart: () => {},
+        onReset: () => {}
+    },
+    strengthenedSignal: {
+        name: "Strengthened Signal",
+        description: "You get 7 guesses instead of 6. Vitaraged: 8 guesses instead of 6.",
+        onStart: (engine, key) => {
+            if (typeof window.applyGuessDelta === "function") window.applyGuessDelta(key, engine.isBuffed(key) ? 2 : 1);
+        },
+        onReset: () => {
+            if (typeof window.clearGuessDelta === "function") window.clearGuessDelta("strengthenedSignal");
+        }
+    },
+    accurateRadar: {
+        name: "Accurate Radar",
+        description: "Automatically submits a random wrong guess on wave start that matches the target on at least 1 stat. Vitaraged: submits 2 such guesses.",
+        onStart: (engine, key) => {
+            setTimeout(() => {
+                window.__autoGuessInProgress = true;
+                if (typeof window.makeAccurateRadarGuess === "function") {
+                    window.makeAccurateRadarGuess();
+                    if (engine && engine.isBuffed(key)) window.makeAccurateRadarGuess();
+                }
+                window.__autoGuessInProgress = false;
+            }, 0);
+        },
+        onReset: () => {}
+    },
+    vitarage: {
+        name: "Vitarage",
+        description: "Doesn't affect the game directly — instead buffs 1 or more random active modifiers this wave. Starting wave 25 it can buff up to 2, wave 30 up to 3, and wave 35 up to 4.",
+        onStart: (engine) => {
+            engine.buffedModifiers = new Set();
+            let candidates = [...engine.active].filter(key => key !== "vitarage");
+            if (candidates.length > 0) {
+                const wave = engine.currentWave || 1;
+                let maxBuffs = 1;
+                if (wave >= 35) maxBuffs = 4;
+                else if (wave >= 30) maxBuffs = 3;
+                else if (wave >= 25) maxBuffs = 2;
+                maxBuffs = Math.min(maxBuffs, candidates.length);
+                const buffCount = 1 + Math.floor(Math.random() * maxBuffs);
+                const pool = [...candidates];
+                while (engine.buffedModifiers.size < buffCount && pool.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * pool.length);
+                    engine.buffedModifiers.add(pool.splice(randomIndex, 1)[0]);
+                }
+            }
+            engine.renderBadges();
+        },
+        onReset: (engine) => {
+            engine.buffedModifiers = new Set();
+        }
+    },
+    colorblind: {
+        name: "Colorblind",
+        description: "All color hints are disabled — you only have the arrows to go by.",
+        onStart: (engine, key) => {
+            const table = document.getElementById("guessTable");
+            if (!table) return;
+            table.classList.add("colorblind-active");
+        },
+        onReset: () => {
+            const table = document.getElementById("guessTable");
+            if (table) table.classList.remove("colorblind-active", "colorblind-vitaraged");
+        }
+    },
+    doubleTrouble: {
+        name: (buffed) => buffed ? "Triple Trouble" : "Double Trouble",
+        description: "There are 2 secret targets this wave instead of 1. Every stat category shows one arrow per target, and the cell's color is split to match, one section per target. Guesses increased from 6 to 7 to compensate. You must correctly guess every target before you run out of guesses. Vitaraged: 3 secret targets instead, guesses increased to 9 instead of 7.",
+        onStart: (engine, key) => {
+            engine.doubleTroubleFound = null;
+            const buffed = engine && engine.isBuffed(key);
+            if (typeof window.applyGuessDelta === "function") window.applyGuessDelta(key, buffed ? 3 : 1);
+            if (typeof window.pickSecondTarget === "function") window.pickSecondTarget();
+            if (buffed && typeof window.pickThirdTarget === "function") window.pickThirdTarget();
+        },
+        onReset: (engine) => {
+            if (engine) engine.doubleTroubleFound = null;
+            if (typeof window.clearGuessDelta === "function") window.clearGuessDelta("doubleTrouble");
+            if (typeof window.clearSecondTarget === "function") window.clearSecondTarget();
+            if (typeof window.clearThirdTarget === "function") window.clearThirdTarget();
+        }
+    },
+    assassin: {
+        name: "Assassin",
+        description: "A random enemy is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
+        onStart: (engine, key) => {
+            currentAssassin = null;
+            const db = window.enemyDatabase || {};
+            const activePool = typeof window.getActivePool === "function" ? window.getActivePool() : Object.keys(db);
+            const secret = typeof window.getSecretEnemy === "function" ? window.getSecretEnemy() : null;
+            const pool = activePool.filter(k => !secret || db[k].name !== secret.name);
+            if (pool.length > 0) currentAssassin = db[pool[Math.floor(Math.random() * pool.length)]];
+            if (engine) {
+                engine.assassinTargetCategory = engine.isBuffed(key)
+                    ? ["cell-health", "cell-waves", "cell-encounter"][Math.floor(Math.random() * 3)]
+                    : null;
+            }
+        },
+        onGuess: (row, guessedEnemy, secretEnemy, engine) => {
+            if (!currentAssassin) return;
+            const order = window.encounterOrder || [];
+            const lowerOrder = order.map(i => i.toLowerCase());
+            const gi = lowerOrder.indexOf(guessedEnemy.encounter.toLowerCase());
+            const ai = lowerOrder.indexOf(currentAssassin.encounter.toLowerCase());
+            let checks = [
+                { cls: "cell-health", close: Math.abs(guessedEnemy.health - currentAssassin.health) <= 50 },
+                { cls: "cell-waves", close: Math.abs(guessedEnemy.waves - currentAssassin.waves) <= 6 },
+                { cls: "cell-encounter", close: gi !== -1 && ai !== -1 && Math.abs(gi - ai) <= 2 }
+            ];
+            if (engine && engine.assassinTargetCategory) checks = checks.filter(c => c.cls === engine.assassinTargetCategory);
+            checks.forEach(({ cls, close }) => {
+                if (!close) return;
+                const cell = row.querySelector(`.${cls}`);
+                if (!cell) return;
+                const isFullyExact = cell.classList.contains("split-cell")
+                    ? !Array.from({ length: parseInt(cell.dataset.targetCount || "0", 10) }, (_, i) => cell.dataset[`arrow${i}`]).some(Boolean)
+                    : cell.classList.contains("cell-correct");
+                if (isFullyExact) return;
+                cell.classList.add("cell-assassin-warning");
+                cell.dataset.warning = "true";
+                if (typeof window.redrawCategoryCell === "function") window.redrawCategoryCell(cell);
+            });
+            if (guessedEnemy.name === currentAssassin.name && typeof window.handleAssassinGuess === "function") {
+                window.handleAssassinGuess(currentAssassin);
+            }
+        },
+        onReset: (engine) => {
+            currentAssassin = null;
+            if (engine) engine.assassinTargetCategory = null;
+        }
+    },
+};
+
+function attritionWaveCounts(waveNumber) {
+    if (waveNumber <= 5) return 0;
+    const cap = Math.min(4, Math.floor(waveNumber / 5));
+    let minCount = 1;
+    if (waveNumber >= 100) minCount = 4;
+    else if (waveNumber >= 60) minCount = 3;
+    else if (waveNumber > 40) minCount = 2;
+    minCount = Math.min(minCount, cap);
+    return minCount + Math.floor(Math.random() * (cap - minCount + 1));
+}
+
+window.Modifiers = new ModifierEngine("attrition", attritionDefinitions, attritionWaveCounts);
+window.Modifiers.forceVitarage = (wave) => wave > 40;
+window.Modifiers.allowedKeys = [
+    "cloaked", "jammedRadar", "securityProtocol", "fog", "sabotage",
+    "weakenedSignal", "miscommunication", "vitacharge", "vitarage",
+    "colorblind", "doubleTrouble", "assassin"
+];
