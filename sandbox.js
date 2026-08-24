@@ -67,6 +67,7 @@ const itemDatabase = {
     "fire tossing thing": { name: "Fire Tossing Thing", type: "Weapon", damage: 20, firerate: 1000, hasSpecialAbility: false },
     "k's raven": { name: "K's Raven", type: "Weapon", damage: 43, firerate: 150, hasSpecialAbility: false },
     "engineer pistol": { name: "Engineer Pistol", type: "Weapon", damage: 5, firerate: 200, hasSpecialAbility: false },
+    "one shot": { name: "One Shot", type: "Weapon", damage: 9001, firerate: 80, hasSpecialAbility: false },
     "shovel": { name: "Shovel", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: false },
     "overcharger": { name: "Overcharger", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: true },
     "rallying cry": { name: "Rallying Cry", type: "Melee", damage: 101, firerate: 0.7, hasSpecialAbility: true },
@@ -117,6 +118,7 @@ const itemDatabase = {
     "fuel can": { name: "Fuel Can", type: "Utility", damage: 0, firerate: 1, hasSpecialAbility: false },
     "artillery placement": { name: "Artillery Placement", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
     "engineer wrench": { name: "Engineer Wrench", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: true },
+    "sentinel": { name: "Sentinel", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
 };
 
 

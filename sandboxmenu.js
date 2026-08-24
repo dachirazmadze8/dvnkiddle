@@ -114,6 +114,7 @@ const NIGHTMARE_EXCLUSIVE_ITEMS = [
     { key: "fire tossing thing", name: "Fire Tossing Thing" },
     { key: "k's raven", name: "K's Raven" },
     { key: "engineer pistol", name: "Engineer Pistol" },
+    { key: "one shot", name: "One Shot" },
     { key: "shovel (old method)", name: "Shovel (Old Method)" },
     { key: "overcharger (old)", name: "Overcharger (Old)" },
     { key: "ronin", name: "Ronin" },
@@ -138,7 +139,8 @@ const NIGHTMARE_EXCLUSIVE_ITEMS = [
     { key: "bomb", name: "Bomb" },
     { key: "fuel can", name: "Fuel Can" },
     { key: "artillery placement", name: "Artillery Placement" },
-    { key: "engineer wrench", name: "Engineer Wrench" }
+    { key: "engineer wrench", name: "Engineer Wrench" },
+    { key: "sentinel", name: "Sentinel" },
 ].map(item => ({ ...item, type: "Nightmare Exclusive" }));
 
 const ITEM_TYPE_ORDER = ["Weapon", "Melee", "Utility", "Nightmare Exclusive"];
