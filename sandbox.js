@@ -420,18 +420,34 @@ function applyAimAssist(originalKey) {
     if (typeof Modifiers === "undefined" || !Modifiers.active.has("aimAssist")) return originalKey;
 
     const guessedItem = itemDatabase[originalKey];
-    if (!guessedItem || guessedItem.name === secretItem.name) return originalKey;
+    if (!guessedItem) return originalKey;
 
-    const damagePartial = guessedItem.damage !== secretItem.damage &&
-        Math.abs(guessedItem.damage - secretItem.damage) <= 15;
-    const fireratePartial = guessedItem.firerate !== secretItem.firerate &&
-        Math.abs(guessedItem.firerate - secretItem.firerate) <= 50;
+    const si2 = typeof window.getSecondSecretItem === "function" ? window.getSecondSecretItem() : null;
+    const si3 = typeof window.getThirdSecretItem === "function" ? window.getThirdSecretItem() : null;
+    const doubleTroubleActive = Modifiers.active.has("doubleTrouble") && !!si2;
+    const targets = doubleTroubleActive ? [secretItem, si2, ...(si3 ? [si3] : [])] : [secretItem];
 
-    if (!damagePartial && !fireratePartial) return originalKey;
+    if (targets.some(t => t && guessedItem.name === t.name)) return originalKey;
+
+    let target = null;
+    let damagePartial = false, fireratePartial = false;
+    for (const t of targets) {
+        if (!t) continue;
+        const dp = guessedItem.damage !== t.damage && Math.abs(guessedItem.damage - t.damage) <= 15;
+        const fp = guessedItem.firerate !== t.firerate && Math.abs(guessedItem.firerate - t.firerate) <= 50;
+        if (dp || fp) {
+            target = t;
+            damagePartial = dp;
+            fireratePartial = fp;
+            break;
+        }
+    }
+
+    if (!target) return originalKey;
 
     if (Modifiers.isBuffed("aimAssist")) {
-        const secretKey = Object.keys(itemDatabase).find(key => itemDatabase[key].name === secretItem.name);
-        return secretKey || originalKey;
+        const targetKey = Object.keys(itemDatabase).find(key => itemDatabase[key].name === target.name);
+        return targetKey || originalKey;
     }
 
     const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
@@ -443,9 +459,10 @@ function applyAimAssist(originalKey) {
         if (item.name === guessedItem.name) return false;
         if (assassin && item.name === assassin.name) return false;
         if (vitacharged && vitacharged.has(key)) return false;
+        if (targets.some(t => t && item.name === t.name && t !== target)) return false;
 
-        const damageMatch = damagePartial && item.damage === secretItem.damage;
-        const firerateMatch = fireratePartial && item.firerate === secretItem.firerate;
+        const damageMatch = damagePartial && item.damage === target.damage;
+        const firerateMatch = fireratePartial && item.firerate === target.firerate;
         return damageMatch || firerateMatch;
     });
 

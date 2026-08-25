@@ -497,8 +497,9 @@ const nightmareDefinitions = {
     },
     experienced: {
         name: (buffed) => buffed ? "Seasoned Veteran" : "Experienced",
-        description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: the XP threshold for partial credit is tighter.",
+        description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: XP on Kill replaces the Total Waves column entirely instead of appearing alongside it.",
         onStart: (engine, key) => {
+            const buffed = engine && engine.isBuffed(key);
             const thead = document.querySelector(".wordle-table thead tr");
             if (!thead || thead.querySelector(".th-xp")) return;
             const wavesHeaders = thead.querySelectorAll("th");
@@ -506,6 +507,12 @@ const nightmareDefinitions = {
             wavesHeaders.forEach((th, i) => {
                 if (th.textContent.trim().toUpperCase() === "TOTAL WAVES") wavesThIndex = i;
             });
+
+            if (buffed && wavesThIndex !== -1) {
+                wavesHeaders[wavesThIndex].dataset.xpHidden = "true";
+                wavesHeaders[wavesThIndex].style.display = "none";
+            }
+
             const th = document.createElement("th");
             th.textContent = "XP ON KILL";
             th.className = "th-xp";
@@ -516,13 +523,19 @@ const nightmareDefinitions = {
             }
         },
         onReset: () => {
+            const wavesHeader = document.querySelector('.wordle-table thead tr th[data-xp-hidden="true"]');
+            if (wavesHeader) {
+                wavesHeader.style.display = "";
+                delete wavesHeader.dataset.xpHidden;
+            }
             const th = document.querySelector(".wordle-table thead tr .th-xp");
             if (th) th.remove();
             document.querySelectorAll("#guessRows .cell-xp").forEach(td => td.remove());
+            document.querySelectorAll("#guessRows .cell-waves").forEach(td => { td.style.display = ""; });
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
             const buffed = engine && engine.isBuffed(key);
-            const threshold = buffed ? 5 : 10;
+            const threshold = 10;
             const guessedXp = guessedEnemy.xpOnKill;
             const targetXp = secretEnemy.xpOnKill;
 
@@ -560,6 +573,7 @@ const nightmareDefinitions = {
 
             const wavesCell = row.querySelector(".cell-waves");
             if (wavesCell) {
+                if (buffed) wavesCell.style.display = "none";
                 wavesCell.after(td);
             } else {
                 row.appendChild(td);

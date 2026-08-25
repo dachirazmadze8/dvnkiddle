@@ -216,7 +216,7 @@ const attritionDefinitions = {
         description: "Doesn't affect the game directly — instead buffs 1 or more random active modifiers this wave. Starting wave 25 it can buff up to 2, wave 30 up to 3, and wave 35 up to 4.",
         onStart: (engine) => {
             engine.buffedModifiers = new Set();
-            let candidates = [...engine.active].filter(key => key !== "vitarage");
+            let candidates = [...engine.active].filter(key => key !== "vitarage" && key !== "experienced" && key !== "colorblind");
             if (candidates.length > 0) {
                 const wave = engine.currentWave || 1;
                 let maxBuffs = 1;
@@ -316,6 +316,91 @@ const attritionDefinitions = {
             if (engine) engine.assassinTargetCategory = null;
         }
     },
+    experienced: {
+    name: (buffed) => buffed ? "Seasoned Veteran" : "Experienced",
+    description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: XP on Kill replaces the Total Waves column entirely instead of appearing alongside it.",
+    onStart: (engine, key) => {
+        const buffed = engine && engine.isBuffed(key);
+        const thead = document.querySelector(".wordle-table thead tr");
+        if (!thead || thead.querySelector(".th-xp")) return;
+        const wavesHeaders = thead.querySelectorAll("th");
+        let wavesThIndex = -1;
+        wavesHeaders.forEach((th, i) => {
+            if (th.textContent.trim().toUpperCase() === "TOTAL WAVES") wavesThIndex = i;
+        });
+
+        if (buffed && wavesThIndex !== -1) {
+            wavesHeaders[wavesThIndex].dataset.xpHidden = "true";
+            wavesHeaders[wavesThIndex].style.display = "none";
+        }
+
+        const th = document.createElement("th");
+        th.textContent = "XP ON KILL";
+        th.className = "th-xp";
+        if (wavesThIndex !== -1 && wavesThIndex + 1 < wavesHeaders.length) {
+            wavesHeaders[wavesThIndex + 1].before(th);
+        } else {
+            thead.appendChild(th);
+        }
+    },
+    onReset: () => {
+        const wavesHeader = document.querySelector('.wordle-table thead tr th[data-xp-hidden="true"]');
+        if (wavesHeader) {
+            wavesHeader.style.display = "";
+            delete wavesHeader.dataset.xpHidden;
+        }
+        const th = document.querySelector(".wordle-table thead tr .th-xp");
+        if (th) th.remove();
+        document.querySelectorAll("#guessRows .cell-xp").forEach(td => td.remove());
+        document.querySelectorAll("#guessRows .cell-waves").forEach(td => { td.style.display = ""; });
+    },
+    onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
+        const buffed = engine && engine.isBuffed(key);
+        const threshold = 10;
+        const guessedXp = guessedEnemy.xpOnKill ?? 0;
+        const targetXp = secretEnemy.xpOnKill ?? 0;
+
+        const td = document.createElement("td");
+        td.className = "cell-xp";
+        td.dataset.value = guessedXp;
+
+        const doubleTroubleActive = typeof Modifiers !== "undefined" &&
+            Modifiers.active.has("doubleTrouble");
+        const secretEnemy2 = typeof window.getSecondSecretEnemy === "function" ? window.getSecondSecretEnemy() : null;
+        const secretEnemy3 = typeof window.getThirdSecretEnemy === "function" ? window.getThirdSecretEnemy() : null;
+
+        if (doubleTroubleActive && secretEnemy2) {
+            const targets = [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])];
+            const results = targets.map(t => {
+                const xp = t.xpOnKill ?? 0;
+                if (guessedXp === xp) return { arrow: "", status: "correct" };
+                const arrow = guessedXp < xp ? "↑" : "↓";
+                const status = Math.abs(guessedXp - xp) <= threshold ? "partial" : "incorrect";
+                return { arrow, status };
+            });
+            results.forEach((r, i) => { td.dataset[`arrow${i}`] = r.arrow; });
+            if (typeof window.applySplitBackground === "function") window.applySplitBackground(td, results.map(r => r.status));
+        } else {
+            if (guessedXp === targetXp) {
+                td.dataset.arrow = "";
+                td.classList.add("cell-correct");
+            } else {
+                td.dataset.arrow = guessedXp < targetXp ? "↑" : "↓";
+                td.classList.add(Math.abs(guessedXp - targetXp) <= threshold ? "cell-partial" : "cell-incorrect");
+            }
+        }
+
+        if (typeof window.redrawCategoryCell === "function") window.redrawCategoryCell(td);
+
+        const wavesCell = row.querySelector(".cell-waves");
+        if (wavesCell) {
+            if (buffed) wavesCell.style.display = "none";
+            wavesCell.after(td);
+        } else {
+            row.appendChild(td);
+        }
+    }
+  },
 };
 
 function attritionWaveCounts(waveNumber) {

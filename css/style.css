@@ -1216,6 +1216,54 @@ body.practice-menu-body {
     padding: 0.2rem 0.6rem;
 }
 
+.perks-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 0.8rem auto 1.2rem auto;
+    padding: 0.5rem 1rem;
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.perks-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.perks-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.perk-tag {
+    display: inline-flex;
+    align-items: center;
+}
+
+.perk-tag-none {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #ffffff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
 .perk-icon {
     width: 16px;
     height: 16px;
