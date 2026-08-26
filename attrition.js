@@ -464,12 +464,11 @@ function initializeGameSession() {
 
     advanceBounty();
     const bountyName = bountyKey && isBountyWave() ? enemyDatabase[bountyKey].name : (bountyKey ? enemyDatabase[bountyKey].name : 'none');
-    // console.log(`Target: ${secretEnemy.name}`);
-    // console.log(`Bounty: ${bountyName}`);
+    console.log(`Target: ${secretEnemy.name}`);
+    console.log(`Bounty: ${bountyName}`);
 
     if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
 
-    updateBountyIndicator();
     updateBountySwapIndicator();
     updatePoolDisplay();
 
@@ -502,19 +501,8 @@ function initializeGameSession() {
         const t3 = typeof window.getThirdSecretEnemy === 'function' ? window.getThirdSecretEnemy() : null;
         if (t2 || t3) {
             const extras = [t2, t3].filter(Boolean).map(t => t.name).join(', ');
-            // console.log(`Extra targets: ${extras}`);
+            console.log(`Extra targets: ${extras}`);
         }
-    }
-}
-
-function updateBountyIndicator() {
-    const indicator = document.getElementById("bountyIndicator");
-    if (!indicator) return;
-    if (bountyKey && isBountyWave()) {
-        indicator.innerText = "⭐ BOUNTY TARGET";
-        indicator.style.display = "inline-block";
-    } else {
-        indicator.style.display = "none";
     }
 }
 
@@ -595,6 +583,7 @@ function makeRandomGuess() {
     const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key =>
         !guessedEnemiesList.includes(key) &&
+        key !== bountyKey &&
         (!assassin || enemyDatabase[key].name !== assassin.name) &&
         (!vitacharged || !vitacharged.has(key))
     );
@@ -610,6 +599,7 @@ function makeRandomWrongGuess() {
     const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key =>
         !guessedEnemiesList.includes(key) &&
+        key !== bountyKey &&
         enemyDatabase[key].name !== secretEnemy.name &&
         (!assassin || enemyDatabase[key].name !== assassin.name) &&
         (!vitacharged || !vitacharged.has(key))
@@ -622,15 +612,23 @@ window.makeRandomWrongGuess = makeRandomWrongGuess;
 
 function makeAccurateRadarGuess() {
     if (gameOver || isWaveClear) return;
+    const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key => {
         if (guessedEnemiesList.includes(key)) return false;
+        if (key === bountyKey) return false;
+        if (vitacharged && vitacharged.has(key)) return false;
         if (enemyDatabase[key].name === secretEnemy.name) return false;
         const e = enemyDatabase[key];
         return e.health === secretEnemy.health ||
             e.waves === secretEnemy.waves ||
             e.encounter.toLowerCase() === secretEnemy.encounter.toLowerCase();
     });
-    const fallback = activePool.filter(k => !guessedEnemiesList.includes(k) && enemyDatabase[k].name !== secretEnemy.name);
+    const fallback = activePool.filter(k =>
+        !guessedEnemiesList.includes(k) &&
+        k !== bountyKey &&
+        (!vitacharged || !vitacharged.has(k)) &&
+        enemyDatabase[k].name !== secretEnemy.name
+    );
     const chosen = pool.length > 0 ? pool : fallback;
     if (chosen.length === 0) return;
     inputElement.value = enemyDatabase[chosen[Math.floor(Math.random() * chosen.length)]].name;
@@ -1126,6 +1124,7 @@ function submitGuess() {
     if (dropdownMenu) dropdownMenu.style.display = "none";
 
     if (bountyKey && guessName === bountyKey) {
+        const bountyWasTheTarget = isBountyWave();
         const foundBountyName = enemyDatabase[bountyKey].name;
         if (doubleTroubleActive && Array.isArray(Modifiers.doubleTroubleFound)) {
             doubleTroubleTargets.forEach((target, i) => {
@@ -1135,12 +1134,20 @@ function submitGuess() {
                 }
             });
         }
-        const roll = Math.floor(Math.random() * 5);
+
         let rewardName = null;
-        if (roll === 0) {
+
+        if (bountyWasTheTarget) {
+            // Target and bounty were the same enemy: grant every perk at
+            // once and remove it from the pool for good instead of the
+            // usual single random reward.
             revives++;
-            rewardName = `Revive (${revives} total)`;
-        } else if (roll === 1) {
+            overchargerPending = true;
+            refillCharges++;
+            updateRefillDisplay();
+            resetCharges++;
+            updateResetDisplay();
+
             const available = BOUNTY_POSITIVE_MODIFIERS.filter(k =>
                 typeof Modifiers !== "undefined" && Modifiers.definitions[k]
             );
@@ -1148,26 +1155,46 @@ function submitGuess() {
                 bountyRewardModifier = available[Math.floor(Math.random() * available.length)];
                 bountyRewardWavesLeft = 3;
                 skipNextBountyRewardDecrement = true;
-                const def = Modifiers.definitions[bountyRewardModifier];
-                rewardName = `${typeof def.name === "function" ? def.name(false) : def.name} for the next 3 waves`;
             }
-        } else if (roll === 2) {
-            overchargerPending = true;
-            rewardName = "Overcharger — unlimited guesses for 12 seconds next wave (won't count toward your limit)";
-        } else if (roll === 3) {
-            refillCharges++;
-            updateRefillDisplay();
-            rewardName = "Refill charge — click the Refill button to reset your guesses whenever you want";
+
+            const bountyEnemyKey = activePool.find(k => enemyDatabase[k].name === foundBountyName);
+            if (bountyEnemyKey) retireEnemy(bountyEnemyKey);
+
+            rewardName = "ALL PERKS — target and bounty were the same!";
         } else {
-            resetCharges++;
-            updateResetDisplay();
-            rewardName = "Reset timer charge — click the timer to restore it to 5:00 whenever you want";
+            const roll = Math.floor(Math.random() * 5);
+            if (roll === 0) {
+                revives++;
+                rewardName = `Revive (${revives} total)`;
+            } else if (roll === 1) {
+                const available = BOUNTY_POSITIVE_MODIFIERS.filter(k =>
+                    typeof Modifiers !== "undefined" && Modifiers.definitions[k]
+                );
+                if (available.length > 0) {
+                    bountyRewardModifier = available[Math.floor(Math.random() * available.length)];
+                    bountyRewardWavesLeft = 3;
+                    skipNextBountyRewardDecrement = true;
+                    const def = Modifiers.definitions[bountyRewardModifier];
+                    rewardName = `${typeof def.name === "function" ? def.name(false) : def.name} for the next 3 waves`;
+                }
+            } else if (roll === 2) {
+                overchargerPending = true;
+                rewardName = "Overcharger — unlimited guesses for 12 seconds next wave (won't count toward your limit)";
+            } else if (roll === 3) {
+                refillCharges++;
+                updateRefillDisplay();
+                rewardName = "Refill charge — click the Refill button to reset your guesses whenever you want";
+            } else {
+                resetCharges++;
+                updateResetDisplay();
+                rewardName = "Reset timer charge — click the timer to restore it to 5:00 whenever you want";
+            }
         }
+
         addRunTime(60);
         bountyWavesRemaining = 0;
         pickBounty();
         skipNextBountyDecrement = true;
-        updateBountyIndicator();
         updateBountySwapIndicator();
         updatePoolDisplay();
         if (messageElement) {
@@ -1185,6 +1212,12 @@ function submitGuess() {
             continueButton.onclick = advanceNextWave;
         }
         return;
+      if (continueButton) {
+      continueButton.innerText = "Continue";
+      continueButton.style.display = "inline-block";
+      continueButton.onclick = advanceNextWave;
+      }
+      return;
     }
 
     const secretKeyForRetire = activePool.find(k => enemyDatabase[k].name === secretEnemy.name);
