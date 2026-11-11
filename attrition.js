@@ -585,8 +585,8 @@ function initializeGameSession() {
 
     advanceBounty();
     const bountyName = bountyKey && isBountyWave() ? enemyDatabase[bountyKey].name : (bountyKey ? enemyDatabase[bountyKey].name : 'none');
-    console.log(`Target: ${secretEnemy.name}`);
-    console.log(`Bounty: ${bountyName}`);
+    // console.log(`Target: ${secretEnemy.name}`);
+    // console.log(`Bounty: ${bountyName}`);
 
     if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
 
@@ -641,7 +641,7 @@ function initializeGameSession() {
         const t3 = typeof window.getThirdSecretEnemy === 'function' ? window.getThirdSecretEnemy() : null;
         if (t2 || t3) {
             const extras = [t2, t3].filter(Boolean).map(t => t.name).join(', ');
-            console.log(`Extra targets: ${extras}`);
+            // console.log(`Extra targets: ${extras}`);
         }
     }
 }
