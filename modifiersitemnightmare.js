@@ -75,15 +75,17 @@ const sandboxDefinitions = {
     },
     securityProtocol: {
         name: "Security Protocol (01:00)",
-        description: "Guess the item within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's) speeds the timer up by 0.5x, permanently for the wave.",
+        description: "Guess the item within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's, but not Accurate Radar's) speeds the timer up by 0.5x, permanently for the wave.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             engine.startTimer(buffed ? 120 : 60);
         },
         onGuess: (row, guessedItem, secretItem, engine) => {
             if (engine && guessedItem.name !== secretItem.name) {
-                engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
-                engine.refreshTimerSpeed();
+                if (!window.__accurateRadarGuessInProgress) {
+                    engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
+                    engine.refreshTimerSpeed();
+                }
             }
         },
         onReset: (engine) => {
@@ -351,23 +353,25 @@ const sandboxDefinitions = {
     },
     accurateRadar: {
         name: "Accurate Radar",
-        description: "Automatically submits a random wrong guess on wave start, with at least 1 stat guaranteed to show green. Vitaraged: submits 2 such guesses instead of 1.",
+        description: "Automatically submits a random wrong guess on wave start, with at least 1 stat guaranteed to show green. Vitaraged: submits 2 such guesses instead of 1. These guesses don't count against your guess limit.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             window.__autoGuessInProgress = true;
+            window.__accurateRadarGuessInProgress = true;
             if (typeof window.makeAccurateRadarGuess === "function") {
                 window.makeAccurateRadarGuess();
                 if (buffed) {
                     window.makeAccurateRadarGuess();
                 }
             }
+            window.__accurateRadarGuessInProgress = false;
             window.__autoGuessInProgress = false;
         },
         onReset: () => {}
     },
     extraLife: {
         name: "Resuscitator",
-        description: "If you'd fail (out of guesses, assassinated, or Security Protocol running out), it's canceled and you move on to the next wave anyway. Only 1 use total. Vitaraged: 2 uses total.",
+        description: "If you'd fail (out of guesses, assassinated, or Security Protocol running out), it's canceled and you move on to the next wave anyway. Only 1 use total. Vitaraged: 2 uses total, and it can also cancel Mutilated Deaths (but not its Vitaraged version).",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             if (typeof engine.extraLifeCharges !== "number") {
@@ -384,7 +388,7 @@ const sandboxDefinitions = {
     },
     colorblind: {
         name: (buffed) => buffed ? "Blindness" : "Colorblind",
-        description: "Sandbox mode exclusive. All color hints are disabled — you only have the arrows to go by. Vitaraged: stats are also heavily blurred.",
+        description: "All color hints are disabled — you only have the arrows to go by. Vitaraged: stats are also heavily blurred.",
         onStart: (engine, key) => {
             const table = document.getElementById("guessTable");
             if (!table) return;
@@ -394,6 +398,60 @@ const sandboxDefinitions = {
         onReset: () => {
             const table = document.getElementById("guessTable");
             if (table) table.classList.remove("colorblind-active", "colorblind-vitaraged");
+        }
+    },
+    chubbyTroops: {
+        name: (buffed) => buffed ? "Giant Items" : "Large Items",
+        description: "1/3rd of the items in the pool are large and take up 2 guesses instead of 1 when guessed. Vitaraged (Giant Items): 3 guesses instead of 1.",
+        runLast: true,
+        onStart: (engine) => {
+            const pool = window.itemKeys || [];
+            const shuffled = [...pool].sort(() => Math.random() - 0.5);
+            const count = Math.round(pool.length / 3);
+            engine.chubbyItems = new Set(shuffled.slice(0, count));
+        },
+        onGuess: (row, guessedItem, secretItem, engine, key) => {
+            if (!engine || !engine.chubbyItems) return;
+
+            const guessedKey = guessedItem.name.toLowerCase();
+            if (!engine.chubbyItems.has(guessedKey)) return;
+
+            const secondTarget = typeof window.getSecondSecretItem === "function" ? window.getSecondSecretItem() : null;
+            const thirdTarget = typeof window.getThirdSecretItem === "function" ? window.getThirdSecretItem() : null;
+            const isCorrectGuess = (secretItem && guessedItem.name === secretItem.name) ||
+                (secondTarget && guessedItem.name === secondTarget.name) ||
+                (thirdTarget && guessedItem.name === thirdTarget.name);
+            if (isCorrectGuess) return;
+
+            const buffed = engine.isBuffed(key);
+            const totalCost = buffed ? 3 : 2;
+            const extraGuesses = totalCost - 1;
+
+            if (typeof window.addExtraGuessCount === "function") {
+                window.addExtraGuessCount(extraGuesses);
+            }
+
+            row.classList.add("row-chubby");
+            const wrapper = row.querySelector(".name-cell-wrapper");
+            if (wrapper) {
+                const badge = document.createElement("span");
+                badge.className = "chubby-cost-badge";
+                badge.innerText = `×${totalCost} guesses`;
+                wrapper.appendChild(badge);
+            }
+
+            const tbody = document.getElementById("guessRows");
+            if (tbody) {
+                for (let i = 0; i < extraGuesses; i++) {
+                    const clone = row.cloneNode(true);
+                    const cloneImg = clone.querySelector(".table-item-icon");
+                    if (cloneImg) cloneImg.onerror = function() { this.style.display = "none"; };
+                    tbody.insertBefore(clone, tbody.firstChild);
+                }
+            }
+        },
+        onReset: (engine) => {
+            if (engine) engine.chubbyItems = null;
         }
     },
     doubleTrouble: {

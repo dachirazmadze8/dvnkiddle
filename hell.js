@@ -18,32 +18,32 @@ const enemyDatabase = {
     "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege" },
     "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege" },
     "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege" },
-    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 13, encounter: "Wave 5 siege" },
+    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 8, encounter: "Wave 4 hell" },
     "apu-r operator": { name: "APU-R Operator", type: "Advanced", health: 450, waves: 13, encounter: "Wave 5 siege" },
     "tank": { name: "Tank", type: "Mech", health: 3500, waves: 14, encounter: "Wave 7 siege" },
     "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 14, encounter: "Wave 7 siege" },
     "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, encounter: "Wave 7 siege" },
-    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 9, encounter: "Wave 8 siege" },
+    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 2, encounter: "Wave 6 hell" },
     "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, encounter: "Wave 7 siege" },
     "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 9, encounter: "Wave 8 siege" },
     "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 9, encounter: "Wave 8 siege" },
-    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 21, encounter: "Wave 1 siege" },
-    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 14, encounter: "Wave 5 siege" },
-    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 9, encounter: "Wave 8 siege" },
-    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 16, encounter: "Wave 5 siege" },
-    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 16, encounter: "Wave 5 siege" },
-    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 4 siege" },
-    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 1, encounter: "Wave 1 hell" },
-    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 8 siege" },
-    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 8, encounter: "Wave 8 siege" },
-    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 14, encounter: "Wave 5 siege" },
+    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 1 hell" },
+    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 4 hell" },
+    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 6, encounter: "Wave 6 hell" },
+    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 10, encounter: "Wave 2 hell" },
+    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 10, encounter: "Wave 2 hell" },
+    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 11, encounter: "Wave 1 hell" },
+    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 4, encounter: "Wave 7 hell" },
+    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 4, encounter: "Wave 7 hell" },
+    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 8, encounter: "Wave 4 hell" },
     "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 5, encounter: "Wave 7 hell" },
-    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 10, encounter: "Wave 7 siege" },
-    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 8, encounter: "Wave 8 siege" },
-    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 8 siege" },
-    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 9, encounter: "Wave 8 siege" },
-    "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 9 siege" },
-    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 9 siege" },
+    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 6, encounter: "Wave 6 hell" },
+    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 5, encounter: "Wave 7 hell" },
+    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 2, encounter: "Wave 5 hell" },
+    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 2, encounter: "Wave 6 hell" },
+    "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 8 hell" },
+    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 8 hell" },
     "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, encounter: "Wave 3 siege" },
     "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, encounter: "Wave 3 siege" },
     "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, encounter: "Wave 3 siege" },
@@ -55,13 +55,27 @@ const enemyDatabase = {
     "fuel tank (prometheus)": { name: "Fuel Tank (Prometheus)", type: "Boss", health: 200, waves: 12, encounter: "Wave 6 siege" },
     "hermes": { name: "Hermes", type: "Boss", health: 525, waves: 12, encounter: "Wave 6 siege" },
     "hermes pods": { name: "Hermes Pods", type: "Boss", health: 60, waves: 12, encounter: "Wave 6 siege" },
-    "sparta": { name: "Sparta", type: "Boss", health: 440, waves: 9, encounter: "Wave 9 siege" },
+    "sparta": { name: "Sparta", type: "Boss", health: 475, waves: 9, encounter: "Wave 9 siege" },
     "trident": { name: "Trident", type: "Boss", health: 675, waves: 9, encounter: "Wave 9 siege" },
     "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, encounter: "Wave 9 siege" },
     "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege" },
-    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 siege" },
-    "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 4, encounter: "Wave 10 siege" },
-    "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 4, encounter: "Wave 10 siege" },
+    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 hell" },
+    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 1, encounter: "Wave 8 hell" },
+    "achilles (1.9)": { name: "Achilles (1.9)", type: "Boss", health: 280, waves: 1, encounter: "Wave 8 hell" },
+    "constructant": { name: "Constructant", type: "Elite Fodder", health: 250, waves: 11, encounter: "Wave 1 hell" },
+    "mads": { name: "MADS", type: "Elite Fodder", health: 400, waves: 11, encounter: "Wave 1 hell" },
+    "liquidator": { name: "Liquidator", type: "Elite Advanced", health: 4000, waves: 3, encounter: "Wave 9 hell" },
+    "fuel tank (liquidator)": { name: "Fuel Tank (Liquidator)", type: "Elite Advanced", health: 2000, waves: 3, encounter: "Wave 9 hell" },
+    "icarus helicopter": { name: "Icarus Helicopter", type: "Mech", health: 10000, waves: 0, encounter: "Sandbox" },
+    "deimos": { name: "Deimos", type: "Boss", health: 375, waves: 0, encounter: "Sandbox" },
+    "radiant": { name: "Radiant", type: "Elite Fodder", health: 500, waves: 0, encounter: "Sandbox" },
+    "conflagrator": { name: "Conflagrator", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "fuel tank (conflagrator)": { name: "Fuel Tank (Conflagrator)", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "cremator": { name: "Cremator", type: "Elite Fodder", health: 600, waves: 0, encounter: "Sandbox" },
+    "fuel tank (cremator)": { name: "Fuel Tank (Cremator)", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "dreadnought": { name: "Dreadnought", type: "Boss", health: 5500, waves: 2, encounter: "Wave 6 hell" },
+    "dreadnought armor (head)": { name: "Dreadnought Armor (Head)", type: "Boss", health: 1500, waves: 2, encounter: "Wave 6 hell" },
+    "dreadnought armor (limb)": { name: "Dreadnought Armor (Limb)", type: "Boss", health: 2000, waves: 2, encounter: "Wave 6 hell" },
     "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind" },
     "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, encounter: "Wave 10 mastermind" },
     "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, encounter: "Wave 3 epilogue" },
@@ -72,18 +86,22 @@ const enemyDatabase = {
     "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, encounter: "Sandbox" },
     "mega joe": { name: "Mega Joe", type: "Boss", health: 2000, waves: 0, encounter: "Sandbox" },
     "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
-    "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox" },
+    "jetnuker": { name: "JetNuker", type: "Boss", health: 250, waves: 0, encounter: "Sandbox" },
     "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege" },
     "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
     "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
     "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
     "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
+    "icarus": { name: "Icarus", type: "Boss", health: 500, waves: 0, encounter: "Sandbox" },
+    "celestial": { name: "Celestial", type: "Boss", health: 5000, waves: 0, encounter: "Sandbox" },
 };
 
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 1 hell", "Wave 5 hell", "Wave 7 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue",
+    "Wave 1 hell", "Wave 2 hell", "Wave 3 hell", "Wave 4 hell", "Wave 5 hell", "Wave 6 hell", "Wave 7 hell", "Wave 8 hell", "Wave 9 hell",
+    "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -165,7 +183,7 @@ function initializeGameSession() {
     }
 
     secretEnemy = enemyDatabase[enemyKeys[Math.floor(Math.random() * enemyKeys.length)]];
-    // console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
+    console.log(`Wave ${currentWave} answer: ${secretEnemy.name}`);
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;
@@ -194,7 +212,7 @@ function initializeGameSession() {
     if (inputElement) {
         inputElement.value = "";
         inputElement.disabled = false;
-        inputElement.placeholder = "Type or select an enemy...";
+        inputElement.placeholder = "Type or select a unit...";
     }
 
     const messageElement = document.getElementById("gameMessage");
@@ -352,7 +370,7 @@ function submitGuess() {
 
     if (!enemyDatabase[guessName]) {
         if (messageElement) {
-            messageElement.innerText = "Unknown enemy! Choose an option from the menu list.";
+            messageElement.innerText = "Unknown unit! Choose an option from the menu list.";
             messageElement.style.color = "#ff3333";
         }
         return;

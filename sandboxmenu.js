@@ -14,10 +14,12 @@ const SANDBOX_MODIFIERS = [
     { key: "extraLife", name: "Resuscitator" },
     { key: "aimAssist", name: "Aim Assist" },
     { key: "colorblind", name: "Colorblind" },
+    { key: "chubbyTroops", name: "Large Items" },
     { key: "doubleTrouble", name: "Double Trouble" }
 ];
 
 const SANDBOX_ITEMS = [
+    { key: "mastermind's rifle", name: "Mastermind's Rifle", type: "Weapon" },
     { key: "rifle", name: "Rifle", type: "Weapon" },
     { key: "harpoon gun", name: "Harpoon Gun", type: "Weapon" },
     { key: "bolter", name: "Bolter", type: "Weapon" },
@@ -36,7 +38,11 @@ const SANDBOX_ITEMS = [
     { key: "twinface (heavy)", name: "Twinface (Heavy)", type: "Weapon" },
     { key: "loose trigger", name: "Loose Trigger", type: "Weapon" },
     { key: "burst rifle", name: "Burst Rifle", type: "Weapon" },
+    { key: "frag grenade", name: "Frag Grenade", type: "Weapon" },
+    { key: "flash and smoke grenade", name: "Flash and Smoke Grenade", type: "Weapon" },
     { key: "stonewall", name: "Stonewall", type: "Weapon" },
+    { key: "incendiary grenade", name: "Incendiary Grenade", type: "Weapon" },
+    { key: "cluster grenade", name: "Cluster Grenade", type: "Weapon" },
     { key: "steelforge", name: "Steelforge", type: "Weapon" },
     { key: "rpg", name: "RPG", type: "Weapon" },
     { key: "rocket stormer", name: "Rocket Stormer", type: "Weapon" },
@@ -74,11 +80,17 @@ const SANDBOX_ITEMS = [
     { key: "mercy kill", name: "Mercy Kill", type: "Utility" },
     { key: "fast", name: "FAST", type: "Utility" },
     { key: "tablet", name: "Tablet", type: "Utility" },
-    { key: "motion hider", name: "Motion Hider", type: "Utility" },
+    { key: "stealth knife", name: "Stealth Knife", type: "Melee" },
     { key: "tripwire kit", name: "Tripwire Kit", type: "Utility" }
 ];
 
 const NIGHTMARE_EXCLUSIVE_ITEMS = [
+    { key: "flash grenade", name: "Flash Grenade" },
+    { key: "smoke grenade", name: "Smoke Grenade" },
+    { key: "cluster grenade (big)", name: "Cluster Grenade (Big)" },
+    { key: "cluster grenade (small)", name: "Cluster Grenade (Small)" },
+    { key: "vitabow (revival arrow)", name: "Vitabow (Revival Arrow)" },
+    { key: "vitabow (regen arrow)", name: "Vitabow (Regen Arrow)" },
     { key: "anti-flesh rifle", name: "Anti-Flesh Rifle" },
     { key: "rifle (old model)", name: "Rifle (Old Model)" },
     { key: "hallsweeper (old)", name: "Hallsweeper (Old)" },
@@ -125,6 +137,7 @@ const NIGHTMARE_EXCLUSIVE_ITEMS = [
     { key: "combat toolkit (ammo)", name: "Combat Toolkit (Ammo)" },
     { key: "proxy (ammo)", name: "PROXY (Ammo)" },
     { key: "ammo box (old)", name: "Ammo Box (Old)" },
+    { key: "motion hider", name: "Motion Hider" },
     { key: "terminal velocity (old)", name: "Terminal Velocity (Old)" },
     { key: "exoskeleton", name: "Exoskeleton" },
     { key: "shurarig", name: "Shurarig" },

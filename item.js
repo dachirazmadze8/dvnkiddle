@@ -17,7 +17,11 @@ const itemDatabase = {
     "twinface (heavy)": { name: "Twinface (Heavy)", type: "Weapon", damage: 28, firerate: 225, hasSpecialAbility: true },
     "loose trigger": { name: "Loose Trigger", type: "Weapon", damage: 26, firerate: 700, hasSpecialAbility: false },
     "burst rifle": { name: "Burst Rifle", type: "Weapon", damage: 18, firerate: 750, hasSpecialAbility: false },
+    "frag grenade": { name: "Frag Grenade", type: "Weapon", damage: 100, firerate: 2, hasSpecialAbility: true },
+    "flash and smoke grenade": { name: "Flash and Smoke Grenade", type: "Weapon", damage: 0, firerate: 2, hasSpecialAbility: true },
     "stonewall": { name: "Stonewall", type: "Weapon", damage: 30, firerate: 750, hasSpecialAbility: false },
+    "incendiary grenade": { name: "Incendiary Grenade", type: "Weapon", damage: 208, firerate: 2, hasSpecialAbility: true },
+    "cluster grenade": { name: "Cluster Grenade", type: "Weapon", damage: 200, firerate: 2, hasSpecialAbility: true },
     "steelforge": { name: "Steelforge", type: "Weapon", damage: 18, firerate: 900, hasSpecialAbility: false },
     "rpg": { name: "RPG", type: "Weapon", damage: 1200, firerate: 20, hasSpecialAbility: false },
     "rocket stormer": { name: "Rocket Stormer", type: "Weapon", damage: 980, firerate: 150, hasSpecialAbility: true },
@@ -55,7 +59,7 @@ const itemDatabase = {
     "mercy kill": { name: "Mercy Kill", type: "Utility", damage: 0, firerate: 12, hasSpecialAbility: false },
     "fast": { name: "FAST", type: "Utility", damage: 200, firerate: 0, hasSpecialAbility: false },
     "tablet": { name: "Tablet", type: "Utility", damage: 0, firerate: 60, hasSpecialAbility: false },
-    "motion hider": { name: "Motion Hider", type: "Utility", damage: 0, firerate: 10000000, hasSpecialAbility: false },
+    "stealth knife": { name: "Stealth Knife", type: "Melee", damage: 37, firerate: 0.5, hasSpecialAbility: false },
     "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
     "grenade shell": { name: "Grenade Shell", type: "Utility", damage: 300, firerate: 0.5, hasSpecialAbility: false },
     "epilogue items": { name: "Epilogue Items", type: "Utility", damage: 0, firerate: 1, hasSpecialAbility: false },
@@ -151,7 +155,7 @@ function initializeGameSession() {
     }
 
     secretItem = itemDatabase[itemKeys[Math.floor(Math.random() * itemKeys.length)]];
-    // console.log(`Wave ${currentWave} answer: ${getTargetNamesList()}`);
+    console.log(`Wave ${currentWave} answer: ${getTargetNamesList()}`);
     gameOver = false;
     isWaveClear = false;
     guessCount = 0;

@@ -75,15 +75,17 @@ const nightmareDefinitions = {
     },
     securityProtocol: {
         name: "Security Protocol (01:00)",
-        description: "Guess the enemy within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's) speeds the timer up by 0.5x, permanently for the wave.",
+        description: "Guess the unit within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's, but not Accurate Radar's) speeds the timer up by 0.5x, permanently for the wave.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             engine.startTimer(buffed ? 120 : 60);
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine) => {
             if (engine && guessedEnemy.name !== secretEnemy.name) {
-                engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
-                engine.refreshTimerSpeed();
+                if (!window.__accurateRadarGuessInProgress) {
+                    engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
+                    engine.refreshTimerSpeed();
+                }
             }
         },
         onReset: (engine) => {
@@ -185,7 +187,7 @@ const nightmareDefinitions = {
     },
     vitacharge: {
         name: "Vitacharge",
-        description: "3 enemies you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 enemies from the previous 4 waves instead.",
+        description: "3 units you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 units from the previous 4 waves instead.",
         onStart: (engine, key) => {
             vitachargedEnemies = new Set();
             const buffed = engine && engine.isBuffed(key);
@@ -222,7 +224,7 @@ const nightmareDefinitions = {
     },
     assassin: {
         name: "Assassin",
-        description: "A random enemy is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon next to their arrow, colors stay unchanged. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
+        description: "A random unit is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon next to their arrow, colors stay unchanged. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
         onStart: (engine, key) => {
             currentAssassin = null;
             const db = window.enemyDatabase || {};
@@ -365,23 +367,25 @@ const nightmareDefinitions = {
     },
     accurateRadar: {
         name: "Accurate Radar",
-        description: "Automatically submits a random wrong guess on wave start, with at least 1 stat guaranteed to show green. Vitaraged: submits 2 such guesses instead of 1.",
+        description: "Automatically submits a random wrong guess on wave start, with at least 1 stat guaranteed to show green. Vitaraged: submits 2 such guesses instead of 1. These guesses don't count against your guess limit.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             window.__autoGuessInProgress = true;
+            window.__accurateRadarGuessInProgress = true;
             if (typeof window.makeAccurateRadarGuess === "function") {
                 window.makeAccurateRadarGuess();
                 if (buffed) {
                     window.makeAccurateRadarGuess();
                 }
             }
+            window.__accurateRadarGuessInProgress = false;
             window.__autoGuessInProgress = false;
         },
         onReset: () => {}
     },
     extraLife: {
         name: "Resuscitator",
-        description: "If you'd fail (out of guesses, assassinated, or Security Protocol running out), it's canceled and you move on to the next wave anyway. Only 1 use total. Vitaraged: 2 uses total.",
+        description: "If you'd fail (out of guesses, assassinated, or Security Protocol running out), it's canceled and you move on to the next wave anyway. Only 1 use total. Vitaraged: 2 uses total, and it can also cancel Mutilated Deaths (but not its Vitaraged version).",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             if (typeof engine.extraLifeCharges !== "number") {

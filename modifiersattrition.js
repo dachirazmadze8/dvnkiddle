@@ -72,14 +72,16 @@ const attritionDefinitions = {
     },
     securityProtocol: {
         name: "Security Protocol (01:00)",
-        description: "Guess the enemy within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess speeds the timer up by 0.5x, permanently for the wave.",
+        description: "Guess the unit within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess speeds the timer up by 0.5x, permanently for the wave.",
         onStart: (engine, key) => {
             engine.startTimer(engine.isBuffed(key) ? 120 : 60);
         },
         onGuess: (row, guessedEnemy, secretEnemy, engine) => {
             if (engine && guessedEnemy.name !== secretEnemy.name) {
-                engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
-                engine.refreshTimerSpeed();
+                if (!window.__accurateRadarGuessInProgress) {
+                    engine.securityProtocolWrongGuesses = (engine.securityProtocolWrongGuesses || 0) + 1;
+                    engine.refreshTimerSpeed();
+                }
             }
         },
         onReset: (engine) => { engine.clearTimer(); }
@@ -152,7 +154,7 @@ const attritionDefinitions = {
     },
     vitacharge: {
         name: "Vitacharge",
-        description: "3 enemies you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 enemies from the previous 4 waves instead.",
+        description: "3 units you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 units from the previous 4 waves instead.",
         onStart: (engine, key) => {
             vitachargedEnemies = new Set();
             const buffed = engine && engine.isBuffed(key);
@@ -198,14 +200,16 @@ const attritionDefinitions = {
     },
     accurateRadar: {
         name: "Accurate Radar",
-        description: "Automatically submits a random wrong guess on wave start that matches the target on at least 1 stat. Vitaraged: submits 2 such guesses.",
+        description: "Automatically submits a random wrong guess on wave start that matches the target on at least 1 stat. Vitaraged: submits 2 such guesses. These guesses don't count against your guess limit.",
         onStart: (engine, key) => {
             setTimeout(() => {
                 window.__autoGuessInProgress = true;
+                window.__accurateRadarGuessInProgress = true;
                 if (typeof window.makeAccurateRadarGuess === "function") {
                     window.makeAccurateRadarGuess();
                     if (engine && engine.isBuffed(key)) window.makeAccurateRadarGuess();
                 }
+                window.__accurateRadarGuessInProgress = false;
                 window.__autoGuessInProgress = false;
             }, 0);
         },
@@ -213,7 +217,7 @@ const attritionDefinitions = {
     },
     vitarage: {
         name: "Vitarage",
-        description: "Doesn't affect the game directly — instead buffs 1 or more random active modifiers this wave. Starting wave 25 it can buff up to 2, wave 30 up to 3, and wave 35 up to 4.",
+        description: "Doesn't affect the game directly — instead buffs 1 or more random active modifiers this wave (never Colorblind or Experienced). Starting wave 25 it can buff up to 2, wave 30 up to 3, and wave 35 up to 4.",
         onStart: (engine) => {
             engine.buffedModifiers = new Set();
             let candidates = [...engine.active].filter(key => key !== "vitarage" && key !== "experienced" && key !== "colorblind");
@@ -235,6 +239,69 @@ const attritionDefinitions = {
         },
         onReset: (engine) => {
             engine.buffedModifiers = new Set();
+        }
+    },
+    experienced: {
+        name: "Experienced",
+        description: "An additional stat column 'XP on Kill' appears after Total Waves. Cannot be Vitaraged.",
+        onStart: () => {
+            const thead = document.querySelector(".wordle-table thead tr");
+            if (!thead || thead.querySelector(".th-xp")) return;
+            const headers = thead.querySelectorAll("th");
+            let wavesThIndex = -1;
+            headers.forEach((th, i) => {
+                if (th.textContent.trim().toUpperCase() === "TOTAL WAVES") wavesThIndex = i;
+            });
+            const th = document.createElement("th");
+            th.textContent = "XP ON KILL";
+            th.className = "th-xp";
+            if (wavesThIndex !== -1 && wavesThIndex + 1 < headers.length) {
+                headers[wavesThIndex + 1].before(th);
+            } else {
+                thead.appendChild(th);
+            }
+        },
+        onReset: () => {
+            const th = document.querySelector(".wordle-table thead tr .th-xp");
+            if (th) th.remove();
+            document.querySelectorAll("#guessRows .cell-xp").forEach(td => td.remove());
+        },
+        onGuess: (row, guessedEnemy, secretEnemy) => {
+            const threshold = 10;
+            const guessedXp = guessedEnemy.xpOnKill;
+            const td = document.createElement("td");
+            td.className = "cell-xp";
+            td.dataset.value = guessedXp === undefined ? "?" : guessedXp;
+
+            const doubleTroubleActive = typeof Modifiers !== "undefined" && Modifiers.active.has("doubleTrouble");
+            const secretEnemy2 = typeof window.getSecondSecretEnemy === "function" ? window.getSecondSecretEnemy() : null;
+            const secretEnemy3 = typeof window.getThirdSecretEnemy === "function" ? window.getThirdSecretEnemy() : null;
+
+            const compare = (targetXp) => {
+                if (guessedXp === undefined || targetXp === undefined) return { arrow: "", status: "incorrect" };
+                if (guessedXp === targetXp) return { arrow: "", status: "correct" };
+                return {
+                    arrow: guessedXp < targetXp ? "\u2191" : "\u2193",
+                    status: Math.abs(guessedXp - targetXp) <= threshold ? "partial" : "incorrect"
+                };
+            };
+
+            if (doubleTroubleActive && secretEnemy2) {
+                const targets = [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])];
+                const results = targets.map(t => compare(t.xpOnKill));
+                results.forEach((r, i) => { td.dataset[`arrow${i}`] = r.arrow; });
+                if (typeof window.applySplitBackground === "function") window.applySplitBackground(td, results.map(r => r.status));
+            } else {
+                const r = compare(secretEnemy.xpOnKill);
+                td.dataset.arrow = r.arrow;
+                td.classList.add(`cell-${r.status}`);
+            }
+
+            if (typeof window.redrawCategoryCell === "function") window.redrawCategoryCell(td);
+
+            const wavesCell = row.querySelector(".cell-waves");
+            if (wavesCell) wavesCell.after(td);
+            else row.appendChild(td);
         }
     },
     colorblind: {
@@ -269,7 +336,7 @@ const attritionDefinitions = {
     },
     assassin: {
         name: "Assassin",
-        description: "A random enemy is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
+        description: "A random unit is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
         onStart: (engine, key) => {
             currentAssassin = null;
             const db = window.enemyDatabase || {};
@@ -316,91 +383,6 @@ const attritionDefinitions = {
             if (engine) engine.assassinTargetCategory = null;
         }
     },
-    experienced: {
-    name: (buffed) => buffed ? "Seasoned Veteran" : "Experienced",
-    description: "An additional stat column 'XP on Kill' appears after Total Waves. Vitaraged: XP on Kill replaces the Total Waves column entirely instead of appearing alongside it.",
-    onStart: (engine, key) => {
-        const buffed = engine && engine.isBuffed(key);
-        const thead = document.querySelector(".wordle-table thead tr");
-        if (!thead || thead.querySelector(".th-xp")) return;
-        const wavesHeaders = thead.querySelectorAll("th");
-        let wavesThIndex = -1;
-        wavesHeaders.forEach((th, i) => {
-            if (th.textContent.trim().toUpperCase() === "TOTAL WAVES") wavesThIndex = i;
-        });
-
-        if (buffed && wavesThIndex !== -1) {
-            wavesHeaders[wavesThIndex].dataset.xpHidden = "true";
-            wavesHeaders[wavesThIndex].style.display = "none";
-        }
-
-        const th = document.createElement("th");
-        th.textContent = "XP ON KILL";
-        th.className = "th-xp";
-        if (wavesThIndex !== -1 && wavesThIndex + 1 < wavesHeaders.length) {
-            wavesHeaders[wavesThIndex + 1].before(th);
-        } else {
-            thead.appendChild(th);
-        }
-    },
-    onReset: () => {
-        const wavesHeader = document.querySelector('.wordle-table thead tr th[data-xp-hidden="true"]');
-        if (wavesHeader) {
-            wavesHeader.style.display = "";
-            delete wavesHeader.dataset.xpHidden;
-        }
-        const th = document.querySelector(".wordle-table thead tr .th-xp");
-        if (th) th.remove();
-        document.querySelectorAll("#guessRows .cell-xp").forEach(td => td.remove());
-        document.querySelectorAll("#guessRows .cell-waves").forEach(td => { td.style.display = ""; });
-    },
-    onGuess: (row, guessedEnemy, secretEnemy, engine, key) => {
-        const buffed = engine && engine.isBuffed(key);
-        const threshold = 10;
-        const guessedXp = guessedEnemy.xpOnKill ?? 0;
-        const targetXp = secretEnemy.xpOnKill ?? 0;
-
-        const td = document.createElement("td");
-        td.className = "cell-xp";
-        td.dataset.value = guessedXp;
-
-        const doubleTroubleActive = typeof Modifiers !== "undefined" &&
-            Modifiers.active.has("doubleTrouble");
-        const secretEnemy2 = typeof window.getSecondSecretEnemy === "function" ? window.getSecondSecretEnemy() : null;
-        const secretEnemy3 = typeof window.getThirdSecretEnemy === "function" ? window.getThirdSecretEnemy() : null;
-
-        if (doubleTroubleActive && secretEnemy2) {
-            const targets = [secretEnemy, secretEnemy2, ...(secretEnemy3 ? [secretEnemy3] : [])];
-            const results = targets.map(t => {
-                const xp = t.xpOnKill ?? 0;
-                if (guessedXp === xp) return { arrow: "", status: "correct" };
-                const arrow = guessedXp < xp ? "↑" : "↓";
-                const status = Math.abs(guessedXp - xp) <= threshold ? "partial" : "incorrect";
-                return { arrow, status };
-            });
-            results.forEach((r, i) => { td.dataset[`arrow${i}`] = r.arrow; });
-            if (typeof window.applySplitBackground === "function") window.applySplitBackground(td, results.map(r => r.status));
-        } else {
-            if (guessedXp === targetXp) {
-                td.dataset.arrow = "";
-                td.classList.add("cell-correct");
-            } else {
-                td.dataset.arrow = guessedXp < targetXp ? "↑" : "↓";
-                td.classList.add(Math.abs(guessedXp - targetXp) <= threshold ? "cell-partial" : "cell-incorrect");
-            }
-        }
-
-        if (typeof window.redrawCategoryCell === "function") window.redrawCategoryCell(td);
-
-        const wavesCell = row.querySelector(".cell-waves");
-        if (wavesCell) {
-            if (buffed) wavesCell.style.display = "none";
-            wavesCell.after(td);
-        } else {
-            row.appendChild(td);
-        }
-    }
-  },
 };
 
 function attritionWaveCounts(waveNumber) {

@@ -20,7 +20,7 @@
                 <button class="category-btn">Tutorial</button>
                 <div class="category-content">
                     <div class="category-inner">
-                        <p class="info-text text-lowercase">you have 6 attempts to guess an enemy correctly, if you go over 6 guesses you lose. If a section is green it means it's correct, if a section is yellow it means you are close, if it's red you're wrong and its not that close.</p>
+                        <p class="info-text text-lowercase">you have 6 attempts to guess a unit correctly, if you go over 6 guesses you lose. If a section is green it means it's correct, if a section is yellow it means you are close, if it's red you're wrong and its not that close.</p>
                     </div>
                 </div>
             </div>
@@ -32,13 +32,13 @@
                         <ul class="info-text info-list">
                             <li>Note: to get a description of the modifiers simply click the modifier thats active when in a run.</li>
                             <li>siege: the standard mode. Modifiers start appearing from wave 5 onward.</li>
-                            <li>Attrition: you have a shared pool of enemies and guessing the waves target correctly removes it from the pool for good if all enemies are guessed and removed from the pool you win. However there is a global 5 minute timer constantly ticking down and if it hits 0 you lose, correct guesses add 30 seconds to the timer. There is also a rotating Bounty target which gives a random perk and adds 1 minute to the timer instead of 30 seconds the bounty rerolls automatically every 5 waves or the moment it's guessed.</li>
+                            <li>Attrition: you have a shared pool of units and guessing the waves target correctly removes it from the pool for good if all units are guessed and removed from the pool you win. However there is a global 5 minute timer constantly ticking down and if it hits 0 you lose, correct guesses add 30 seconds to the timer. There is also a rotating Bounty target which gives a random perk and adds 1 minute to the timer instead of 30 seconds the bounty rerolls automatically every 5 waves or the moment it's guessed. To balance out the perks you can earn, attrition has extra negative modifiers in its pool that siege doesn't have (Colorblind and Double Trouble), making it harder.</li>
                             <li>Hell: theres only 11 waves, modifiers start appearing from wave 1 onward, wave 11 aka wave ultima has all modifiers vitaraged at the same time.</li>
-                            <li>Nightmare: plays like siege, but every Sandbox exclusive modifier (including the positive ones) is mixed into the pool, and theres a lot more enemies.</li>
-                            <li>Sandbox: pick any modifiers (and their Vitaraged versions) to keep active every wave, optionally randomize which of your selected modifiers show up using siege's wave formula, and choose exactly which enemies are allowed to appear.</li>
-                            <li>Guess the Item (siege): same rules as siege, but you're guessing items instead of enemies. Modifiers start appearing from wave 5 onward.</li>
+                            <li>Nightmare: plays like siege, but every Sandbox exclusive modifier (including the positive ones) is mixed into the pool, and theres a lot more units. Guessing a Dummy unit against a Dummy target, an Old unit against an Old target, or a PDC-family item (pdc kit, governor kit, old pdc, mads kit, adc, sprayer kit, turret kit) against another PDC-family target will turn the name yellow even if it's not the exact one.</li>
+                            <li>Sandbox: pick any modifiers (and their Vitaraged versions) to keep active every wave, optionally randomize which of your selected modifiers show up using siege's wave formula, and choose exactly which units are allowed to appear.</li>
+                            <li>Guess the Item (siege): same rules as siege, but you're guessing items instead of units. Modifiers start appearing from wave 5 onward.</li>
                             <li>Guess the Item (Hell): same rules as Hell, but for items. 11 waves, modifiers from wave 1 onward, wave 11 (Ultima) has every modifier vitaraged.</li>
-                            <li>Guess the Item (Nightmare): plays like Guess the Item siege, but every Sandbox exclusive modifier (including the positive ones) is mixed into the pool.</li>
+                            <li>Guess the Item (Nightmare): plays like Guess the Item siege, but every Sandbox exclusive modifier (including the positive ones) is mixed into the pool. Item names are normally only ever green (exact match) or red (no match) — the one exception is Old-variant items: guessing any (Old) item against an (Old) target, or any (Old Method)/(Old Model) item against an (Old Method) target, turns the name yellow even if it's not the exact one.</li>
                         </ul>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <li>Overcharger: unlimited guesses for a short time on your next wave.</li>
                             <li>Refill: click to manually refill your guess count back to full.</li>
                             <li>Reset Timer: click to manually reset the run timer back to 5:00.</li>
-                            <li>Random positive modifier: awards a random positive modifier for 3 waves.</li>
+                            <li>Random positive modifier: awards a random positive modifier (Strengthened Signal, Accurate Radar, Aim Assist or Experienced) for 3 waves. Experienced can't be Vitaraged.</li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,8 @@
                             <li>Health: within 50 hp of the target.</li>
                             <li>Total Waves: within 6 total waves of the target.</li>
                             <li>First Encounter: within 2 waves of the target.</li>
-                            <li>Quick Note: total waves count includes attrition and hell, as while no enemies debut in attrition and only 1 enemy debuts on hell the rest do appear in them, w1-9 of mastermind wont be included, as those waves are controlled by the player, enemies that debut in sandbox have total waves as 0 as sandbox isnt a wave.</li>
+                            <li>XP on Kill: within 10 XP of the target. This column is exclusive to the Experienced modifier (Seasoned Veteran when Vitaraged) and only shows up while it's active.</li>
+                            <li>Quick Note: total waves count includes attrition and hell, as while no units debut in attrition the rest do appear in it, w1-9 of mastermind wont be included, as those waves are controlled by the player, units that debut in sandbox have total waves as 0 as sandbox isnt a wave.</li>
                             <li>Guess the Item — Damage/Health: within 15 of the target.</li>
                             <li>Guess the Item — Firerate/Cooldown: within 50 of the target.</li>
                         </ul>
@@ -77,7 +78,7 @@
             </div>
 
             <div class="info-category">
-                <button class="category-btn">Enemy Types</button>
+                <button class="category-btn">Unit Types</button>
                 <div class="category-content">
                     <div class="category-inner">
                         <p class="info-text text-lowercase">fodder, elite fodder, advanced, elite advanced, mech, elite mech, boss.</p>
@@ -86,36 +87,35 @@
             </div>
 
             <div class="info-category">
-                <button class="category-btn">Enemies List</button>
+                <button class="category-btn">Units List</button>
                 <div class="category-content">
                     <div class="category-inner">
                         <ul class="info-text info-list">
                             <li>Fodder: infantry, cloaker, shielder, saboteur, landmine, administrator.</li>
                             <li>Advanced: apu operator, apu-r operator, operator,  grenadier, sniper, gunner, jetpacker, engineer, tranquilizer, medic.</li>
-                            <li>Elite Fodder: escort shielder, shield, combatant, informant, confidant, agitator, fuel tank (agitator), agreement, jagant, jagant bomb, bombardier, operant, observant, robberant, baby.</li>
-                            <li>Elite Advanced: escort gunner, adjutant, sergeant, instigant, jetnuker.</li>
-                            <li>Mech: level 1 building, level 2 building, level 3 building, ranger, apu, tank, fuel tank (tank), platform, emplacement.</li>
+                            <li>Elite Fodder: escort shielder, shield, combatant, informant, confidant, agitator, fuel tank (agitator), agreement, jagant, jagant bomb, bombardier, operant, observant, robberant, baby, constructant, MADS, fake lifeline, radiant, conflagrator, fuel tank (conflagrator), cremator, fuel tank (cremator).</li>
+                            <li>Elite Advanced: escort gunner, adjutant, sergeant, instigant, liquidator, fuel tank (liquidator).</li>
+                            <li>Mech: level 1 building, level 2 building, level 3 building, ranger, apu, tank, fuel tank (tank), platform, emplacement, icarus helicopter.</li>
                             <li>Elite Mech: APU-R, platform-A, Administrant helicopter, helicopter sentry.</li>
-                            <li>Boss: fusilier, daedalus, tempest, lelantos, hermes, rocket pods, prometheus, fuel tank (prometheus), gaia, sparta, trident, achilles, drone, ares, chassis, mastermind, dreadnought, dreadnought armor,  zeus, A-10, manglenether345, mega joe, sparchilles, the wicked, london prime, mart.</li>
+                            <li>Boss: fusilier, daedalus, tempest, lelantos, hermes, rocket pods, prometheus, fuel tank (prometheus), gaia, sparta, trident, achilles, achilles (Ht), achilles (1.9), drone, ares, chassis, mastermind, dreadnought, dreadnought armor (head), dreadnought armor (limb), zeus, A-10, manglenether345, mega joe, sparchilles, the wicked, london prime, mart, jetnuker, icarus, helisentry, deimos, celestial.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="info-category">
-                <button class="category-btn">Nightmare Exclusive Enemies</button>
+                <button class="category-btn">Nightmare Exclusive Units</button>
                 <div class="category-content">
                     <div class="category-inner">
                         <ul class="info-text info-list">
-                            <li>Fodder: grenade, dummy infantry, dummy cloaker, dummy shielder, dummy saboteur, refugee, refugee2.</li>
+                            <li>Fodder: grenade, dummy infantry, dummy cloaker, dummy shielder, dummy saboteur, refugee, refugee2, dummy grenade, dummy landmine, sapper.</li>
                             <li>Advanced: old medic, supplier, dummy grenadier, dummy jetpacker, dummy gunner, dummy sniper, dummy tranquilizer, dummy medic.</li>
-                            <li>Elite Fodder: dummy combatant, dummy informant, dummy confidant, dummy agitator, dummy jagant, dummy bombardier, dummy operant.</li>
+                            <li>Elite Fodder: dummy combatant, dummy informant, dummy confidant, dummy agitator, dummy jagant, dummy bombardier, dummy operant, fuel tank (dummy agitator).</li>
                             <li>Elite Advanced: squad gunner, squad medic, squad officer.</li>
-                            <li>Mech: level 1 sentry, level 2 sentry, level 3 sentry, level 1 teleporter, level 2 teleporter, level 3 teleporter, icarus helicopter, vehicle pdc, artillery, dummy apu, dummy tank, fuel tank (dummy tank), dummy platform, apu backup, apu (unoptimized).</li>
-                            <li>Elite Mech: squad strider.</li>
-                            <li>Boss: lightning grenade, old prometheus, old sparta, old fusilier, old trident, orb, old gaia, gaia sensei, gaia PRE, daedalus PRE, achilles (Ht), prometheusTest, wall of jericho, icarus, dummy fusilier, dummy daedalus, dummy tempest, dummy lelantos, dummy prometheus, fuel tank (dummy prometheus), dummy hermes, dummy hermes pods, dummy sparta, dummy trident, punching bag, punching bag resistant, punching bag boss, punching bag armored.</li>
-                            <li>Item: pdc kit, governor kit, MADS kit, old pdc, adc, sprayer kit, turret kit, barrier kit, BRACE, hallucinator kit, stonehedge kit, FAST, tripwire trip.</li>
-                            <li>Quick Note: guessing a Dummy unit against a Dummy target, an Old unit against an Old target, or a PDC-family item (pdc kit, governor kit, old pdc, mads kit, vehicle pdc, adc, sprayer kit, turret kit) against another PDC-family target will turn the name yellow even if it's not the exact one.</li>
+                            <li>Mech: level 1 sentry, level 2 sentry, level 3 sentry, level 1 teleporter, level 2 teleporter, level 3 teleporter, artillery, dummy apu, dummy tank, fuel tank (dummy tank), dummy platform, apu backup, apu (unoptimized), fuel tank (tank) (left), fuel tank (tank) (right), fuel tank (dummy tank) (left), fuel tank (dummy tank) (right), emplacement1, emplacement2, emplacement3, emplacement4, dummy emplacement1, dummy emplacement2, dummy emplacement3, dummy emplacement4, dummy ranger, ranger2.</li>
+                            <li>Elite Mech: squad strider, helicopter sentry (left), helicopter sentry (right).</li>
+                            <li>Boss: lightning grenade, martbreaker, old prometheus, old sparta, sparta (overhaul), old fusilier, old trident, orb, old gaia, gaia sensei, gaia PRE, daedalus PRE, wall of jericho, dummy fusilier, dummy daedalus, dummy tempest, dummy lelantos, dummy prometheus, fuel tank (dummy prometheus), dummy hermes, dummy hermes pods, dummy sparta, dummy trident, punching bag, punching bag resistant, punching bag boss, punching bag armored, confidant (boss), dummy confidant (boss), fuel tank (prometheus) (left), fuel tank (prometheus) (right), fuel tank (old prometheus) (left), fuel tank (old prometheus) (right), hermes pod (back left), hermes pod (back right), hermes pod (front left), hermes pod (front right), dummy hermes pod (back left), dummy hermes pod (back right), dummy hermes pod (front left), dummy hermes pod (front right), dreadnought armor (left leg), dreadnought armor (right leg), dreadnought armor (left arm), dreadnought armor (right arm), lelantos decoy, helisentry (left), helisentry (right).</li>
+                            <li>Item: pdc kit, governor kit, MADS kit, old pdc, adc, sprayer kit, turret kit, barrier kit, BRACE, hallucinator kit, stonehedge kit, FAST, tripwire trip, lifeline.</li>
                         </ul>
                     </div>
                 </div>
@@ -129,10 +129,9 @@
                             <li>Waves 1-10 of siege</li>
                             <li>Wave 10 of mastermind</li>
                             <li>Waves 1-3 of epilogue</li>
-                            <li>Wave 7 of hell</li>
+                            <li>Waves 1, 2 and 4-9 of hell</li>
                             <li>Sandbox</li>
-                            <li>nightmare exclusive: wave 5 hell, wave 8 hell</li>
-                        </ul>
+                                        </ul>
                     </div>
                 </div>
             </div>
@@ -152,7 +151,7 @@
                 <div class="category-content">
                     <div class="category-inner">
                         <ul class="info-text info-list">
-                            <li>Weapons: Rifle, Harpoon Gun, Bolter, Shotgun, Sprinters Streak, Hallsweeper, DMR, Gift Of Fire, Armor Peeler, Akimbo, Voltaic Impact, Gunslinger, SMG, Twinface (Light), Twinface (Heavy), Loose Trigger, Burst Rifle, Stonewall, Steelforge, RPG, Rocket Stormer, Shockwave Device, Grenade Launcher, Intraplanar Device, Parabolic Hydra.</li>
+                            <li>Weapons: Rifle, Harpoon Gun, Bolter, Shotgun, Sprinters Streak, Hallsweeper, DMR, Gift Of Fire, Armor Peeler, Akimbo, Voltaic Impact, Gunslinger, SMG, Twinface (Light), Twinface (Heavy), Loose Trigger, Burst Rifle, Frag Grenade, Flash and Smoke Grenade, Stonewall, Incendiary Grenade, Cluster Grenade, Steelforge, RPG, Rocket Stormer, Shockwave Device, Grenade Launcher, Intraplanar Device, Parabolic Hydra.</li>
                             <li>Melee: Shovel, Overcharger, Rallying Cry, Machete, Handaxes, Torqueblade.</li>
                             <li>Utility: Jetpack, Terminal Velocity, Aerorig.</li>
                         </ul>
@@ -164,10 +163,9 @@
                 <div class="category-content">
                     <div class="category-inner">
                         <ul class="info-text info-list">
-                            <li>Weapon: Anti-Flesh Rifle, Rifle (Old Model), Hallsweeper (Old), Doctors Guilt, Shielder Kit, Handyman, Grenadiers Choice, Armor Peeler (Old), Mini smgs, Bloodshot, Mini smgs (Old), Surveillance Creed, Stonewall (Old), TrollDier, Heads Of Hydra, RPG-Nuke, RPG (Old Method), Rocket Stormer (Old Method), Shockwave Device (Old Method), Shockwave Device (Old), Parabola, Grenade Launcher (Old Method), Parabolic Hydra (Old Method), Adhe Launcher, Adhe Launcher (Old Method), Adhe Infinite, ADC kit, Turret kit, Sprayer kit, LMG, A-10 Machine Gun, MGL, Fire Tossing Thing, K's Raven, Engineer Pistol, One Shot.</li>
+                            <li>Weapon: Vitabow (Revival Arrow), Vitabow (Regen Arrow), Flash Grenade, Smoke Grenade, Cluster Grenade (Big), Cluster Grenade (Small), Anti-Flesh Rifle, Rifle (Old Model), Hallsweeper (Old), Doctors Guilt, Shielder Kit, Handyman, Grenadiers Choice, Armor Peeler (Old), Mini smgs, Bloodshot, Mini smgs (Old), Surveillance Creed, Stonewall (Old), TrollDier, Heads Of Hydra, RPG-Nuke, RPG (Old Method), Rocket Stormer (Old Method), Shockwave Device (Old Method), Shockwave Device (Old), Parabola, Grenade Launcher (Old Method), Parabolic Hydra (Old Method), Adhe Launcher, Adhe Launcher (Old Method), Adhe Infinite, ADC kit, Turret kit, Sprayer kit, LMG, A-10 Machine Gun, MGL, Fire Tossing Thing, K's Raven, Engineer Pistol, One Shot.</li>
                             <li>Melee: Shovel (Old Method), Overcharger (Old), Ronin, StunStick, Wrench, Stick Grenade.</li>
-                            <li>Utility: Ammo box (Ammo), Combat Toolkit (Ammo), PROXY (Ammo), Ammo box (Old), Terminal Velocity (Old), Exoskeleton, Shurarig, Runners Heat, Fractionate, Aidkit (Charges), Mercy Kill (Old), Artillery Tablet, Explosive Bag, Keycard, Bomb, Fuel Can, Artillery Placement, Engineer Wrench, Sentinel.</li>
-                            <li>Quick Note: guessing any (Old) item against an (Old) target, or any (Old Method) / (Old Model) item against an (Old Method) / (Old Model) target, turns the name yellow even if it's not the exact one.</li>
+                            <li>Utility: Ammo box (Ammo), Combat Toolkit (Ammo), PROXY (Ammo), Ammo box (Old), Motion Hider, Terminal Velocity (Old), Exoskeleton, Shurarig, Runners Heat, Fractionate, Aidkit (Charges), Mercy Kill (Old), Artillery Tablet, Explosive Bag, Keycard, Bomb, Fuel Can, Artillery Placement, Engineer Wrench, Sentinel.</li>
                         </ul>
                     </div>
                 </div>

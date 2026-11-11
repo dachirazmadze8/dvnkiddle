@@ -1,89 +1,209 @@
 const enemyDatabase = {
-    "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, encounter: "Wave 1 siege", xpOnKill: 50 },
-    "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, encounter: "Wave 1 siege", xpOnKill: 150 },
-    "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, encounter: "Wave 2 siege", xpOnKill: 100 },
-    "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, encounter: "Wave 2 siege", xpOnKill: 50 },
-    "landmine": { name: "Landmine", type: "Fodder", health: 20, waves: 32, encounter: "Wave 2 siege", xpOnKill: 0 },
-    "administrator": { name: "Administrator", type: "Fodder", health: 100, waves: 1, encounter: "Wave 2 epilogue", xpOnKill: 100 },
-    "grenadier": { name: "Grenadier", type: "Advanced", health: 180, waves: 16, encounter: "Wave 4 siege", xpOnKill: 100 },
-    "jetpacker": { name: "Jetpacker", type: "Advanced", health: 100, waves: 14, encounter: "Wave 5 siege", xpOnKill: 100 },
-    "gunner": { name: "Gunner", type: "Advanced", health: 350, waves: 22, encounter: "Wave 5 siege", xpOnKill: 150 },
-    "sniper": { name: "Sniper", type: "Advanced", health: 100, waves: 23, encounter: "Wave 5 siege", xpOnKill: 80 },
-    "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, encounter: "Wave 2 epilogue", xpOnKill: 50 },
-    "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, encounter: "Wave 2 epilogue", xpOnKill: 50 },
-    "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, encounter: "Wave 4 siege", xpOnKill: 100 },
-    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege", xpOnKill: 100 },
-    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege", xpOnKill: 100 },
-    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege", xpOnKill: 100 },
-    "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege", xpOnKill: 100 },
-    "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege", xpOnKill: 300 },
-    "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege", xpOnKill: 50 },
-    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 13, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "apu-r operator": { name: "APU-R Operator", type: "Advanced", health: 450, waves: 13, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "tank": { name: "Tank", type: "Mech", health: 3500, waves: 14, encounter: "Wave 7 siege", xpOnKill: 300 },
-    "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 14, encounter: "Wave 7 siege", xpOnKill: 50 },
-    "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, encounter: "Wave 7 siege", xpOnKill: 300 },
-    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 9, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, encounter: "Wave 7 siege", xpOnKill: 50 },
-    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 9, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 9, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 21, encounter: "Wave 1 siege", xpOnKill: 50 },
-    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 14, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 9, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 16, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 16, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 4 siege", xpOnKill: 50 },
-    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 8, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 14, encounter: "Wave 5 siege", xpOnKill: 50 },
-    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 5, encounter: "Wave 7 hell", xpOnKill: 50 },
-    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 10, encounter: "Wave 7 siege", xpOnKill: 50 },
-    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 8, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 9, encounter: "Wave 8 siege", xpOnKill: 50 },
-    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 1, encounter: "Wave 1 hell", xpOnKill: 50 },
-    "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 9 siege", xpOnKill: 50 },
-    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 9 siege", xpOnKill: 50 },
-    "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, encounter: "Wave 3 siege", xpOnKill: 350 },
-    "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, encounter: "Wave 3 siege", xpOnKill: 450 },
-    "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, encounter: "Wave 3 siege", xpOnKill: 400 },
-    "lelantos": { name: "Lelantos", type: "Boss", health: 380, waves: 5, encounter: "Wave 3 siege", xpOnKill: 50 },
-    "gaia": { name: "Gaia", type: "Boss", health: 775, waves: 12, encounter: "Wave 6 siege", xpOnKill: 400 },
-    "escort shielder": { name: "Escort Shielder", type: "Elite Fodder", health: 250, waves: 12, encounter: "Wave 6 siege", xpOnKill: 150 },
-    "escort gunner": { name: "Escort Gunner", type: "Elite Advanced", health: 500, waves: 12, encounter: "Wave 6 siege", xpOnKill: 200 },
-    "prometheus": { name: "Prometheus", type: "Boss", health: 750, waves: 12, encounter: "Wave 6 siege", xpOnKill: 500 },
-    "fuel tank (prometheus)": { name: "Fuel Tank (Prometheus)", type: "Boss", health: 200, waves: 12, encounter: "Wave 6 siege", xpOnKill: 50 },
-    "hermes": { name: "Hermes", type: "Boss", health: 525, waves: 12, encounter: "Wave 6 siege", xpOnKill: 350 },
-    "hermes pods": { name: "Hermes Pods", type: "Boss", health: 60, waves: 12, encounter: "Wave 6 siege", xpOnKill: 100 },
-    "sparta": { name: "Sparta", type: "Boss", health: 440, waves: 9, encounter: "Wave 9 siege", xpOnKill: 500 },
-    "trident": { name: "Trident", type: "Boss", health: 675, waves: 9, encounter: "Wave 9 siege", xpOnKill: 500 },
-    "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, encounter: "Wave 9 siege", xpOnKill: 350 },
-    "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege", xpOnKill: 50 },
-    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 4, encounter: "Wave 9 siege", xpOnKill: 50 },
-    "dreadnought": { name: "Dreadnought", type: "Boss", health: 16000, waves: 4, encounter: "Wave 10 siege", xpOnKill: 50 },
-    "dreadnought armor": { name: "Dreadnought Armor", type: "Boss", health: 2000, waves: 4, encounter: "Wave 10 siege", xpOnKill: 50 },
-    "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind", xpOnKill: 50 },
-    "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, encounter: "Wave 10 mastermind", xpOnKill: 50 },
-    "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, encounter: "Wave 3 epilogue", xpOnKill: 1750 },
-    "london prime": { name: "London Prime", type: "Boss", health: 3000, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "manglenether345": { name: "MangleNether345", type: "Boss", health: 250, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "mega joe": { name: "Mega Joe", type: "Boss", health: 2000, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "jetnuker": { name: "JetNuker", type: "Elite Advanced", health: 100, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege", xpOnKill: 50 },
-    "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
-    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox", xpOnKill: 50 },
+    "infantry": { name: "Infantry", type: "Fodder", health: 100, waves: 34, encounter: "Wave 1 siege" },
+    "cloaker": { name: "Cloaker", type: "Fodder", health: 100, waves: 29, encounter: "Wave 1 siege" },
+    "shielder": { name: "Shielder", type: "Fodder", health: 110, waves: 30, encounter: "Wave 2 siege" },
+    "saboteur": { name: "Saboteur", type: "Fodder", health: 100, waves: 32, encounter: "Wave 2 siege" },
+    "landmine": { name: "Landmine", type: "Fodder", health: 20, waves: 32, encounter: "Wave 2 siege" },
+    "administrator": { name: "Administrator", type: "Fodder", health: 100, waves: 1, encounter: "Wave 2 epilogue" },
+    "grenadier": { name: "Grenadier", type: "Advanced", health: 180, waves: 16, encounter: "Wave 4 siege" },
+    "jetpacker": { name: "Jetpacker", type: "Advanced", health: 100, waves: 14, encounter: "Wave 5 siege" },
+    "gunner": { name: "Gunner", type: "Advanced", health: 350, waves: 22, encounter: "Wave 5 siege" },
+    "sniper": { name: "Sniper", type: "Advanced", health: 100, waves: 23, encounter: "Wave 5 siege" },
+    "tranquilizer": { name: "Tranquilizer", type: "Advanced", health: 100, waves: 8, encounter: "Wave 2 epilogue" },
+    "medic": { name: "Medic", type: "Advanced", health: 200, waves: 10, encounter: "Wave 2 epilogue" },
+    "engineer": { name: "Engineer", type: "Advanced", health: 150, waves: 14, encounter: "Wave 4 siege" },
+    "level 1 building": { name: "Level 1 Building", type: "Mech", health: 300, waves: 14, encounter: "Wave 4 siege" },
+    "level 2 building": { name: "Level 2 Building", type: "Mech", health: 450, waves: 14, encounter: "Wave 4 siege" },
+    "level 3 building": { name: "Level 3 Building", type: "Mech", health: 600, waves: 14, encounter: "Wave 4 siege" },
+    "ranger": { name: "Ranger", type: "Mech", health: 150, waves: 16, encounter: "Wave 3 siege" },
+    "apu": { name: "APU", type: "Mech", health: 900, waves: 22, encounter: "Wave 4 siege" },
+    "apu operator": { name: "APU Operator", type: "Advanced", health: 375, waves: 22, encounter: "Wave 4 siege" },
+    "apu-r": { name: "APU-R", type: "Elite Mech", health: 900, waves: 8, encounter: "Wave 4 hell" },
+    "apu-r operator": { name: "APU-R Operator", type: "Advanced", health: 450, waves: 13, encounter: "Wave 5 siege" },
+    "tank": { name: "Tank", type: "Mech", health: 3500, waves: 14, encounter: "Wave 7 siege" },
+    "fuel tank (tank)": { name: "Fuel Tank (Tank)", type: "Mech", health: 350, waves: 14, encounter: "Wave 7 siege" },
+    "platform": { name: "Platform", type: "Mech", health: 7000, waves: 14, encounter: "Wave 7 siege" },
+    "platform-a": { name: "Platform-A", type: "Elite Mech", health: 7500, waves: 2, encounter: "Wave 6 hell" },
+    "emplacement": { name: "Emplacement", type: "Mech", health: 300, waves: 14, encounter: "Wave 7 siege" },
+    "helicopter sentry": { name: "Helicopter Sentry", type: "Elite Mech", health: 1500, waves: 9, encounter: "Wave 8 siege" },
+    "administrant helicopter": { name: "Administrant Helicopter", type: "Elite Mech", health: 5000, waves: 9, encounter: "Wave 8 siege" },
+    "combatant": { name: "Combatant", type: "Elite Fodder", health: 100, waves: 10, encounter: "Wave 1 hell" },
+    "informant": { name: "Informant", type: "Elite Fodder", health: 150, waves: 8, encounter: "Wave 4 hell" },
+    "confidant": { name: "Confidant", type: "Elite Fodder", health: 200, waves: 6, encounter: "Wave 6 hell" },
+    "agitator": { name: "Agitator", type: "Elite Fodder", health: 300, waves: 10, encounter: "Wave 2 hell" },
+    "fuel tank (agitator)": { name: "Fuel Tank (Agitator)", type: "Elite Fodder", health: 200, waves: 10, encounter: "Wave 2 hell" },
+    "agreement": { name: "Agreement", type: "Elite Fodder", health: 150, waves: 11, encounter: "Wave 1 hell" },
+    "jagant": { name: "Jagant", type: "Elite Fodder", health: 150, waves: 4, encounter: "Wave 7 hell" },
+    "jagant bomb": { name: "Jagant Bomb", type: "Elite Fodder", health: 2000, waves: 4, encounter: "Wave 7 hell" },
+    "bombardier": { name: "Bombardier", type: "Elite Fodder", health: 350, waves: 8, encounter: "Wave 4 hell" },
+    "operant": { name: "Operant", type: "Elite Fodder", health: 300, waves: 5, encounter: "Wave 7 hell" },
+    "sergeant": { name: "Sergeant", type: "Elite Advanced", health: 500, waves: 6, encounter: "Wave 6 hell" },
+    "adjutant": { name: "Adjutant", type: "Elite Advanced", health: 350, waves: 5, encounter: "Wave 7 hell" },
+    "observant": { name: "Observant", type: "Elite Fodder", health: 100, waves: 2, encounter: "Wave 5 hell" },
+    "administrant": { name: "Administrant", type: "Elite Fodder", health: 250, waves: 2, encounter: "Wave 6 hell" },
+    "robberant": { name: "Robberant", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "instigant": { name: "Instigant", type: "Elite Advanced", health: 900, waves: 4, encounter: "Wave 8 hell" },
+    "fake lifeline": { name: "Fake Lifeline", type: "Elite Fodder", health: 200, waves: 4, encounter: "Wave 8 hell" },
+    "fusilier": { name: "Fusilier", type: "Boss", health: 400, waves: 14, encounter: "Wave 3 siege" },
+    "daedalus": { name: "Daedalus", type: "Boss", health: 500, waves: 14, encounter: "Wave 3 siege" },
+    "tempest": { name: "Tempest", type: "Boss", health: 600, waves: 14, encounter: "Wave 3 siege" },
+    "lelantos": { name: "Lelantos", type: "Boss", health: 380, waves: 5, encounter: "Wave 3 siege" },
+    "gaia": { name: "Gaia", type: "Boss", health: 775, waves: 12, encounter: "Wave 6 siege" },
+    "escort shielder": { name: "Escort Shielder", type: "Elite Fodder", health: 250, waves: 12, encounter: "Wave 6 siege" },
+    "escort gunner": { name: "Escort Gunner", type: "Elite Advanced", health: 500, waves: 12, encounter: "Wave 6 siege" },
+    "prometheus": { name: "Prometheus", type: "Boss", health: 750, waves: 12, encounter: "Wave 6 siege" },
+    "fuel tank (prometheus)": { name: "Fuel Tank (Prometheus)", type: "Boss", health: 200, waves: 12, encounter: "Wave 6 siege" },
+    "hermes": { name: "Hermes", type: "Boss", health: 525, waves: 12, encounter: "Wave 6 siege" },
+    "hermes pods": { name: "Hermes Pods", type: "Boss", health: 60, waves: 12, encounter: "Wave 6 siege" },
+    "sparta": { name: "Sparta", type: "Boss", health: 475, waves: 9, encounter: "Wave 9 siege" },
+    "trident": { name: "Trident", type: "Boss", health: 675, waves: 9, encounter: "Wave 9 siege" },
+    "achilles": { name: "Achilles", type: "Boss", health: 280, waves: 9, encounter: "Wave 9 siege" },
+    "drone": { name: "Drone", type: "Boss", health: 75, waves: 9, encounter: "Wave 9 siege" },
+    "zeus": { name: "Zeus", type: "Boss", health: 545, waves: 2, encounter: "Wave 9 hell" },
+    "achilles (ht)": { name: "Achilles (Ht)", type: "Boss", health: 280, waves: 1, encounter: "Wave 8 hell" },
+    "achilles (1.9)": { name: "Achilles (1.9)", type: "Boss", health: 280, waves: 1, encounter: "Wave 8 hell" },
+    "constructant": { name: "Constructant", type: "Elite Fodder", health: 250, waves: 11, encounter: "Wave 1 hell" },
+    "mads": { name: "MADS", type: "Elite Fodder", health: 400, waves: 11, encounter: "Wave 1 hell" },
+    "liquidator": { name: "Liquidator", type: "Elite Advanced", health: 4000, waves: 3, encounter: "Wave 9 hell" },
+    "fuel tank (liquidator)": { name: "Fuel Tank (Liquidator)", type: "Elite Advanced", health: 2000, waves: 3, encounter: "Wave 9 hell" },
+    "icarus helicopter": { name: "Icarus Helicopter", type: "Mech", health: 10000, waves: 0, encounter: "Sandbox" },
+    "deimos": { name: "Deimos", type: "Boss", health: 375, waves: 0, encounter: "Sandbox" },
+    "radiant": { name: "Radiant", type: "Elite Fodder", health: 500, waves: 0, encounter: "Sandbox" },
+    "conflagrator": { name: "Conflagrator", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "fuel tank (conflagrator)": { name: "Fuel Tank (Conflagrator)", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "cremator": { name: "Cremator", type: "Elite Fodder", health: 600, waves: 0, encounter: "Sandbox" },
+    "fuel tank (cremator)": { name: "Fuel Tank (Cremator)", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "dreadnought": { name: "Dreadnought", type: "Boss", health: 5500, waves: 2, encounter: "Wave 6 hell" },
+    "dreadnought armor (head)": { name: "Dreadnought Armor (Head)", type: "Boss", health: 1500, waves: 2, encounter: "Wave 6 hell" },
+    "dreadnought armor (limb)": { name: "Dreadnought Armor (Limb)", type: "Boss", health: 2000, waves: 2, encounter: "Wave 6 hell" },
+    "chassis": { name: "Chassis", type: "Boss", health: 1300, waves: 1, encounter: "Wave 10 mastermind" },
+    "mastermind": { name: "Mastermind", type: "Boss", health: 125, waves: 1, encounter: "Wave 10 mastermind" },
+    "ares": { name: "Ares", type: "Boss", health: 1000, waves: 2, encounter: "Wave 3 epilogue" },
+    "london prime": { name: "London Prime", type: "Boss", health: 3000, waves: 0, encounter: "Sandbox" },
+    "manglenether345": { name: "MangleNether345", type: "Boss", health: 250, waves: 0, encounter: "Sandbox" },
+    "a-10": { name: "A-10", type: "Boss", health: 800, waves: 0, encounter: "Sandbox" },
+    "the wicked": { name: "The Wicked", type: "Boss", health: 1550, waves: 0, encounter: "Sandbox" },
+    "sparchilles": { name: "Sparchilles", type: "Boss", health: 440, waves: 0, encounter: "Sandbox" },
+    "mega joe": { name: "Mega Joe", type: "Boss", health: 2000, waves: 0, encounter: "Sandbox" },
+    "baby": { name: "Baby", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "jetnuker": { name: "JetNuker", type: "Boss", health: 250, waves: 0, encounter: "Sandbox" },
+    "mart": { name: "Mart", type: "Boss", health: 3500, waves: 15, encounter: "Wave 4 siege" },
+    "squad infantry": { name: "Squad Infantry", type: "Elite Fodder", health: 200, waves: 0, encounter: "Sandbox" },
+    "old apu": { name: "Old APU", type: "Mech", health: 2000, waves: 0, encounter: "Sandbox" },
+    "operator": { name: "Operator", type: "Advanced", health: 200, waves: 0, encounter: "Sandbox" },
+    "apc": { name: "APC", type: "Mech", health: 2500, waves: 0, encounter: "Sandbox" },
+    "icarus": { name: "Icarus", type: "Boss", health: 500, waves: 0, encounter: "Sandbox" },
+    "celestial": { name: "Celestial", type: "Boss", health: 5000, waves: 0, encounter: "Sandbox" },
 };
+
+// XP on Kill values (used by the Experienced bounty modifier)
+const ATTRITION_XP_ON_KILL = {
+    "cremator": 50,
+    "constructant": 50,
+    "mads": 50,
+    "dreadnought armor (head)": 50,
+    "liquidator": 50,
+    "fuel tank (liquidator)": 50,
+    "icarus helicopter": 50,
+    "deimos": 50,
+    "radiant": 50,
+    "conflagrator": 50,
+    "fuel tank (conflagrator)": 50,
+    "fuel tank (cremator)": 50,
+    "celestial": 50,
+    "icarus": 50,
+    "achilles (ht)": 50,
+    "level 1 building": 100,
+    "level 2 building": 100,
+    "level 3 building": 100,
+    "infantry": 50,
+    "cloaker": 150,
+    "shielder": 100,
+    "saboteur": 50,
+    "landmine": 0,
+    "administrator": 100,
+    "grenadier": 100,
+    "jetpacker": 100,
+    "gunner": 150,
+    "sniper": 80,
+    "tranquilizer": 50,
+    "medic": 50,
+    "engineer": 100,
+    "ranger": 100,
+    "apu": 300,
+    "apu operator": 50,
+    "apu-r": 50,
+    "apu-r operator": 50,
+    "tank": 300,
+    "fuel tank (tank)": 50,
+    "platform": 300,
+    "platform-a": 50,
+    "emplacement": 50,
+    "helicopter sentry": 50,
+    "administrant helicopter": 50,
+    "combatant": 50,
+    "informant": 50,
+    "confidant": 50,
+    "agitator": 50,
+    "fuel tank (agitator)": 50,
+    "agreement": 50,
+    "jagant": 50,
+    "jagant bomb": 50,
+    "bombardier": 50,
+    "operant": 50,
+    "sergeant": 50,
+    "adjutant": 50,
+    "observant": 50,
+    "administrant": 50,
+    "robberant": 50,
+    "instigant": 50,
+    "fake lifeline": 50,
+    "fusilier": 350,
+    "daedalus": 450,
+    "tempest": 400,
+    "lelantos": 50,
+    "gaia": 400,
+    "escort shielder": 150,
+    "escort gunner": 200,
+    "prometheus": 500,
+    "fuel tank (prometheus)": 50,
+    "hermes": 350,
+    "hermes pods": 100,
+    "sparta": 500,
+    "trident": 500,
+    "achilles": 350,
+    "achilles (1.9)": 350,
+    "drone": 50,
+    "zeus": 50,
+    "dreadnought": 50,
+    "dreadnought armor (limb)": 50,
+    "chassis": 50,
+    "mastermind": 50,
+    "ares": 1750,
+    "london prime": 50,
+    "manglenether345": 50,
+    "a-10": 50,
+    "the wicked": 50,
+    "sparchilles": 50,
+    "mega joe": 50,
+    "baby": 50,
+    "jetnuker": 50,
+    "mart": 50,
+    "squad infantry": 50,
+    "old apu": 50,
+    "operator": 50,
+    "apc": 50
+};
+Object.keys(ATTRITION_XP_ON_KILL).forEach(k => {
+    if (enemyDatabase[k]) enemyDatabase[k].xpOnKill = ATTRITION_XP_ON_KILL[k];
+});
 
 const encounterOrder = [
     "Wave 1 siege", "Wave 2 siege", "Wave 3 siege", "Wave 4 siege", "Wave 5 siege",
     "Wave 6 siege", "Wave 7 siege", "Wave 8 siege", "Wave 9 siege", "Wave 10 siege",
-    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue", "Wave 1 hell", "Wave 5 hell", "Wave 7 hell", "Sandbox"
+    "Wave 10 mastermind", "Wave 1 epilogue", "Wave 2 epilogue", "Wave 3 epilogue",
+    "Wave 1 hell", "Wave 2 hell", "Wave 3 hell", "Wave 4 hell", "Wave 5 hell", "Wave 6 hell", "Wave 7 hell", "Wave 8 hell", "Wave 9 hell",
+    "Sandbox"
 ];
 
 window.encounterOrder = encounterOrder;
@@ -123,6 +243,7 @@ window.clearThirdTarget = function() { secretEnemy3 = null; };
 
 let gameOver = false;
 let guessCount = 0;
+let freeGuessInProgress = false;
 let MAX_GUESSES = 6;
 let guessDeltaMap = {};
 
@@ -373,7 +494,7 @@ function startRunTimer() {
                 updateRunTimerDisplay();
                 const messageElement = document.getElementById('gameMessage');
                 if (messageElement) {
-                    messageElement.innerText = `REVIVE USED! Time ran out but a revive bought you 30 more seconds. (${revives} revive${revives !== 1 ? 's' : ''} left)`;
+                    messageElement.innerText = `RESUSCITATOR USED! Time ran out but a revive bought you 30 more seconds. (${revives} revive${revives !== 1 ? 's' : ''} left)`;
                     messageElement.style.color = '#33ff66';
                 }
             } else {
@@ -384,7 +505,7 @@ function startRunTimer() {
                 if (submitButton) submitButton.disabled = true;
                 const messageElement = document.getElementById('gameMessage');
                 if (messageElement) {
-                    messageElement.innerText = `Enemies captured the area! Out Of Time. You reached Wave ${currentWave}.`;
+                    messageElement.innerText = `Units captured the area! Out Of Time. You reached Wave ${currentWave}.`;
                     messageElement.style.color = '#ff3333';
                 }
                 if (continueButton) {
@@ -469,6 +590,7 @@ function initializeGameSession() {
 
     if (waveIndicator) waveIndicator.innerText = `Wave: ${currentWave}`;
 
+    updateBountyIndicator();
     updateBountySwapIndicator();
     updatePoolDisplay();
 
@@ -482,7 +604,7 @@ function initializeGameSession() {
     if (inputElement) {
         inputElement.value = "";
         inputElement.disabled = false;
-        inputElement.placeholder = "Type or select an enemy...";
+        inputElement.placeholder = "Type or select a unit...";
     }
 
     const messageElement = document.getElementById("gameMessage");
@@ -491,18 +613,47 @@ function initializeGameSession() {
     const tbody = document.getElementById("guessRows");
     if (tbody) tbody.innerHTML = "";
 
-    if (typeof Modifiers !== "undefined" && bountyRewardModifier && bountyRewardWavesLeft > 0) {
-        Modifiers.enable(bountyRewardModifier);
+    // The bounty reward modifier is added to the active set BEFORE the wave is
+    // evaluated so Vitarage can see (and buff) it, but its onStart only runs
+    // AFTER, so it starts with the correct buffed/unbuffed state.
+    let pendingRewardKey = null;
+    if (typeof Modifiers !== "undefined" && bountyRewardModifier && bountyRewardWavesLeft > 0 &&
+        Modifiers.definitions[bountyRewardModifier] && !Modifiers.active.has(bountyRewardModifier)) {
+        Modifiers.active.add(bountyRewardModifier);
+        pendingRewardKey = bountyRewardModifier;
+        // Experienced doesn't depend on being buffed, so set its column up first.
+        // That way a guess fired during wave start (e.g. Jammed Radar) already has the XP header.
+        if (pendingRewardKey === "experienced") {
+            const expDef = Modifiers.definitions.experienced;
+            if (expDef && expDef.onStart) expDef.onStart(Modifiers, "experienced");
+            pendingRewardKey = null;
+        }
     }
 
     if (typeof Modifiers !== "undefined") {
         Modifiers.evaluateWave(currentWave);
+        if (pendingRewardKey) {
+            const rewardDef = Modifiers.definitions[pendingRewardKey];
+            if (rewardDef && rewardDef.onStart) rewardDef.onStart(Modifiers, pendingRewardKey);
+            Modifiers.renderBadges();
+        }
         const t2 = typeof window.getSecondSecretEnemy === 'function' ? window.getSecondSecretEnemy() : null;
         const t3 = typeof window.getThirdSecretEnemy === 'function' ? window.getThirdSecretEnemy() : null;
         if (t2 || t3) {
             const extras = [t2, t3].filter(Boolean).map(t => t.name).join(', ');
             console.log(`Extra targets: ${extras}`);
         }
+    }
+}
+
+function updateBountyIndicator() {
+    const indicator = document.getElementById("bountyIndicator");
+    if (!indicator) return;
+    if (bountyKey && isBountyWave()) {
+        indicator.innerText = "⭐ BOUNTY TARGET";
+        indicator.style.display = "inline-block";
+    } else {
+        indicator.style.display = "none";
     }
 }
 
@@ -524,7 +675,7 @@ function showEndScreen() {
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
-        messageElement.innerText = `You've successfully defended against the enemies GG!`;
+        messageElement.innerText = `You've successfully defended against the units GG!`;
         messageElement.style.color = "#00ffcc";
     }
 
@@ -583,7 +734,6 @@ function makeRandomGuess() {
     const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key =>
         !guessedEnemiesList.includes(key) &&
-        key !== bountyKey &&
         (!assassin || enemyDatabase[key].name !== assassin.name) &&
         (!vitacharged || !vitacharged.has(key))
     );
@@ -599,7 +749,6 @@ function makeRandomWrongGuess() {
     const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key =>
         !guessedEnemiesList.includes(key) &&
-        key !== bountyKey &&
         enemyDatabase[key].name !== secretEnemy.name &&
         (!assassin || enemyDatabase[key].name !== assassin.name) &&
         (!vitacharged || !vitacharged.has(key))
@@ -612,27 +761,24 @@ window.makeRandomWrongGuess = makeRandomWrongGuess;
 
 function makeAccurateRadarGuess() {
     if (gameOver || isWaveClear) return;
-    const vitacharged = typeof window.getVitachargedEnemies === "function" ? window.getVitachargedEnemies() : null;
     const pool = activePool.filter(key => {
         if (guessedEnemiesList.includes(key)) return false;
-        if (key === bountyKey) return false;
-        if (vitacharged && vitacharged.has(key)) return false;
         if (enemyDatabase[key].name === secretEnemy.name) return false;
         const e = enemyDatabase[key];
         return e.health === secretEnemy.health ||
             e.waves === secretEnemy.waves ||
             e.encounter.toLowerCase() === secretEnemy.encounter.toLowerCase();
     });
-    const fallback = activePool.filter(k =>
-        !guessedEnemiesList.includes(k) &&
-        k !== bountyKey &&
-        (!vitacharged || !vitacharged.has(k)) &&
-        enemyDatabase[k].name !== secretEnemy.name
-    );
+    const fallback = activePool.filter(k => !guessedEnemiesList.includes(k) && enemyDatabase[k].name !== secretEnemy.name);
     const chosen = pool.length > 0 ? pool : fallback;
     if (chosen.length === 0) return;
     inputElement.value = enemyDatabase[chosen[Math.floor(Math.random() * chosen.length)]].name;
-    submitGuess();
+    freeGuessInProgress = true;
+    try {
+        submitGuess();
+    } finally {
+        freeGuessInProgress = false;
+    }
 }
 window.makeAccurateRadarGuess = makeAccurateRadarGuess;
 
@@ -743,7 +889,7 @@ window.handleTimerTimeout = function() {
         updatePoolDisplay();
         const messageElement = document.getElementById("gameMessage");
         if (messageElement) {
-            messageElement.innerText = `REVIVE USED! Security Protocol ran out but a revive absorbed it. (${revives} revive${revives !== 1 ? "s" : ""} left) Target was ${secretEnemy.name}.`;
+            messageElement.innerText = `RESUSCITATOR USED! Security Protocol ran out but a revive absorbed it. (${revives} revive${revives !== 1 ? "s" : ""} left) Target was ${secretEnemy.name}.`;
             messageElement.style.color = "#33ff66";
         }
         isWaveClear = true;
@@ -766,7 +912,7 @@ window.handleAssassinGuess = function(assassinEnemy) {
         updatePoolDisplay();
         const messageElement = document.getElementById("gameMessage");
         if (messageElement) {
-            messageElement.innerText = `REVIVE USED! ${assassinEnemy.name} tried to assassinate you but a revive blocked it. (${revives} revive${revives !== 1 ? "s" : ""} left) Target was ${secretEnemy.name}.`;
+            messageElement.innerText = `RESUSCITATOR USED! ${assassinEnemy.name} tried to assassinate you but a revive blocked it. (${revives} revive${revives !== 1 ? "s" : ""} left) Target was ${secretEnemy.name}.`;
             messageElement.style.color = "#33ff66";
         }
         return;
@@ -780,7 +926,7 @@ function triggerFail(message) {
         updatePoolDisplay();
         const messageElement = document.getElementById("gameMessage");
         if (messageElement) {
-            messageElement.innerText = `REVIVE USED! ${message} A revive absorbed the failure. (${revives} revive${revives !== 1 ? "s" : ""} left)`;
+            messageElement.innerText = `RESUSCITATOR USED! ${message} A revive absorbed the failure. (${revives} revive${revives !== 1 ? "s" : ""} left)`;
             messageElement.style.color = "#33ff66";
         }
         isWaveClear = true;
@@ -908,7 +1054,7 @@ function submitGuess() {
 
     if (!enemyDatabase[guessName] || !activePool.includes(guessName)) {
         if (messageElement) {
-            messageElement.innerText = "Unknown enemy! Choose an option from the list.";
+            messageElement.innerText = "Unknown unit! Choose an option from the list.";
             messageElement.style.color = "#ff3333";
         }
         return;
@@ -918,7 +1064,7 @@ function submitGuess() {
 
     guessName = applyAimAssist(guessName);
 
-    if (!overchargerActive) guessCount++;
+    if (!overchargerActive && !freeGuessInProgress) guessCount++;
     bountyGuessCount++;
     guessedEnemiesList.push(guessName);
 
@@ -1124,7 +1270,6 @@ function submitGuess() {
     if (dropdownMenu) dropdownMenu.style.display = "none";
 
     if (bountyKey && guessName === bountyKey) {
-        const bountyWasTheTarget = isBountyWave();
         const foundBountyName = enemyDatabase[bountyKey].name;
         if (doubleTroubleActive && Array.isArray(Modifiers.doubleTroubleFound)) {
             doubleTroubleTargets.forEach((target, i) => {
@@ -1134,20 +1279,12 @@ function submitGuess() {
                 }
             });
         }
-
+        const roll = Math.floor(Math.random() * 5);
         let rewardName = null;
-
-        if (bountyWasTheTarget) {
-            // Target and bounty were the same enemy: grant every perk at
-            // once and remove it from the pool for good instead of the
-            // usual single random reward.
+        if (roll === 0) {
             revives++;
-            overchargerPending = true;
-            refillCharges++;
-            updateRefillDisplay();
-            resetCharges++;
-            updateResetDisplay();
-
+            rewardName = `Revive (${revives} total)`;
+        } else if (roll === 1) {
             const available = BOUNTY_POSITIVE_MODIFIERS.filter(k =>
                 typeof Modifiers !== "undefined" && Modifiers.definitions[k]
             );
@@ -1155,50 +1292,30 @@ function submitGuess() {
                 bountyRewardModifier = available[Math.floor(Math.random() * available.length)];
                 bountyRewardWavesLeft = 3;
                 skipNextBountyRewardDecrement = true;
+                const def = Modifiers.definitions[bountyRewardModifier];
+                rewardName = `${typeof def.name === "function" ? def.name(false) : def.name} for the next 3 waves`;
             }
-
-            const bountyEnemyKey = activePool.find(k => enemyDatabase[k].name === foundBountyName);
-            if (bountyEnemyKey) retireEnemy(bountyEnemyKey);
-
-            rewardName = "ALL PERKS — target and bounty were the same!";
+        } else if (roll === 2) {
+            overchargerPending = true;
+            rewardName = "Overcharger — unlimited guesses for 12 seconds next wave (won't count toward your limit)";
+        } else if (roll === 3) {
+            refillCharges++;
+            updateRefillDisplay();
+            rewardName = "Refill charge — click the Refill button to reset your guesses whenever you want";
         } else {
-            const roll = Math.floor(Math.random() * 5);
-            if (roll === 0) {
-                revives++;
-                rewardName = `Revive (${revives} total)`;
-            } else if (roll === 1) {
-                const available = BOUNTY_POSITIVE_MODIFIERS.filter(k =>
-                    typeof Modifiers !== "undefined" && Modifiers.definitions[k]
-                );
-                if (available.length > 0) {
-                    bountyRewardModifier = available[Math.floor(Math.random() * available.length)];
-                    bountyRewardWavesLeft = 3;
-                    skipNextBountyRewardDecrement = true;
-                    const def = Modifiers.definitions[bountyRewardModifier];
-                    rewardName = `${typeof def.name === "function" ? def.name(false) : def.name} for the next 3 waves`;
-                }
-            } else if (roll === 2) {
-                overchargerPending = true;
-                rewardName = "Overcharger — unlimited guesses for 12 seconds next wave (won't count toward your limit)";
-            } else if (roll === 3) {
-                refillCharges++;
-                updateRefillDisplay();
-                rewardName = "Refill charge — click the Refill button to reset your guesses whenever you want";
-            } else {
-                resetCharges++;
-                updateResetDisplay();
-                rewardName = "Reset timer charge — click the timer to restore it to 5:00 whenever you want";
-            }
+            resetCharges++;
+            updateResetDisplay();
+            rewardName = "Reset timer charge — click the timer to restore it to 5:00 whenever you want";
         }
-
         addRunTime(60);
         bountyWavesRemaining = 0;
         pickBounty();
         skipNextBountyDecrement = true;
+        updateBountyIndicator();
         updateBountySwapIndicator();
         updatePoolDisplay();
         if (messageElement) {
-            let msg = `🎯 Bounty found! Reward: ${rewardName}.`;
+            let msg = `🎯 Bounty found (${foundBountyName})! Reward: ${rewardName}.`;
             msg += ` Auto-advancing.`;
             messageElement.innerText = msg;
             messageElement.style.color = "#ffe44d";
@@ -1212,12 +1329,6 @@ function submitGuess() {
             continueButton.onclick = advanceNextWave;
         }
         return;
-      if (continueButton) {
-      continueButton.innerText = "Continue";
-      continueButton.style.display = "inline-block";
-      continueButton.onclick = advanceNextWave;
-      }
-      return;
     }
 
     const secretKeyForRetire = activePool.find(k => enemyDatabase[k].name === secretEnemy.name);
@@ -1239,7 +1350,7 @@ function submitGuess() {
 
         if (messageElement) {
             const doublePart = targetNames ? `All targets found: ${targetNames}! ` : ""
-            let msg = `SUCCESS! ${doublePart}Wave ${currentWave} Complete! Enemy retired from pool. (${activePool.length} remaining)`;
+            let msg = `SUCCESS! ${doublePart}Wave ${currentWave} Complete! Unit retired from pool. (${activePool.length} remaining)`;
             if (wasBounty) msg += ` The target was also the bounty!`;
             const assassin = typeof window.getCurrentAssassin === "function" ? window.getCurrentAssassin() : null;
             if (assassin) msg += ` The assassin was ${assassin.name}.`;

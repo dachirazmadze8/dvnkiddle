@@ -61,7 +61,7 @@ const hellDefinitions = {
     },
     securityProtocol: {
         name: "Security Protocol (01:00)",
-        description: "Guess the enemy within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's) speeds the timer up by 0.5x, permanently for the wave.",
+        description: "Guess the unit within 60 seconds or fail. Vitaraged: 2 minutes instead, but every wrong guess (including Jammed Radar's) speeds the timer up by 0.5x, permanently for the wave.",
         onStart: (engine, key) => {
             const buffed = engine && engine.isBuffed(key);
             engine.startTimer(buffed ? 120 : 60);
@@ -190,7 +190,7 @@ const hellDefinitions = {
     },
     vitacharge: {
         name: "Vitacharge",
-        description: "3 enemies you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 enemies from the previous 4 waves instead.",
+        description: "3 units you guessed in the previous 2 waves are secretly vitacharged this wave. Guess one and every stat but its name goes blank and gold. Vitaraged: 6 units from the previous 4 waves instead.",
         onStart: (engine, key) => {
             vitachargedEnemies = new Set();
             const buffed = engine && engine.isBuffed(key);
@@ -227,7 +227,7 @@ const hellDefinitions = {
     },
     assassin: {
         name: "Assassin",
-        description: "A random enemy is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon next to their arrow, colors stay unchanged. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
+        description: "A random unit is secretly the assassin this wave. Guessing it fails you instantly. Stats close to the assassin get a warning icon next to their arrow, colors stay unchanged. Vitaraged: only 1 fixed stat category can trigger the warning all wave.",
         onStart: (engine, key) => {
             currentAssassin = null;
             const db = window.enemyDatabase || {};

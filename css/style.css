@@ -81,6 +81,14 @@ body.info-body {
     border-color: #00ffcc;
 }
 
+/* Links styled as buttons (Main Menu, Back, ...) must center their text like real <button>s do */
+a.menu-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.2;
+}
+
 body.info-body {
     align-items: flex-start;
     justify-content: flex-start;

@@ -29,8 +29,16 @@ const itemDatabase = {
     "loose trigger": { name: "Loose Trigger", type: "Weapon", damage: 26, firerate: 700, hasSpecialAbility: false },
     "surveillance creed": { name: "Surveillance Creed", type: "Weapon", damage: 25, firerate: 600, hasSpecialAbility: true },
     "burst rifle": { name: "Burst Rifle", type: "Weapon", damage: 18, firerate: 750, hasSpecialAbility: false },
+    "frag grenade": { name: "Frag Grenade", type: "Weapon", damage: 100, firerate: 2, hasSpecialAbility: true },
+    "flash and smoke grenade": { name: "Flash and Smoke Grenade", type: "Weapon", damage: 0, firerate: 2, hasSpecialAbility: true },
+    "flash grenade": { name: "Flash Grenade", type: "Weapon", damage: 0, firerate: 2, hasSpecialAbility: true },
     "stonewall": { name: "Stonewall", type: "Weapon", damage: 30, firerate: 750, hasSpecialAbility: false },
+    "incendiary grenade": { name: "Incendiary Grenade", type: "Weapon", damage: 208, firerate: 2, hasSpecialAbility: true },
+    "cluster grenade": { name: "Cluster Grenade", type: "Weapon", damage: 200, firerate: 2, hasSpecialAbility: true },
+    "cluster grenade (big)": { name: "Cluster Grenade (Big)", type: "Weapon", damage: 100, firerate: 2, hasSpecialAbility: true },
+    "cluster grenade (small)": { name: "Cluster Grenade (Small)", type: "Weapon", damage: 25, firerate: 2, hasSpecialAbility: true },
     "steelforge": { name: "Steelforge", type: "Weapon", damage: 18, firerate: 900, hasSpecialAbility: false },
+    "smoke grenade": { name: "Smoke Grenade", type: "Weapon", damage: 0, firerate: 2, hasSpecialAbility: true },
     "stonewall (old)": { name: "Stonewall (Old)", type: "Weapon", damage: 24, firerate: 350, hasSpecialAbility: false },
     "rpg": { name: "RPG", type: "Weapon", damage: 1200, firerate: 20, hasSpecialAbility: false },
     "rocket stormer": { name: "Rocket Stormer", type: "Weapon", damage: 980, firerate: 150, hasSpecialAbility: true },
@@ -54,6 +62,8 @@ const itemDatabase = {
     "medical bow": { name: "Medical Bow", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
     "recurve": { name: "Recurve", type: "Weapon", damage: 120, firerate: 150, hasSpecialAbility: false },
     "vitabow": { name: "Vitabow", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
+    "vitabow (revival arrow)": { name: "Vitabow (Revival Arrow)", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
+    "vitabow (regen arrow)": { name: "Vitabow (Regen Arrow)", type: "Weapon", damage: 80, firerate: 150, hasSpecialAbility: false },
     "pdc kit": { name: "PDC kit", type: "Weapon", damage: 5, firerate: 375, hasSpecialAbility: false },
     "governor kit": { name: "Governor kit", type: "Weapon", damage: 10, firerate: 750, hasSpecialAbility: false },
     "mads kit": { name: "MADS kit", type: "Weapon", damage: 4, firerate: 500, hasSpecialAbility: false },
@@ -109,6 +119,7 @@ const itemDatabase = {
     "fast": { name: "FAST", type: "Utility", damage: 200, firerate: 0, hasSpecialAbility: false },
     "tablet": { name: "Tablet", type: "Utility", damage: 0, firerate: 60, hasSpecialAbility: false },
     "artillery tablet": { name: "Artillery Tablet", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
+    "stealth knife": { name: "Stealth Knife", type: "Melee", damage: 37, firerate: 0.5, hasSpecialAbility: false },
     "motion hider": { name: "Motion Hider", type: "Utility", damage: 0, firerate: 10000000, hasSpecialAbility: false },
     "tripwire kit": { name: "Tripwire Kit", type: "Utility", damage: 0, firerate: 0, hasSpecialAbility: false },
     "grenade shell": { name: "Grenade Shell", type: "Utility", damage: 300, firerate: 0.5, hasSpecialAbility: false },
@@ -189,7 +200,7 @@ window.pickSecondTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretItem2 = itemDatabase[randomKey];
-    // console.log(`Wave ${currentWave} second answer: ${secretItem2.name}`);
+    console.log(`Wave ${currentWave} second answer: ${secretItem2.name}`);
 };
 
 window.pickThirdTarget = function() {
@@ -209,7 +220,7 @@ window.pickThirdTarget = function() {
     }
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     secretItem3 = itemDatabase[randomKey];
-    // console.log(`Wave ${currentWave} third answer: ${secretItem3.name}`);
+    console.log(`Wave ${currentWave} third answer: ${secretItem3.name}`);
 };
 
 window.clearSecondTarget = function() {
@@ -222,6 +233,7 @@ window.clearThirdTarget = function() {
 
 let gameOver = false;
 let guessCount = 0;
+let freeGuessInProgress = false;
 let MAX_GUESSES = 6;
 
 let guessedItemsList = [];
@@ -291,7 +303,7 @@ function initializeGameSession() {
     }
 
     secretItem = itemDatabase[itemKeys[Math.floor(Math.random() * itemKeys.length)]];
-    // console.log(`Wave ${currentWave} answer: ${secretItem.name}`);
+    console.log(`Wave ${currentWave} answer: ${secretItem.name}`);
     secretItem2 = null;
     secretItem3 = null;
     gameOver = false;
@@ -411,7 +423,12 @@ function makeAccurateRadarGuess() {
 
     const randomKey = pool[Math.floor(Math.random() * pool.length)];
     inputElement.value = itemDatabase[randomKey].name;
-    submitGuess();
+    freeGuessInProgress = true;
+    try {
+        submitGuess();
+    } finally {
+        freeGuessInProgress = false;
+    }
 }
 
 window.makeAccurateRadarGuess = makeAccurateRadarGuess;
@@ -639,7 +656,7 @@ function tryUseExtraLife(reasonText) {
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
-        messageElement.innerText = `EXTRA LIFE USED! ${reasonText} You move on to the next wave anyway. (${Modifiers.extraLifeCharges} left)`;
+        messageElement.innerText = `RESUSCITATOR USED! ${reasonText} You move on to the next wave anyway. (${Modifiers.extraLifeCharges} left)`;
         messageElement.style.color = "#33ff66";
     }
 
@@ -700,6 +717,11 @@ window.handleAssassinGuess = function(assassinItem) {
 
 window.handleMutilatedDeathsFail = function(buffed, guessedName) {
     if (gameOver || isWaveClear) return;
+    // A Vitaraged Resuscitator can cancel Mutilated Deaths, but not its Vitaraged version
+    if (!buffed && typeof Modifiers !== "undefined" && Modifiers.active.has("extraLife") && Modifiers.isBuffed("extraLife")) {
+        if (typeof Modifiers.extraLifeCharges !== "number") Modifiers.extraLifeCharges = 2;
+        if (tryUseExtraLife(`Mutilated by ${guessedName}.`)) return;
+    }
 
     const messageElement = document.getElementById("gameMessage");
     if (messageElement) {
@@ -778,7 +800,7 @@ function submitGuess() {
     guessName = applyAimAssist(guessName);
 
     if (messageElement) messageElement.innerText = "";
-    guessCount++;
+    if (!freeGuessInProgress) guessCount++;
     guessedItemsList.push(guessName);
 
     if (!waveGuessHistory[currentWave]) waveGuessHistory[currentWave] = [];
